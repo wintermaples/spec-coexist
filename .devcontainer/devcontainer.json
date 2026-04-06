@@ -1,0 +1,46 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "Spec Coexist Dev Container",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+    "dockerComposeFile": "./docker-compose.yml",
+    "service": "devcontainer",
+    "workspaceFolder": "/workspace",
+	"features": {
+		"ghcr.io/devcontainers/features/python:1": {
+			"installTools": true,
+			"version": "3.14"
+		},
+		"ghcr.io/devcontainers-extra/features/typescript:2": {
+			"version": "latest"
+		},
+        "ghcr.io/anthropics/devcontainer-features/claude-code:1": {}
+	},
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "/bin/bash -e .devcontainer/postCreateCommand.sh",
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"settings": {},
+			"extensions": [
+				"oderwat.indent-rainbow",
+				"mhutchie.git-graph",
+				"ms-python.black-formatter",
+				"kevinrose.vsc-python-indent",
+				"ms-python.isort",
+				"dbaeumer.vscode-eslint",
+				"ms-playwright.playwright",
+				"bierner.markdown-mermaid"
+			]
+		}
+		// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+		// "remoteUser": "root"
+	},
+	"containerEnv": {
+		"TZ": "Asia/Tokyo"
+	}
+}

@@ -1,0 +1,25 @@
+services:
+  devcontainer:
+    image: devcontainer-spec-coexist
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../:/workspace:cached,delegated
+    command: sleep infinity
+    privileged: false
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    security_opt:
+      - no-new-privileges:true
+
+  claude:
+    image: devcontainer-spec-coexist
+    volumes:
+      - ../:/workspace:cached,delegated
+    command: sleep infinity
+    privileged: false # Sandboxを有効化するのであればtrueに。現時点ではClaude Codeのバグでオフにする必要があるので、特権はfalseにしている。
+    ports:
+      - "10000:10000" # For Claude Code Superpowers Visual Companion
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
