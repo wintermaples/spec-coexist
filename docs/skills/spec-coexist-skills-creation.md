@@ -119,7 +119,7 @@ flowchart TD
     Q3{Whole-system or<br/>subsystem?}
     Q3 -- Whole-system --> Q4A{main-requirements.md<br/>already has content?}
     Q3 -- Subsystem --> S1[Allocate id via<br/>next_subsystem_id.sh OR<br/>select existing subsystem]
-    S1 --> Q4B{Target<br/>{name}-requirements.md<br/>exists?}
+    S1 --> Q4B{"Target<br/>&#123;name&#125;-requirements.md<br/>exists?"}
     Q4A -- Yes --> Stop([HALT skill])
     Q4A -- No --> BS[Begin brainstorming]
     Q4B -- Yes --> Stop
@@ -170,7 +170,7 @@ flowchart TD
     R1 --> Q2{Whole-system or<br/>subsystem?}
     Q2 -- Whole-system --> Q3A{docs/main-basic-design.md<br/>exists?}
     Q2 -- Subsystem --> S1[Select subsystem OR<br/>allocate via next_subsystem_id.sh]
-    S1 --> Q3B{Target<br/>{name}-design.md exists?}
+    S1 --> Q3B{"Target<br/>&#123;name&#125;-design.md exists?"}
     Q3A -- Yes --> Stop
     Q3A -- No --> BS[Begin brainstorming]
     Q3B -- Yes --> Stop
