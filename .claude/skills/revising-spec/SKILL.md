@@ -6,74 +6,53 @@ description: Use whenever the user wants to REVISE / UPDATE existing requirement
 
 # revising-spec
 
-## Conformance Keywords
-
-The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **MAY**, and **OPTIONAL** in this document are to be interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) and [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174) when, and only when, they appear in all capitals, as shown here.
+Conformance keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) / [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174).
 
 ## Independence
 
-This skill **MUST NOT** invoke any `superpowers:*` skill. Brainstorming is embedded below.
+This skill **MUST NOT** invoke any `superpowers:*` skill. Brainstorming is embedded (see `references/brainstorming-flow.md`).
 
-## Hard Constraints
+## Hard Constraints (summary)
 
-- If `docs/main-requirements.md` or `docs/main-basic-design.md` is missing, the skill **MUST** halt.
-- When a revision affects both the requirements doc and the basic design doc, the skill **MUST** update them **in lockstep** (in the same skill invocation), so the two documents never diverge.
-- For subsystem revisions, both `{name}-requirements.md` and `{name}-design.md` **MUST** exist.
-- After applying the revision, and **before** reporting completion to the user, the agent **MUST** pass through `verification-before-completion` (document mode): re-read every touched file from disk, confirm template conformance, confirm lockstep consistency between the requirements doc and basic design doc where both were updated, and confirm no `TBD`/`TODO`/`???`/empty bullets were introduced. "Edits applied" is **NOT** the same as "the documents are consistent and correct".
+See `references/lockstep-constraints.md` for full detail.
 
-## Shared Scripts
+- If `docs/main-requirements.md` or `docs/main-basic-design.md` is missing → **HALT**.
+- For subsystem revisions, both `{name}-requirements.md` and `{name}-design.md` **MUST** exist → **HALT** if either missing.
+- When a revision affects both documents → update them **in lockstep**.
+- After edits and before completion → **MUST** pass `verification-before-completion` (document mode).
 
-- `check_doc_exists.sh <path>`
-- `gen_questions_path.sh spec-revision`
+## References
 
-The skill **MUST** invoke these scripts rather than reimplement their logic.
+- `references/lockstep-constraints.md` — document existence, lockstep rule, verification gate detail
+- `references/brainstorming-flow.md` — embedded brainstorming rules
+- `../_shared/references/visual-companion.md` — Visual Companion launch protocol
 
-## Embedded Brainstorming Flow
+## Scripts
 
-Same rules as the rest of the suite:
+| Script | Purpose |
+|---|---|
+| `../_shared/scripts/check_doc_exists.sh <path>` | Exit 0 if file exists |
+| `scripts/gen_questions_path.sh` | Print `docs/spec-coexist/{ts}-spec-revision-questions.md` and ensure parent dir |
 
-1. One question per message.
-2. Prefer multiple-choice; open-ended **MAY** be used as needed.
-3. Many pending questions → write them via `gen_questions_path.sh spec-revision` and **HALT** until the user answers.
-4. Few pending questions → continue inline.
-5. Visual Companion (see `../_shared/references/visual-companion.md`) **MAY** be launched once for UI work, with explicit standalone consent request.
+## Procedure
+
+1. **Verify documents exist.** Use `check_doc_exists.sh` for main + (if subsystem) subsystem docs. HALT on missing.
+2. **Read documents.**
+3. **Brainstorm** per `references/brainstorming-flow.md`.
+4. **Decide scope** — determine affected docs. If both, hold all edits and apply together.
+5. **Apply targeted edits.** Preserve everything not touched.
+6. **Verify (MANDATORY)** — pass `verification-before-completion` (document mode) per `references/lockstep-constraints.md`.
+7. **Report.** Summarize the diff and verification evidence.
 
 ## Flow
 
 ```mermaid
 flowchart TD
-    Start([Skill invoked]) --> Q1{Requirements<br/>document exists?}
-    Q1 -- No --> Stop([HALT skill])
-    Q1 -- Yes --> Q2{Basic design<br/>document exists?}
-    Q2 -- No --> Stop
-    Q2 -- Yes --> R[Read both documents]
-    R --> Q3{Whole-system or<br/>subsystem revision?}
-    Q3 -- Subsystem --> S1[Read subsystem<br/>requirements + design]
-    Q3 -- Whole-system --> BS
-    S1 --> BS
-    BS[Begin brainstorming]
-    BS --> VC{UI-related questions?}
-    VC -- Yes --> VCStart[Launch Visual Companion]
-    VC -- No --> QCount
-    VCStart --> QCount
-    QCount{Many pending<br/>questions?}
-    QCount -- Yes --> WriteQ[gen_questions_path.sh spec-revision<br/>→ wait for user response]
-    QCount -- No --> Continue[Continue inline dialogue]
-    WriteQ --> Clear
-    Continue --> Clear
-    Clear{Revision plan<br/>solidified?}
-    Clear -- No --> BS
-    Clear -- Yes --> Write[Update requirements doc<br/>and basic design doc]
-    Write --> Verify[MANDATORY: verification-before-completion<br/>doc mode — template + lockstep consistency]
+    Start([Skill invoked]) --> Q1{Both main docs<br/>exist?}
+    Q1 -- No --> Stop([HALT])
+    Q1 -- Yes --> R[Read docs]
+    R --> BS[Brainstorm]
+    BS --> Write[Update req and/or design<br/>in lockstep]
+    Write --> Verify[verification-before-completion]
     Verify --> End([Done])
 ```
-
-## Procedure
-
-1. Verify both `docs/main-requirements.md` and `docs/main-basic-design.md` exist using `check_doc_exists.sh` for each; **HALT** if either is missing.
-2. Read both. If this is a subsystem revision, locate `docs/subsystems/{id}_{name}/`, then verify both `{name}-requirements.md` and `{name}-design.md` exist using `check_doc_exists.sh`. **HALT** if either subsystem document is missing. Read them.
-3. Brainstorm the revision with the user.
-4. Decide which documents are affected. If both, update both in this same invocation.
-5. Apply targeted edits — preserve the rest of the document. Do not rewrite for style.
-6. **Verify (MANDATORY).** Pass through `verification-before-completion` (document mode): re-read every touched file from disk, check template conformance, lockstep consistency across requirements and basic design when both were updated, and absence of introduced `TBD`/`TODO`/`???`/empty bullets. Fix and re-run the gate until it passes.
-7. Summarize the diff and the verification evidence for the user at the end.
