@@ -1,5 +1,6 @@
 ---
 name: creating-requirements
+user-invocable: true
 description: Use whenever the user wants to CREATE a new requirements document — whole-system (`docs/main-requirements.md`) or subsystem (`docs/subsystems/{id}_{name}/{name}-requirements.md`). Trigger on phrases like "要件定義を作る", "draft requirements", "new requirements doc", "要件をまとめたい", or any request that implies producing a fresh requirements artifact. This skill MUST NOT update an existing requirements document — it only creates new ones.
 ---
 

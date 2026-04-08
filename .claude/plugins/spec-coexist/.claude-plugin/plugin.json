@@ -1,0 +1,15 @@
+{
+  "name": "spec-coexist",
+  "description": "Spec-driven development skills: create and revise requirements/basic-design documents, implement from spec, and debug systematically",
+  "version": "1.0.0",
+  "author": {
+    "name": "developer"
+  },
+  "keywords": [
+    "spec",
+    "requirements",
+    "basic-design",
+    "implementation",
+    "debugging"
+  ]
+}

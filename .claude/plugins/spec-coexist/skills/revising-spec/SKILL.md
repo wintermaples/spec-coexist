@@ -1,5 +1,6 @@
 ---
 name: revising-spec
+user-invocable: true
 description: Use whenever the user wants to REVISE / UPDATE existing requirements or basic design documents — whole-system or subsystem. Trigger on phrases like "要件を変更したい", "設計を直したい", "revise the spec", "update the requirements", "change the basic design". This skill MUST update both requirements and basic design in lockstep when a change affects both, and MUST halt if either document is missing.
 ---
 

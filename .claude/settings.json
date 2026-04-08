@@ -361,9 +361,18 @@
     "type": "command",
     "command": "bash /workspace/.claude/statusline-command.sh"
   },
+  "extraKnownMarketplaces": {
+    "spec-coexist-local": {
+      "source": {
+        "source": "directory",
+        "path": ".claude/plugins"
+      }
+    }
+  },
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true,
-    "skill-creator@claude-plugins-official": true
+    "skill-creator@claude-plugins-official": true,
+    "spec-coexist@spec-coexist-local": true
   },
   "sandbox": {
     "enabled": false,

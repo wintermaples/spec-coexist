@@ -1,5 +1,6 @@
 ---
 name: systematic-debugging
+user-invocable: true
 description: Use whenever encountering ANY bug, test failure, crash, or unexpected behavior — before proposing or applying any fix. Trigger on phrases like "this is broken", "test is failing", "なぜか動かない", "バグっぽい", "the output is wrong". This is a self-contained project-local debugging skill and MUST be used instead of guessing fixes. Forms hypotheses, runs experiments, finds root cause, then fixes — not the other way around.
 ---
 

@@ -1,5 +1,6 @@
 ---
 name: revising-implementation
+user-invocable: true
 description: Use whenever the user wants to UPDATE the implementation after a spec change — whole-system or subsystem. Trigger on phrases like "仕様変更を実装に反映", "update the code to match the new spec", "実装を直したい", "the spec changed, fix the code". This skill MUST halt if either the requirements or basic design document is missing, and MUST inspect recent diffs of the spec documents before brainstorming so it understands what changed.
 ---
 
