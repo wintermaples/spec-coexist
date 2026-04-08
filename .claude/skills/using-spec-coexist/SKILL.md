@@ -32,6 +32,7 @@ Trigger skill for the `spec-coexist` suite. Apply the **1% rule** (see `referenc
 | `spec-coexist:parallelizing-subsystem-work` | Run ≥2 independent subsystems concurrently in isolated worktrees, then consolidate. |
 | `spec-coexist:finishing-subsystem-work` | Integrate verified + reviewed work (commit shaping, changelog, push, PR, merge). |
 | `spec-coexist:authoring-spec-coexist-skill` | Create, modify, or refactor any skill inside this suite. |
+| `spec-coexist:enforcing-code-discipline` | Self-review the diff against the code-quality checklist before dispatching `requesting-code-review`. Invoked as a sub-skill, not by the user. |
 
 ## Flow
 

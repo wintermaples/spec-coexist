@@ -62,3 +62,16 @@ After writing the `fail` record, the gate **MUST NOT** proceed to a completion c
 ## Retention
 
 Evidence files accumulate. When `docs/evidence/` grows past a few hundred entries, move older records to `docs/evidence/archive/YYYY-MM/`. This is a manual housekeeping operation, not a gate responsibility.
+
+## Proof types
+
+In addition to `mode: code` / `mode: document`, evidence records MAY carry a `proof-type` field
+that identifies the discipline layer that produced the proof. This enables auditors to grep for
+specific gates (e.g. "did a self-review happen before this merge?").
+
+- `proof-type: self-review` — written by `spec-coexist:enforcing-code-discipline` after the
+  implementing agent has walked `code-quality-checklist.md` over its own diff. The evidence body
+  MUST contain per-file section outcomes (`pass` / `fail: reason` / `n/a: reason`) and the
+  red-flag scan result (`clean` or `rejected: #<row>`). A `self-review` record with `result: pass`
+  is a MANDATORY precondition for `spec-coexist:requesting-code-review` and for any code-mode
+  `verification-before-completion` pass that follows.
