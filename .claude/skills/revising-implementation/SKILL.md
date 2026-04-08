@@ -6,6 +6,10 @@ description: Use whenever the user wants to UPDATE the implementation after a sp
 
 # revising-implementation
 
+## REQUIRED SUB-SKILLS
+
+- `spec-coexist:test-driven-implementation` — **MUST** be invoked before any production code is modified in response to a spec change. Waivers are scoped per `references/iron-law.md` of that skill.
+
 ## References
 
 - `references/hard-constraints.md` — halt conditions, diff-inspection requirement, verification and review gates

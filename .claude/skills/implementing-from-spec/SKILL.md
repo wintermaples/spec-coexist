@@ -12,6 +12,10 @@ Conformance keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) /
 
 This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. It **MUST** invoke the project-local `requesting-code-review` and `receiving-code-review`.
 
+## REQUIRED SUB-SKILLS
+
+- `spec-coexist:test-driven-implementation` — **MUST** be invoked before any production code is written or modified inside this skill's RED-GREEN-REFACTOR loop. See its `references/iron-law.md` for the application boundary and waivers.
+
 ## References
 
 - `references/hard-constraints.md` — halt conditions, scope rules, TDD Iron Law, mandatory gates.

@@ -32,6 +32,7 @@ Trigger skill for the `spec-coexist` suite. Apply the **1% rule** (see `referenc
 | `spec-coexist:parallelizing-subsystem-work` | Run ≥2 independent subsystems concurrently in isolated worktrees, then consolidate. |
 | `spec-coexist:finishing-subsystem-work` | Integrate verified + reviewed work (commit shaping, changelog, push, PR, merge). |
 | `spec-coexist:authoring-spec-coexist-skill` | Create, modify, or refactor any skill inside this suite. |
+| `spec-coexist:test-driven-implementation` | Sub-skill of implementing/revising-implementation. Enforces RED-before-production-code Iron Law and writes `tdd-red` / `tdd-green` evidence. |
 
 ## Flow
 
