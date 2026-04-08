@@ -12,11 +12,21 @@ Conformance keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) /
 
 This skill **MUST NOT** invoke any `superpowers:*` skill. It **MUST** invoke the project-local `requesting-code-review` and `receiving-code-review` (see `references/procedure.md` step 9).
 
+## Hard Constraints (RFC 2119)
+
+- Once a hypothesis is formed, evidence **MUST** be collected before any code change (see `references/hypothesis-evidence-loop.md`).
+- After applying a fix, the original symptom **MUST** be confirmed non-reproducing with fresh, recorded evidence — not from memory.
+- Completion reports **MUST NOT** contain hedging like "たぶん", "おそらく", "気がする", "probably", "should be". If a hedge is needed, the session is not done.
+
 ## References
 
 - `references/principles.md` — the hypothesis→experiment discipline and why it matters.
 - `references/procedure.md` — the ten-step procedure with full detail.
 - `references/anti-patterns.md` — patterns that **MUST NOT** be followed.
+- `references/red-flags.md` — instant halt-thoughts (16 bilingual rows).
+- `references/rationalization-table.md` — end-of-session excuses → rebuttals (18 bilingual rows).
+- `references/common-failure-patterns.md` — 8 typical session-failure flows.
+- `references/hypothesis-evidence-loop.md` — invariants + canonical record format + termination conditions.
 
 ## Scripts
 
