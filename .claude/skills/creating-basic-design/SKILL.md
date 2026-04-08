@@ -20,7 +20,7 @@ Create a brand-new basic design document (whole-system or subsystem). Do NOT tri
    - Whole-system: `main-basic-design-template.md` + `main-basic-design-template-rules.md`
    - Subsystem: `subsystem-basic-design-template.md` + `subsystem-basic-design-template-rules.md`
 5. **Brainstorm** — follow `references/brainstorming-rules.md` until the design is solid.
-6. **Write** — produce the document in the template's exact section structure.
+6. **Write** — produce the document in the template's exact section structure. The **test strategy tier** field (`strict` / `pipeline` / `ui`) with a 1–3 sentence rationale **MUST** be filled; see `../implementing-from-spec/references/tdd-discipline.md` §Test Strategy Tiers.
 7. **Verify** — invoke `verification-before-completion` (document mode). Re-run until it passes. See `references/constraints-and-review.md` §Verification Gate.
 8. **Review** — invoke `requesting-code-review` then handle feedback via `receiving-code-review`. See `references/constraints-and-review.md` §Mandatory Design Review for exact parameters and fix policy.
 9. **Report** — state the document path, verification evidence, and a `Review:` outcome line.

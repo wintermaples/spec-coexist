@@ -140,6 +140,16 @@ main-basic-design-template.md  （本書：全体共通・インデックス）
 ---
 
 ## 7. 全体テスト方針
+### 7.0 既定テスト戦略 tier (default test-strategy)
+<!-- 必須: 本システム全体の既定テスト戦略 tier を宣言する。
+     `strict` / `pipeline` / `ui` のいずれか。既定は `strict`。
+     各サブシステムが基本設計書 §12.0 で個別に上書きできる。
+     詳細は implementing-from-spec/references/tdd-discipline.md §Test Strategy Tiers -->
+
+- **default test-strategy:** `strict`
+- **選定理由:** 
+
+### 7.1 テスト種別
 - 単体 / 結合 / 総合 / 受入：
 - サブシステム結合テスト方針：
 - 性能・セキュリティテスト：

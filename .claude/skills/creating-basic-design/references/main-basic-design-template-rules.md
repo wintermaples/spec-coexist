@@ -138,6 +138,10 @@ ID・名称・概要・主担当・基本設計書リンクのみ。
 ---
 
 ## 7. 全体テスト方針
+### 7.0 既定テスト戦略 tier — **必須**
+プロジェクト全体の既定 tier (`strict` / `pipeline` / `ui`) を宣言する。未指定は `strict`。各サブシステムは §12.0 で個別に上書きできる。選定理由を 1〜3 文。詳細は `.claude/skills/implementing-from-spec/references/tdd-discipline.md` §Test Strategy Tiers。
+
+### 7.1 テスト種別
 - 単体／結合／総合／受入の責任分界
 - サブシステム結合テストの進め方（スタブ／モックの方針）
 - 性能・セキュリティテストの対象と合格基準

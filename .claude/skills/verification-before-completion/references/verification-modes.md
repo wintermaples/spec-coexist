@@ -15,6 +15,18 @@ The agent **MUST** run, at minimum:
 
 If any of these are absent, the agent **MUST** say so explicitly rather than silently skip them.
 
+### Tier-aware TDD evidence
+
+When the claim is driven by `implementing-from-spec` or `revising-implementation`, the gate **MUST** read the declared `test-strategy` tier from the target basic design and confirm the *tier-appropriate* evidence shape. Absent or wrong-shape evidence → HALT.
+
+| Tier | Required artifacts for PASS |
+|---|---|
+| `strict` *(default)* | One `docs/evidence/red-*.log` per acceptance criterion bullet, or a documented `docs/evidence/tdd-waiver-*.md`. |
+| `pipeline` | One `docs/evidence/red-*.log` per transform stage **and** the committed sample fixture(s) referenced by that stage under `docs/fixtures/{stage}/` (input + expected output). Missing fixture = HALT even if a RED log exists. |
+| `ui` | One `docs/evidence/red-*.log` per user interaction (behavior / contract test) **and** a dated `docs/evidence/ui-manual-*.md` covering every pure-visual / layout criterion. A `ui` claim with no `ui-manual-*.md` = HALT. |
+
+Tiers narrow the *unit* of observation; they never remove the loop. The per-instance `tdd-waiver-*.md` path remains available for residue no tier covers. See `../implementing-from-spec/references/tdd-discipline.md` §Test Strategy Tiers.
+
 ## Document Mode
 
 Applies to: `creating-requirements`, `creating-basic-design`, `revising-spec`.

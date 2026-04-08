@@ -51,6 +51,15 @@ sequenceDiagram
 ### 5.2 Security
 ### 5.3 Observability
 
+## 5.4 Test Strategy Tier
+<!-- REQUIRED: one of `strict` / `pipeline` / `ui`. Default `strict`.
+     Read by `spec-coexist:implementing-from-spec` and `revising-implementation`
+     to set the unit of RED observation for the TDD Iron Law.
+     See implementing-from-spec/references/tdd-discipline.md §Test Strategy Tiers. -->
+
+- **test-strategy:** `strict`
+- **Rationale (1–3 sentences):** 
+
 ## 6. Files Modified by This Subsystem
 <!-- MUST list every file this design expects to touch. Used by parallelizing-subsystem-work isolation check. -->
 - 

@@ -22,6 +22,7 @@ After the basic design document is written, the agent **MUST** pass through `ver
 - Confirm every requirement is traceable.
 - Confirm no `TBD` / `TODO` / `???` placeholders remain.
 - Confirm no empty bullets.
+- Confirm the **test-strategy tier** field is filled with one of `strict` / `pipeline` / `ui` **and** a 1–3 sentence rationale. A placeholder, blank value, or missing rationale **MUST** fail the gate.
 
 Fix any failures and re-run the gate until it passes cleanly.
 

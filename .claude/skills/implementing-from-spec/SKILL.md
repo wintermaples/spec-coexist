@@ -31,7 +31,7 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. It **MU
 2. Read both documents.
 3. Ask whether the target is whole-system or a specific subsystem.
 4. If a subsystem, locate `docs/subsystems/{id}_{name}/`, verify both subsystem documents exist; HALT if not. Read them.
-5. Extract acceptance criteria from the basic design into `docs/acceptance/{feature}.md` (or `docs/subsystems/{id}_{name}/acceptance.md`). Each bullet = one RGR loop.
+5. Read the basic design's declared **test strategy tier** (`strict` / `pipeline` / `ui`); default `strict` if absent. HALT per `references/hard-constraints.md` §Test Strategy Tier Declaration when the domain is UI- or pipeline-heavy and the declaration is missing, routing the user to `revising-spec`. Extract acceptance criteria into `docs/acceptance/{feature}.md` (or `docs/subsystems/{id}_{name}/acceptance.md`), annotating each bullet with the tier-appropriate RED unit per `references/tdd-discipline.md` §Test Strategy Tiers.
 6. Draft the implementation plan following `references/plan-template.md`. Present and iterate until the user approves.
 7. Execute the plan per `references/execution-rules.md`. For each acceptance bullet run one Red-Green-Refactor loop per `references/tdd-discipline.md`; RED evidence is mandatory.
 8. **MUST** pass `verification-before-completion` (code mode); it HALTs without `docs/evidence/red-*.log` (or a documented waiver).

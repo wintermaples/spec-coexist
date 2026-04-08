@@ -15,7 +15,11 @@ During implementation, the agent **MUST** make minimal, focused changes — only
 
 ## TDD Iron Law
 
-Every production change **MUST** be driven by a failing test observed in the current session and recorded via `_shared/scripts/record_test_failure.sh`. See `references/tdd-discipline.md`. The only legal bypass is a `docs/evidence/tdd-waiver-*.md` file with explicit user acknowledgement. `verification-before-completion` **MUST** HALT if neither a `docs/evidence/red-*.log` nor a matching waiver exists for the claimed work.
+Every production change **MUST** be driven by a failing test observed in the current session and recorded via `_shared/scripts/record_test_failure.sh`. See `references/tdd-discipline.md`. The *unit* of RED observation is set by the basic design's declared **test strategy tier** (`strict` / `pipeline` / `ui`); see `references/tdd-discipline.md` §Test Strategy Tiers. The only legal bypass is a `docs/evidence/tdd-waiver-*.md` file with explicit user acknowledgement, reserved for residue no tier covers. `verification-before-completion` **MUST** HALT if the tier-appropriate evidence (`docs/evidence/red-*.log` plus any tier-required artifacts) or a matching waiver is absent for the claimed work.
+
+## Test Strategy Tier Declaration
+
+The basic design document **MUST** declare a `test-strategy` tier (one of `strict`, `pipeline`, `ui`) with a 1–3 sentence rationale. Absent declaration = `strict`. `implementing-from-spec` **MUST** HALT before step 5 if the target basic design lacks the declaration **and** the domain is unambiguously UI-heavy (contains §5 画面設計 with non-empty screen definitions, or equivalent `ui/` / `components/` paths in §6 Files Modified) or pipeline-heavy (contains §7 バッチ設計 with non-empty batch definitions, or `etl/` / `pipelines/` paths). HALT message **MUST** route the user to `revising-spec` to add the declaration — it **MUST NOT** be added silently by the implementer.
 
 ## Completion Gates (in order)
 

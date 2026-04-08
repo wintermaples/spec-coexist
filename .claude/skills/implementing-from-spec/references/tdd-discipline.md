@@ -26,20 +26,45 @@ For every acceptance criterion extracted from the basic design, the agent **MUST
 
 3. **REFACTOR** — With tests green, remove duplication and tighten names. The full relevant test suite **MUST** remain green throughout. Any red observed during refactor halts refactor and reverts to RED step of a new loop.
 
+## Test Strategy Tiers
+
+The Iron Law applies to *every* production change, but **what counts as one "acceptance criterion that demands a RED log" depends on the declared test strategy tier** of the basic design under implementation. The tier **MUST** be declared in the basic design document (see `creating-basic-design` — field `テスト戦略 tier` / `Test strategy tier`) with a 1–3 sentence rationale. Absent declaration = `strict`.
+
+| Tier | Applies to | RED unit (= 1 RGR loop) | Additional evidence |
+|---|---|---|---|
+| `strict` *(default)* | Business logic, APIs, data models, algorithms, domain rules, anything with deterministic input/output. | One failing test per acceptance criterion bullet. | None beyond `docs/evidence/red-*.log` per criterion. |
+| `pipeline` | ETL, batch jobs, stream processors, notebook-derived jobs, data transforms whose correctness is judged against **representative sample inputs** rather than exhaustively. | One **characterization test** per transform *stage*, driven by a committed sample fixture. Multiple criteria about the same stage group under one RED log. | A committed sample fixture under `docs/fixtures/{stage}/` (input + expected output). No fixture → no tier. |
+| `ui` | Presentational components, pages, purely visual layout, styling. | One failing **behavior / contract test** per *user interaction* (click, submit, keyboard, accessibility contract). Pure visual / layout criteria do NOT need their own RED log. | Visual criteria **MUST** be captured in `docs/evidence/ui-manual-{timestamp}.md` as a manual check list with a dated run result. |
+
+Rules that apply to every tier:
+
+- `pipeline` and `ui` do **not** exempt the skill from the Iron Law — they narrow the unit of observation so the loop stays honest but proportional.
+- Mis-categorization is a spec defect: if during implementation the agent finds logic that looks `strict` inside a `ui` or `pipeline` subsystem, the offending bullets **MUST** be lifted to strict RGR loops for that bullet, and the mismatch reported.
+- Tier selection is reviewed at basic-design review time. Changing tier after the fact **MUST** go through `revising-spec`.
+- Missing test infrastructure is still not a valid reason to downgrade. `pipeline` requires a fixture harness; `ui` requires a behavior-test runner. If neither exists, build them or waive explicitly.
+
 ## Acceptance Criteria → Loops
 
-Before the first loop, the agent **MUST** extract an explicit list of acceptance criteria from the basic design and write it to `docs/acceptance/{feature}.md` (whole-system) or `docs/subsystems/{id}_{name}/acceptance.md` (subsystem). Each bullet in that file corresponds to exactly one Red-Green-Refactor loop. Implementation is not "done" until every bullet has a corresponding `docs/evidence/red-*.log` entry and the final GREEN state is clean.
+Before the first loop, the agent **MUST**:
 
-## Waiver
+1. Read the declared `test-strategy` tier from the basic design (default `strict` if absent, subject to the HALT rule in `hard-constraints.md`).
+2. Extract an explicit list of acceptance criteria from the basic design and write it to `docs/acceptance/{feature}.md` (whole-system) or `docs/subsystems/{id}_{name}/acceptance.md` (subsystem), annotating each bullet with its tier-appropriate **RED unit**:
+   - `strict` → one RGR loop per bullet (unchanged from previous rule).
+   - `pipeline` → group bullets under their transform stage; one RGR loop per stage.
+   - `ui` → group bullets under their interaction; pure-visual bullets are moved to a `Manual visual checks` subsection linked to `docs/evidence/ui-manual-*.md`.
 
-If the feature genuinely resists automated testing — e.g. a pure-visual CSS tweak, an exploratory data notebook, or a manual ops runbook — the agent **MAY** skip the Iron Law **only** after writing `docs/evidence/tdd-waiver-{timestamp}.md` containing:
+Implementation is not "done" until every RED unit has its tier-appropriate evidence (`docs/evidence/red-*.log`, plus `docs/evidence/ui-manual-*.md` for `ui` visual bullets, plus the `docs/fixtures/{stage}/` fixture for `pipeline`) and the final GREEN state is clean.
+
+## Waiver (residue only)
+
+Tiers are the first-line answer to "this is hard to test". The per-instance waiver remains **only** for residue that no tier covers — e.g. a one-off ops runbook, a throw-away spike, or a pure CSS tweak in a project that has no `ui` tier declared. The agent **MAY** then skip the Iron Law after writing `docs/evidence/tdd-waiver-{timestamp}.md` containing:
 
 - the subject,
-- the concrete reason a failing test cannot be written,
+- the concrete reason no tier + no failing test is appropriate,
 - the manual verification plan that replaces it,
 - explicit user acknowledgement of the waiver.
 
-A waiver **MUST NOT** be issued silently, and **MUST NOT** be issued by the agent for its own convenience. Missing test infrastructure is not a valid reason — the fix is to add the infrastructure.
+A waiver **MUST NOT** be issued silently, **MUST NOT** be issued by the agent for its own convenience, and **MUST NOT** be used as a substitute for declaring an appropriate tier. Missing test infrastructure is not a valid reason — the fix is to add the infrastructure.
 
 ## Interaction with verification-before-completion
 
