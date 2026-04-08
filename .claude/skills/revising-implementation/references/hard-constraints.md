@@ -15,6 +15,10 @@ This skill **MUST NOT** invoke any `superpowers:*` skill. Brainstorming and plan
 
 The agent **MUST** read recent diffs of the spec documents (e.g. `git log -p -- docs/main-requirements.md docs/main-basic-design.md`) before brainstorming. Without this step it is impossible to know which code changes are required.
 
+## TDD Iron Law
+
+Every production-code change driven by this skill **MUST** begin with a failing test observed in the current session and recorded via `../../_shared/scripts/record_test_failure.sh` (written to `docs/evidence/red-*.log`). See `../../implementing-from-spec/references/tdd-discipline.md` — that document is authoritative for both skills; do not duplicate it. The only legal bypass is an explicitly-acknowledged `docs/evidence/tdd-waiver-*.md`. `verification-before-completion` **MUST** HALT if neither exists for the claimed work.
+
 ## Verification Gate
 
 After the implementation revision is applied, the agent **MUST** pass through `verification-before-completion` (code mode) — fresh full tests, type checks, linters, full output read — **before** anything else.
