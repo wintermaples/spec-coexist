@@ -22,6 +22,7 @@ Trigger skill for the `spec-coexist` suite. Apply the **1% rule** (see `referenc
 | `spec-coexist:revising-spec` | Revise existing requirements or basic design. |
 | `spec-coexist:revising-implementation` | Update implementation after a spec change. |
 | `spec-coexist:systematic-debugging` | Any bug, test failure, or unexpected behavior. |
+| `spec-coexist:authoring-spec-coexist-skill` | Create, modify, or refactor any skill inside this suite. |
 
 ## Flow
 
