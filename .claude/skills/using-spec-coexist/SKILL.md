@@ -22,12 +22,14 @@ Trigger skill for the `spec-coexist` suite. Apply the **1% rule** (see `referenc
 
 | Skill | When to invoke |
 |-------|----------------|
+| `spec-coexist:exploring-problem-space` | Diverge on an unstructured wish; produce a handoff memo before requirements begin. |
 | `spec-coexist:creating-requirements` | Create a new requirements document. |
 | `spec-coexist:creating-basic-design` | Create a new basic design document. |
 | `spec-coexist:implementing-from-spec` | Implement code from existing requirements + basic design. |
 | `spec-coexist:revising-spec` | Revise existing requirements or basic design. |
 | `spec-coexist:revising-implementation` | Update implementation after a spec change. |
 | `spec-coexist:systematic-debugging` | Any bug, test failure, or unexpected behavior. |
+| `spec-coexist:parallelizing-subsystem-work` | Run ≥2 independent subsystems concurrently in isolated worktrees, then consolidate. |
 | `spec-coexist:finishing-subsystem-work` | Integrate verified + reviewed work (commit shaping, changelog, push, PR, merge). |
 | `spec-coexist:authoring-spec-coexist-skill` | Create, modify, or refactor any skill inside this suite. |
 
