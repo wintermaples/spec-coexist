@@ -31,7 +31,7 @@ If the user declines, continue brainstorming in plain terminal mode.
 ## Starting the Server
 
 ```bash
-.claude/skills/spec-coexist/_shared/scripts/start_visual_server.sh <project-dir> [--host 127.0.0.1] [--port 0] [--url-host localhost]
+.claude/plugins/spec-coexist/skills/_shared/scripts/start_visual_server.sh <project-dir> [--host 0.0.0.0] [--port 0] [--url-host localhost]
 ```
 
 The wrapper backgrounds `visual_server.py` and prints three lines to stdout:
@@ -48,7 +48,7 @@ You **MUST** capture and remember `screen_dir`, `state_dir`, `url`, and `pid`.
 
 Tell the user the URL and ask them to open it in a browser. Add `.spec-coexist/` to `.gitignore` if it's not already there.
 
-**Remote / containerized environments:** if `127.0.0.1` is unreachable from the user's browser, restart with `--host 0.0.0.0 --url-host localhost` (or whichever hostname the user uses to reach the box).
+**Host binding:** the server binds to `0.0.0.0` by default so devcontainers and remote environments work out of the box, and the printed URL uses `localhost`. Pass `--host 127.0.0.1` if you need loopback-only binding.
 
 The server exits automatically after **30 minutes of inactivity** and writes a `state_dir/server-stopped` marker. If you see that marker, restart the server before pushing new content.
 

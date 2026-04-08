@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Usage: start_visual_server.sh <project-dir> [--host 127.0.0.1] [--port 0] [--url-host localhost]
+# Usage: start_visual_server.sh <project-dir> [--host 0.0.0.0] [--port 0] [--url-host localhost]
 # Backgrounds the visual_server.py process and prints the JSON it emits on its
 # first line of stdout (which contains the URL, screen_dir, and state_dir).
 set -euo pipefail

@@ -6,7 +6,7 @@ Self-contained, single-file HTTP server using only the Python standard library.
 No third-party dependencies — no license concerns.
 
 Usage:
-    python3 visual_server.py --project-dir /path/to/project [--host 127.0.0.1] [--port 0]
+    python3 visual_server.py --project-dir /path/to/project [--host 0.0.0.0] [--port 0]
 
 On startup, prints a single line of JSON to stdout:
     {"type":"server-started","port":52341,"url":"http://127.0.0.1:52341",
@@ -229,9 +229,10 @@ def inactivity_watchdog(state: State, server: ThreadingHTTPServer, marker: Path)
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--project-dir", required=True)
-    ap.add_argument("--host", default="127.0.0.1")
+    ap.add_argument("--host", default="0.0.0.0",
+                    help="Interface to bind (default 0.0.0.0 so devcontainer/remote browsers can reach it)")
     ap.add_argument("--url-host", default=None,
-                    help="Hostname to print in the URL (defaults to --host)")
+                    help="Hostname to print in the URL (defaults to 'localhost' when host is 0.0.0.0, else --host)")
     ap.add_argument("--port", type=int, default=0)
     args = ap.parse_args()
 
@@ -246,7 +247,7 @@ def main() -> int:
     state = State(screen_dir, state_dir)
     server = ThreadingHTTPServer((args.host, args.port), make_handler(state))
     actual_port = server.server_address[1]
-    url_host = args.url_host or args.host
+    url_host = args.url_host or ("localhost" if args.host == "0.0.0.0" else args.host)
     info = {"type": "server-started", "port": actual_port,
             "url": f"http://{url_host}:{actual_port}",
             "screen_dir": str(screen_dir), "state_dir": str(state_dir)}
