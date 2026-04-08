@@ -36,8 +36,10 @@ Any of the following is a "completion claim" and therefore **MUST** be preceded 
 | 3 | **READ** | Read the full output; check exit code, failure counts, warnings. |
 | 4 | **VERIFY** | Compare observed output to the claim. Fix or report honestly if they disagree. |
 | 5 | **CLAIM WITH EVIDENCE** | Make the claim *with* what / how / result attached. |
+| 6 | **RECORD** | Append an evidence file under `docs/evidence/` via `_shared/scripts/write_evidence.sh`. **MUST** run on both pass and fail. |
 
 Full step definitions, examples, rationale, and flow diagram: `references/gate-steps.md`.
+Evidence file schema and retention policy: `references/evidence-schema.md`.
 
 What counts as proof differs by artifact type (code vs document): `references/verification-modes.md`.
 
@@ -57,7 +59,17 @@ It verifies that the necessary tooling is present. It does **NOT** run tests —
 
 1. Before any completion-style report, pause and state the claim you are about to make.
 2. Optionally run `run_gate_checklist.sh` to surface environment gaps.
-3. Execute Gate steps 1–5 in order (see `references/gate-steps.md`).
+3. Execute Gate steps 1–6 in order (see `references/gate-steps.md`).
 4. Use the correct verification mode (see `references/verification-modes.md`).
-5. If VERIFY fails, fix the underlying issue OR report actual status honestly — **MUST NOT** claim completion.
-6. When and only when VERIFY passes, make the claim with evidence (what / how / result).
+5. If VERIFY fails, fix the underlying issue OR report actual status honestly — **MUST NOT** claim completion. Step 6 (RECORD) **MUST** still run with `result: fail`.
+6. When and only when VERIFY passes, make the claim with evidence (what / how / result), then run step 6 (RECORD) with `result: pass`.
+
+## Evidence recording (step 6)
+
+Invoke:
+
+```bash
+.claude/skills/_shared/scripts/write_evidence.sh <code|document> "<subject>" "<proof-command>" <pass|fail> [review-ref]
+```
+
+Quote the returned `docs/evidence/verification-*.md` path in the completion report so reviewers can follow it. Schema: `references/evidence-schema.md`.
