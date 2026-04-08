@@ -31,7 +31,7 @@ If the user declines, continue brainstorming in plain terminal mode.
 ## Starting the Server
 
 ```bash
-.claude/plugins/spec-coexist/skills/_shared/scripts/start_visual_server.sh <project-dir> [--host 0.0.0.0] [--port 0] [--url-host localhost]
+.claude/skills/_shared/scripts/start_visual_server.sh <project-dir> [--host 0.0.0.0] [--port 0] [--url-host localhost]
 ```
 
 The wrapper backgrounds `visual_server.py` and prints three lines to stdout:
@@ -72,7 +72,7 @@ The server exits automatically after **30 minutes of inactivity** and writes a `
    Then explicitly tell the user: "Switching back to text Q&A for the next question."
 7. **Stop the server when done:**
    ```bash
-   .claude/skills/spec-coexist/_shared/scripts/stop_visual_server.sh <pid>
+   .claude/skills/_shared/scripts/stop_visual_server.sh <pid>
    ```
 
 ## Content Fragments vs Full Documents

@@ -79,3 +79,6 @@ $RECYCLE.BIN/
 
 # Spec Coexist
 .spec-coexist
+
+# Packaging output
+/dist/
