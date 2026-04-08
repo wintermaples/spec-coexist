@@ -19,7 +19,8 @@ This skill **MUST NOT** invoke any `superpowers:*` skill. Brainstorming and plan
 - If `docs/main-requirements.md` or `docs/main-basic-design.md` is missing, the skill **MUST** halt.
 - The agent **MUST** read recent diffs of the spec documents (e.g., `git log -p -- docs/main-requirements.md docs/main-basic-design.md`, and the corresponding subsystem files when applicable) to understand what changed before brainstorming. Without this, it is impossible to know which code changes are required.
 - For subsystem implementation revisions, both `{name}-requirements.md` and `{name}-design.md` **MUST** exist.
-- After the implementation revision is applied and verification passes, and **before** reporting completion, the agent **MUST** invoke `requesting-code-review` and handle the result via `receiving-code-review`. Skipping review is **NOT** permitted even for small revisions — small changes are exactly where silent regressions hide.
+- After the implementation revision is applied, the agent **MUST** pass through `verification-before-completion` (code mode) **before** anything else — no completion claim, no review request, no final report without fresh test/type/lint evidence.
+- After the verification gate passes, and **before** reporting completion, the agent **MUST** invoke `requesting-code-review` and handle the result via `receiving-code-review`. Skipping review is **NOT** permitted even for small revisions — small changes are exactly where silent regressions hide.
 
 ## Mandatory Code Review
 
@@ -74,7 +75,7 @@ flowchart TD
     Clear{Revision plan<br/>solidified?}
     Clear -- No --> BS
     Clear -- Yes --> Impl[Apply implementation changes]
-    Impl --> Verify[Run tests and verify]
+    Impl --> Verify[MANDATORY: verification-before-completion<br/>code mode — fresh test/lint/type run]
     Verify --> Review[MANDATORY: requesting-code-review]
     Review --> RFeedback[Handle feedback via<br/>receiving-code-review]
     RFeedback --> RCrit{Critical/Important<br/>issues remain?}
@@ -90,6 +91,6 @@ flowchart TD
 4. If a subsystem revision, locate `docs/subsystems/{id}_{name}/`, then verify both `{name}-requirements.md` and `{name}-design.md` exist using `check_doc_exists.sh`. **HALT** if either is missing. Read them and inspect their recent diffs.
 5. Brainstorm a revision plan with the user.
 6. Apply targeted, minimal implementation changes.
-7. Run the full verification suite (tests, type checks, linters as relevant).
-8. **MUST** invoke `requesting-code-review` and handle the feedback via `receiving-code-review`. Fix Critical/Important issues (re-review after fixes) before reporting completion.
-9. Summarize the diff, the test results, and the `Review:` outcome for the user.
+7. **MUST** pass through `verification-before-completion` (code mode): fresh full tests, type checks, linters. Read the full output. If anything fails, fix and re-run the gate; do not proceed.
+8. **MUST** invoke `requesting-code-review` and handle the feedback via `receiving-code-review`. Fix Critical/Important issues (re-run the verification gate, then re-review) before reporting completion.
+9. Summarize the diff, the verification evidence (what / how / result), and the `Review:` outcome for the user.

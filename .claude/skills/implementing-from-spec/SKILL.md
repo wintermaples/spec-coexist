@@ -20,7 +20,8 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. The pla
 - For subsystem implementation, both `docs/subsystems/{id}_{name}/{name}-requirements.md` and `{name}-design.md` **MUST** exist; otherwise the skill **MUST** halt.
 - The agent **MUST NOT** begin implementation before the user explicitly approves the plan.
 - During implementation, the agent **MUST** make minimal, focused changes — no scope creep beyond what the spec dictates.
-- After implementation and verification, and **before** reporting completion to the user, the agent **MUST** invoke the `requesting-code-review` skill, and **MUST** handle the returned feedback through the `receiving-code-review` skill. "Implementation done without review" is **NOT** a valid final state for this skill.
+- After implementation, and **before** reporting completion to the user, the agent **MUST** pass through the `verification-before-completion` gate (code mode). No "done" claim is permitted until that gate reports PASS with attached evidence.
+- After the verification gate passes, the agent **MUST** invoke the `requesting-code-review` skill, and **MUST** handle the returned feedback through the `receiving-code-review` skill. "Implementation done without review" is **NOT** a valid final state for this skill.
 
 ## Mandatory Code Review
 
@@ -58,7 +59,7 @@ flowchart TD
     Plan --> Approve{User approves<br/>plan?}
     Approve -- No --> Plan
     Approve -- Yes --> Impl[Implement against the plan<br/>= executing-plans equivalent]
-    Impl --> Verify[Run tests and verify]
+    Impl --> Verify[MANDATORY: verification-before-completion<br/>code mode — fresh test/lint/type run]
     Verify --> Review[MANDATORY: requesting-code-review]
     Review --> Feedback[Handle feedback via<br/>receiving-code-review]
     Feedback --> CritQ{Critical/Important<br/>issues remain?}
@@ -96,6 +97,7 @@ While executing:
 4. If a subsystem, locate `docs/subsystems/{id}_{name}/` and verify both subsystem documents exist; **HALT** if not. Read them.
 5. Draft the plan.
 6. Get user approval. Iterate as needed.
-7. Execute the plan. Verify.
-8. **MUST** invoke `requesting-code-review` and handle the feedback via `receiving-code-review`. Fix Critical and Important issues (re-review after fixes) before proceeding.
-9. Report back with what changed, what passed, and the `Review:` outcome line.
+7. Execute the plan.
+8. **MUST** pass through `verification-before-completion` (code mode): fresh full test / type / lint run, read the full output, confirm it matches the claim, or fix and retry. No completion claim until the gate returns PASS with evidence.
+9. **MUST** invoke `requesting-code-review` and handle the feedback via `receiving-code-review`. Fix Critical and Important issues (re-run the verification gate after fixes, then re-review) before proceeding.
+10. Report back with what changed, the verification evidence (what / how / result), and the `Review:` outcome line.

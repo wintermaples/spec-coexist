@@ -19,6 +19,7 @@ This skill **MUST NOT** invoke any `superpowers:*` skill. Brainstorming is embed
 - If `docs/main-requirements.md` or `docs/main-basic-design.md` is missing, the skill **MUST** halt.
 - When a revision affects both the requirements doc and the basic design doc, the skill **MUST** update them **in lockstep** (in the same skill invocation), so the two documents never diverge.
 - For subsystem revisions, both `{name}-requirements.md` and `{name}-design.md` **MUST** exist.
+- After applying the revision, and **before** reporting completion to the user, the agent **MUST** pass through `verification-before-completion` (document mode): re-read every touched file from disk, confirm template conformance, confirm lockstep consistency between the requirements doc and basic design doc where both were updated, and confirm no `TBD`/`TODO`/`???`/empty bullets were introduced. "Edits applied" is **NOT** the same as "the documents are consistent and correct".
 
 ## Shared Scripts
 
@@ -63,7 +64,8 @@ flowchart TD
     Clear{Revision plan<br/>solidified?}
     Clear -- No --> BS
     Clear -- Yes --> Write[Update requirements doc<br/>and basic design doc]
-    Write --> End([Done])
+    Write --> Verify[MANDATORY: verification-before-completion<br/>doc mode — template + lockstep consistency]
+    Verify --> End([Done])
 ```
 
 ## Procedure
@@ -73,4 +75,5 @@ flowchart TD
 3. Brainstorm the revision with the user.
 4. Decide which documents are affected. If both, update both in this same invocation.
 5. Apply targeted edits — preserve the rest of the document. Do not rewrite for style.
-6. Summarize the diff for the user at the end.
+6. **Verify (MANDATORY).** Pass through `verification-before-completion` (document mode): re-read every touched file from disk, check template conformance, lockstep consistency across requirements and basic design when both were updated, and absence of introduced `TBD`/`TODO`/`???`/empty bullets. Fix and re-run the gate until it passes.
+7. Summarize the diff and the verification evidence for the user at the end.

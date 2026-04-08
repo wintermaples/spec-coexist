@@ -18,7 +18,8 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. The bra
 
 - This skill **MUST NOT** update an existing basic design document. If the target file already exists, the skill **MUST** halt and direct the user to `spec-coexist:revising-spec`.
 - If `docs/main-requirements.md` does not exist, the skill **MUST** halt immediately. A basic design without requirements is meaningless.
-- After the basic design document is written, and **before** reporting completion, the agent **MUST** invoke `requesting-code-review` on the newly created document and **MUST** handle the feedback via `receiving-code-review`. An unreviewed basic design is **NOT** a valid final state.
+- After the basic design document is written, the agent **MUST** pass through `verification-before-completion` (document mode) — re-reading the file from disk, confirming every template section is present, every requirement is traceable, and no `TBD`/`TODO`/`???` placeholders remain — **before** invoking review or reporting completion.
+- After the verification gate passes, the agent **MUST** invoke `requesting-code-review` on the newly created document and **MUST** handle the feedback via `receiving-code-review`. An unreviewed basic design is **NOT** a valid final state.
 
 ## Mandatory Design Review
 
@@ -88,7 +89,8 @@ flowchart TD
     Clear{Design solidified?}
     Clear -- No --> BS
     Clear -- Yes --> Write[Write the basic design doc<br/>following the template]
-    Write --> Review[MANDATORY: requesting-code-review]
+    Write --> Verify[MANDATORY: verification-before-completion<br/>doc mode — template/traceability/no TBD]
+    Verify --> Review[MANDATORY: requesting-code-review]
     Review --> BFeedback[Handle feedback via<br/>receiving-code-review]
     BFeedback --> BCrit{Critical/Important<br/>issues remain?}
     BCrit -- Yes --> Write
@@ -104,5 +106,6 @@ flowchart TD
 5. Read the matching template + rules from `references/`.
 6. Run the embedded brainstorming flow until the design is solid.
 7. Write the document in the template's exact structure.
-8. **MUST** invoke `requesting-code-review` on the new document and handle the feedback via `receiving-code-review`. Fix Critical/Important issues (re-review after fixes) before reporting completion.
-9. Report back with the document path and the `Review:` outcome line.
+8. **MUST** pass through `verification-before-completion` (document mode): re-read the file from disk, confirm template conformance, requirement traceability, and absence of `TBD`/`TODO`/`???`/empty bullets. Fix and re-run the gate until it passes.
+9. **MUST** invoke `requesting-code-review` on the new document and handle the feedback via `receiving-code-review`. Fix Critical/Important issues (re-run the gate, then re-review) before reporting completion.
+10. Report back with the document path, the verification evidence, and the `Review:` outcome line.

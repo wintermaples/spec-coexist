@@ -19,6 +19,7 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill (includi
 - This skill **MUST NOT** update an existing requirements document. If the target file already has content, the skill **MUST** halt immediately and tell the user to invoke `spec-coexist:revising-spec` instead.
 - If the user supplies a draft file path at invocation, the skill **MUST** read the draft before brainstorming.
 - The final document **MUST** follow the corresponding template under `references/`.
+- After writing the document, and **before** reporting completion to the user, the agent **MUST** pass through `verification-before-completion` (document mode): re-read the file from disk, confirm every required template section is present, confirm the frontmatter matches, and confirm no unresolved `TBD` / `TODO` / `???` / `<fill in>` / empty bullets remain. "Wrote the file" is **NOT** the same as "the file is correct". A requirements doc with missing sections or unresolved placeholders is **NOT** a valid final state.
 
 ## References (bundled)
 
@@ -90,7 +91,8 @@ flowchart TD
     Clear{Requirements<br/>solidified?}
     Clear -- No --> BS
     Clear -- Yes --> Write[Write the requirements doc<br/>following the template]
-    Write --> End([Done])
+    Write --> Verify[MANDATORY: verification-before-completion<br/>doc mode — template/no TBD]
+    Verify --> End([Done])
 ```
 
 ## Procedure
@@ -103,4 +105,5 @@ flowchart TD
    - Subsystem → ask whether to use an existing subsystem directory or create a new one. For a new one, run `ensure_subsystem_dir.sh <name>`. Target is `<dir>/<name>-requirements.md`. If it exists, **HALT**.
 5. **Brainstorm** following the embedded rules above. Read the relevant template and rules from `references/` so your questions align with what the template demands.
 6. **Write the document** strictly following the template.
-7. **Stop.** Do not start design or implementation in the same skill invocation.
+7. **Verify (MANDATORY).** Pass through `verification-before-completion` (document mode): re-read the file from disk, check every template section is present, confirm the frontmatter matches, and confirm no `TBD`/`TODO`/`???`/`<fill in>`/empty bullets remain. Fix and re-run the gate until it passes. The final report **MUST** include the verification evidence (what was checked / how / result).
+8. **Stop.** Do not start design or implementation in the same skill invocation.
