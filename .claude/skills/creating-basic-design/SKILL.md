@@ -12,6 +12,7 @@ Create a brand-new basic design document (whole-system or subsystem). Do NOT tri
 
 ## Ordered Steps
 
+0. **Resolve locale** — apply `../_shared/templates/README.md`. `ja` loads templates from this skill's `references/`; `en` loads from `../_shared/templates/en/`. Record the resolved locale and use it in every template load below.
 1. **Guard** — run `check_doc_exists.sh docs/main-requirements.md`. If absent, HALT. See `references/constraints-and-review.md`.
 2. **Read requirements** — load `docs/main-requirements.md` (and any subsystem requirements) so the design is grounded.
 3. **Resolve target** — ask whole-system or subsystem (one question). Use `next_subsystem_id.sh` / `ensure_subsystem_dir.sh` for new subsystems. If the target design file already exists, HALT. See `references/constraints-and-review.md`.
