@@ -1,3 +1,18 @@
+---
+id: {{SUBSYSTEM_ID}}_requirements
+title: Requirements Definition — {{SUBSYSTEM_NAME}}
+version: 0.1
+status: draft
+extends:
+  - ../../main-requirements.md
+supersedes: []
+superseded_by: []
+related: []
+---
+
+<!-- Frontmatter schema: see .claude/skills/_shared/references/doc-reference-syntax.md
+     Lifecycle rules:   see .claude/skills/_shared/references/doc-lifecycle.md -->
+
 # Requirements Definition — {{SUBSYSTEM_NAME}}
 
 | Field | Value |

@@ -1,3 +1,17 @@
+---
+id: main-requirements
+title: 要件要求定義書（全体版）
+version: 0.1
+status: draft
+extends: []
+supersedes: []
+superseded_by: []
+related: []
+---
+
+<!-- フロントマター仕様: .claude/skills/_shared/references/doc-reference-syntax.md
+     ライフサイクル規則:  .claude/skills/_shared/references/doc-lifecycle.md -->
+
 # 要件要求定義書（全体版）
 
 本書はプロジェクト全体に共通する要求・要件と、サブシステム単位の要件定義書へのインデックスを示す。

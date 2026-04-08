@@ -1,3 +1,18 @@
+---
+id: main-basic-design
+title: Basic Design (Whole System)
+version: 0.1
+status: draft
+extends:
+  - ./main-requirements.md
+supersedes: []
+superseded_by: []
+related: []
+---
+
+<!-- Frontmatter schema: see .claude/skills/_shared/references/doc-reference-syntax.md
+     Lifecycle rules:   see .claude/skills/_shared/references/doc-lifecycle.md -->
+
 # Basic Design (Whole System)
 
 This document captures whole-system architecture and indexes per-subsystem basic design documents.

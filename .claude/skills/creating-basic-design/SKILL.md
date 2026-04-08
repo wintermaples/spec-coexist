@@ -20,10 +20,11 @@ Create a brand-new basic design document (whole-system or subsystem). Do NOT tri
    - Whole-system: `main-basic-design-template.md` + `main-basic-design-template-rules.md`
    - Subsystem: `subsystem-basic-design-template.md` + `subsystem-basic-design-template-rules.md`
 5. **Brainstorm** — follow `references/brainstorming-rules.md` until the design is solid.
-6. **Write** — produce the document in the template's exact section structure. The **test strategy tier** field (`strict` / `pipeline` / `ui`) with a 1–3 sentence rationale **MUST** be filled; see `../implementing-from-spec/references/tdd-discipline.md` §Test Strategy Tiers.
-7. **Verify** — invoke `verification-before-completion` (document mode). Re-run until it passes. See `references/constraints-and-review.md` §Verification Gate.
-8. **Review** — invoke `requesting-code-review` then handle feedback via `receiving-code-review`. See `references/constraints-and-review.md` §Mandatory Design Review for exact parameters and fix policy.
-9. **Report** — state the document path, verification evidence, and a `Review:` outcome line.
+6. **Write** — produce the document in the template's exact section structure. The **test strategy tier** field (`strict` / `pipeline` / `ui`) with a 1–3 sentence rationale **MUST** be filled; see `../implementing-from-spec/references/tdd-discipline.md` §Test Strategy Tiers. Frontmatter and cross-doc links **MUST** follow `../_shared/references/doc-reference-syntax.md` and `../_shared/references/doc-lifecycle.md`.
+7. **Check doc links** — run `../_shared/scripts/check_doc_links.sh --root docs --strict`. Fix all errors before verification.
+8. **Verify** — invoke `verification-before-completion` (document mode). Re-run until it passes. See `references/constraints-and-review.md` §Verification Gate.
+9. **Review** — invoke `requesting-code-review` then handle feedback via `receiving-code-review`. See `references/constraints-and-review.md` §Mandatory Design Review for exact parameters and fix policy.
+10. **Report** — state the document path, verification evidence, and a `Review:` outcome line.
 
 ## Flow Diagram
 
@@ -63,6 +64,7 @@ When writing any Mermaid diagram in the basic design document, you **SHOULD** co
 
 All scripts live in `../_shared/scripts/`:
 - `check_doc_exists.sh <path>`
+- `check_doc_links.sh --root docs --strict`
 - `next_subsystem_id.sh`
 - `ensure_subsystem_dir.sh <name>`
 - `gen_questions_path.sh basic-design`

@@ -43,6 +43,16 @@ Evidence file schema and retention policy: `references/evidence-schema.md`.
 
 What counts as proof differs by artifact type (code vs document): `references/verification-modes.md`.
 
+## Document-mode proof: doc-link checker
+
+When the change touches any file under `docs/**/*.md`, the document-mode proof **MUST** include a fresh run of:
+
+```bash
+.claude/skills/_shared/scripts/check_doc_links.sh --root docs --strict
+```
+
+Exit code 0 is required. Capture the command, output, and exit code as the RUN / READ evidence for step 3. Link-checker errors block the completion claim just like a failing test.
+
 Anti-patterns and invalid rationalizations: `references/anti-patterns.md`.
 
 ## Pre-flight script

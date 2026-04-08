@@ -1,3 +1,18 @@
+---
+id: main-basic-design
+title: 基本設計書（全体版）
+version: 0.1
+status: draft
+extends:
+  - ./main-requirements.md
+supersedes: []
+superseded_by: []
+related: []
+---
+
+<!-- フロントマター仕様: .claude/skills/_shared/references/doc-reference-syntax.md
+     ライフサイクル規則:  .claude/skills/_shared/references/doc-lifecycle.md -->
+
 # 基本設計書（全体版）
 
 本書はプロジェクト全体に共通する設計方針と、サブシステム単位の基本設計書へのインデックスを示す。

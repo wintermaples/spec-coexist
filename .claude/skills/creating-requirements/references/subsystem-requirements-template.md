@@ -1,3 +1,18 @@
+---
+id: {{SUBSYSTEM_ID}}_requirements
+title: 要件要求定義書 — {{SUBSYSTEM_NAME}}
+version: 0.1
+status: draft
+extends:
+  - ../../main-requirements.md
+supersedes: []
+superseded_by: []
+related: []
+---
+
+<!-- フロントマター仕様: .claude/skills/_shared/references/doc-reference-syntax.md
+     ライフサイクル規則:  .claude/skills/_shared/references/doc-lifecycle.md -->
+
 # 要件要求定義書
 
 | 項目 | 内容 |

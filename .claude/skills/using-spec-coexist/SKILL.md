@@ -52,3 +52,6 @@ flowchart TD
 - `references/namespace-policy.md` — why and how suite skills are always referenced with the `spec-coexist:` prefix.
 - `references/instruction-priority.md` — how user instructions, suite skills, and defaults are ranked.
 - `references/independence.md` — why this suite must not delegate to `superpowers:*` at runtime.
+- `../_shared/references/doc-reference-syntax.md` — canonical cross-document reference syntax (Markdown links + YAML frontmatter schema) shared across all spec-authoring skills.
+- `../_shared/references/doc-lifecycle.md` — document lifecycle states (`draft`/`active`/`deprecated`/`superseded`) and transitions; used by `revising-spec`.
+- `../_shared/scripts/check_doc_links.sh` — link + lifecycle checker; invoked by `creating-*` / `revising-*` and by `verification-before-completion` when `docs/**/*.md` changed.
