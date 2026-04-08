@@ -30,9 +30,10 @@ See `references/constraints.md` for full detail.
 3. **Decide scope** — ask one question: whole-system or subsystem?
 4. **Resolve target path** — see `references/path-resolution.md`.
 5. **Brainstorm** — follow `references/brainstorming-rules.md`. Read the relevant template + rules files so questions align with what the template requires.
-6. **Write document** — follow the template strictly (`references/main-requirements-template.md` or `references/subsystem-requirements-template.md` + their `*-rules.md` companions).
-7. **Verify (MANDATORY)** — pass through `verification-before-completion` (document mode); see `references/verification-checklist.md`. Fix and re-run until PASS.
-8. **Stop** — do not start design or implementation in the same skill invocation.
+6. **Write document** — follow the template strictly (`references/main-requirements-template.md` or `references/subsystem-requirements-template.md` + their `*-rules.md` companions). Frontmatter and cross-doc links **MUST** follow `../_shared/references/doc-reference-syntax.md` and `../_shared/references/doc-lifecycle.md`.
+7. **Check doc links** — run `../_shared/scripts/check_doc_links.sh --root docs --strict`. All errors **MUST** be fixed before proceeding.
+8. **Verify (MANDATORY)** — pass through `verification-before-completion` (document mode); see `references/verification-checklist.md`. Fix and re-run until PASS.
+9. **Stop** — do not start design or implementation in the same skill invocation.
 
 ## Scripts
 
@@ -41,6 +42,7 @@ Invoke from `../_shared/scripts/`:
 | Script | Purpose |
 | --- | --- |
 | `check_doc_exists.sh <path>` | Exit 0 if the file exists (signal to halt) |
+| `check_doc_links.sh --root docs --strict` | Validate frontmatter refs, body links, and lifecycle |
 | `next_subsystem_id.sh` | Print the next 3-digit subsystem id |
 | `ensure_subsystem_dir.sh <name>` | Allocate id and create `docs/subsystems/{id}_{name}/` |
 | `gen_questions_path.sh requirements` | Print the questions-file path and ensure its parent dir |

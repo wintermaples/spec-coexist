@@ -1,3 +1,19 @@
+---
+id: {{SUBSYSTEM_ID}}_basic-design
+title: 基本設計書 — {{SUBSYSTEM_NAME}}
+version: 0.1
+status: draft
+extends:
+  - ./{{SUBSYSTEM_NAME}}-requirements.md
+  - ../../main-basic-design.md
+supersedes: []
+superseded_by: []
+related: []
+---
+
+<!-- フロントマター仕様: .claude/skills/_shared/references/doc-reference-syntax.md
+     ライフサイクル規則:  .claude/skills/_shared/references/doc-lifecycle.md -->
+
 # 基本設計書
 
 | 項目 | 内容 |

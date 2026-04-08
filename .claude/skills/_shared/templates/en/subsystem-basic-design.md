@@ -1,3 +1,19 @@
+---
+id: {{SUBSYSTEM_ID}}_basic-design
+title: Basic Design — {{SUBSYSTEM_NAME}}
+version: 0.1
+status: draft
+extends:
+  - ./{{SUBSYSTEM_NAME}}-requirements.md
+  - ../../main-basic-design.md
+supersedes: []
+superseded_by: []
+related: []
+---
+
+<!-- Frontmatter schema: see .claude/skills/_shared/references/doc-reference-syntax.md
+     Lifecycle rules:   see .claude/skills/_shared/references/doc-lifecycle.md -->
+
 # Basic Design — {{SUBSYSTEM_NAME}}
 
 | Field | Value |

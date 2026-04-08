@@ -33,6 +33,7 @@ Skills **SHOULD NOT** hardcode the `./subsystem_deps.sh` form inside step text; 
 | Script | Purpose |
 |---|---|
 | `check_doc_exists.sh` | Halt signal if a target doc already exists. |
+| `check_doc_links.sh` | Validate frontmatter refs, body Markdown links, and doc lifecycle rules against `_shared/references/doc-reference-syntax.md`. Flags: `--root <dir>` (default `docs`), `--strict`, `--json`. Exit 1 on errors. |
 | `ensure_subsystem_dir.sh` | Allocate a subsystem id and create its dir. |
 | `gen_questions_path.sh` | Path for the questions file used by brainstorming. |
 | `next_subsystem_id.sh` | Print the next 3-digit subsystem id. |

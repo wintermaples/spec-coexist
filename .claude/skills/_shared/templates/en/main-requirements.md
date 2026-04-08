@@ -1,3 +1,17 @@
+---
+id: main-requirements
+title: Requirements Definition (Whole System)
+version: 0.1
+status: draft
+extends: []
+supersedes: []
+superseded_by: []
+related: []
+---
+
+<!-- Frontmatter schema: see .claude/skills/_shared/references/doc-reference-syntax.md
+     Lifecycle rules:   see .claude/skills/_shared/references/doc-lifecycle.md -->
+
 # Requirements Definition (Whole System)
 
 This document captures cross-project requirements and indexes the per-subsystem requirements documents. Subsystem-specific details (functional, non-functional, UI, data, etc.) belong in each subsystem's `subsystem-requirements.md`.

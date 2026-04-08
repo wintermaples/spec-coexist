@@ -33,6 +33,7 @@ See `references/lockstep-constraints.md` for full detail.
 | Script | Purpose |
 |---|---|
 | `../_shared/scripts/check_doc_exists.sh <path>` | Exit 0 if file exists |
+| `../_shared/scripts/check_doc_links.sh --root docs --strict` | Validate frontmatter refs + body links + lifecycle rules |
 | `scripts/gen_questions_path.sh` | Print `docs/spec-coexist/{ts}-spec-revision-questions.md` and ensure parent dir |
 
 ## Procedure
@@ -42,9 +43,10 @@ See `references/lockstep-constraints.md` for full detail.
 2. **Read documents.**
 3. **Brainstorm** per `references/brainstorming-flow.md`.
 4. **Decide scope** — determine affected docs. If both, hold all edits and apply together.
-5. **Apply targeted edits.** Preserve everything not touched.
-6. **Verify (MANDATORY)** — pass `verification-before-completion` (document mode) per `references/lockstep-constraints.md`.
-7. **Report.** Summarize the diff and verification evidence.
+5. **Apply targeted edits.** Preserve everything not touched. Bump `version` in frontmatter. When producing a parallel replacement, set the old doc's `status` to `superseded` with `superseded_by: [<new>]` and the new doc's `supersedes: [<old>]`; follow `../_shared/references/doc-lifecycle.md`.
+6. **Check doc links** — run `../_shared/scripts/check_doc_links.sh --root docs --strict`. Fix all reported errors before verification.
+7. **Verify (MANDATORY)** — pass `verification-before-completion` (document mode) per `references/lockstep-constraints.md`.
+8. **Report.** Summarize the diff and verification evidence.
 
 ## Flow
 
