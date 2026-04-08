@@ -205,6 +205,17 @@
 ---
 
 ## 12. テスト方針
+### 12.0 テスト戦略 tier (test-strategy)
+<!-- 必須: `strict` / `pipeline` / `ui` のいずれか。既定は `strict`。
+     `spec-coexist:implementing-from-spec` と `revising-implementation` が
+     TDD Iron Law の RED 観測単位を決定するために参照する。
+     選定理由は 1〜3 文で明記する。詳細は
+     implementing-from-spec/references/tdd-discipline.md §Test Strategy Tiers -->
+
+- **test-strategy:** `strict`
+- **選定理由:** 
+
+### 12.1 テスト種別
 - 単体テスト：
 - 結合テスト：
 - 総合テスト：

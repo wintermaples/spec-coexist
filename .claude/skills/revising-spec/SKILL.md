@@ -37,6 +37,7 @@ See `references/lockstep-constraints.md` for full detail.
 
 ## Procedure
 
+0. **Resolve locale** — apply `../_shared/templates/README.md`. When the target document already exists, the locale **MUST** match the existing document's language; do not mix locales within one document.
 1. **Verify documents exist.** Use `check_doc_exists.sh` for main + (if subsystem) subsystem docs. HALT on missing.
 2. **Read documents.**
 3. **Brainstorm** per `references/brainstorming-flow.md`.

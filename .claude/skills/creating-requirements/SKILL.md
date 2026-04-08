@@ -24,6 +24,7 @@ See `references/constraints.md` for full detail.
 
 ## Steps
 
+0. **Resolve locale** — apply the procedure in `../_shared/templates/README.md` to pick `ja` or `en`. Record the result; every template load in later steps **MUST** use the resolved locale. `ja` loads templates from this skill's `references/`; `en` loads from `../_shared/templates/en/`.
 1. **Bootstrap** — run `check_doc_exists.sh docs/main-requirements.md`; read it if it exists, otherwise create an empty placeholder.
 2. **Read draft** — if the user supplied a draft path, read it now.
 3. **Decide scope** — ask one question: whole-system or subsystem?

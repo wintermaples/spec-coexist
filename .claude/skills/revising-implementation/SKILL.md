@@ -17,6 +17,7 @@ description: Use whenever the user wants to UPDATE the implementation after a sp
 
 - `check_doc_exists.sh <path>` — verify each required document exists; invoke, don't reimplement.
 - `gen_questions_path.sh implementation-revision` — emit the canonical path for a pending-questions file.
+- `record_test_failure.sh <slug> -- <cmd>` — capture RED evidence for every revised behaviour (TDD Iron Law).
 
 ## Procedure
 
@@ -25,10 +26,11 @@ description: Use whenever the user wants to UPDATE the implementation after a sp
 3. Inspect recent git diffs for the spec docs (e.g. `git log -p -- docs/main-requirements.md docs/main-basic-design.md`).
 4. If a subsystem revision: locate `docs/subsystems/{id}_{name}/`, verify `{name}-requirements.md` and `{name}-design.md` exist; HALT if either is missing. Read them and inspect diffs.
 5. Brainstorm a revision plan with the user (rules in `references/brainstorming-flow.md`).
-6. Apply targeted, minimal implementation changes — no scope creep.
-7. **MUST** pass `verification-before-completion` (code mode). Read full output. Fix and re-run until PASS.
-8. **MUST** invoke `requesting-code-review` and handle feedback via `receiving-code-review`. See `references/mandatory-code-review.md`.
-9. Report the diff summary, verification evidence, and a `Review:` outcome line.
+6. Read the declared **test strategy tier** (`strict` / `pipeline` / `ui`) from the target basic design; default `strict`. For each behaviour change implied by the diff, run one Red-Green-Refactor loop per the tier's RED unit (see `../implementing-from-spec/references/tdd-discipline.md` §Test Strategy Tiers). RED evidence via `record_test_failure.sh` is mandatory; tiers narrow the unit, they do not remove the loop. Per-instance waivers are reserved for residue no tier covers and **MUST** be explicit.
+7. Apply targeted, minimal implementation changes — no scope creep.
+8. **MUST** pass `verification-before-completion` (code mode). It HALTs without `docs/evidence/red-*.log` or a waiver. Read full output; fix and re-run until PASS.
+9. **MUST** invoke `requesting-code-review` and handle feedback via `receiving-code-review`. See `references/mandatory-code-review.md`.
+10. Report the diff summary, RED evidence paths, verification evidence, and a `Review:` outcome line.
 
 ## Flow
 

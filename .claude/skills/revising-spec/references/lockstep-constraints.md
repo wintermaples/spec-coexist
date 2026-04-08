@@ -14,6 +14,16 @@ Use `check_doc_exists.sh <path>` from `../_shared/scripts/` — do not reimpleme
 
 When a revision affects both the requirements document and the basic design document, the skill **MUST** update **both** in the same invocation. The two documents **MUST NOT** diverge. Decide which documents are affected **before** writing any edits. If both are affected, hold all edits until you are ready to apply them together.
 
+## Test Strategy Tier Changes
+
+When a revision changes the basic design's `test-strategy` tier (§7.0 for whole-system, §12.0 for a subsystem), the revision **MUST**:
+
+- update the rationale in the same edit — a tier change with a stale rationale is a Critical review defect;
+- be surfaced to the user at report time with an explicit note that downstream `spec-coexist:implementing-from-spec` / `revising-implementation` runs **MUST** re-extract acceptance criteria under the new tier;
+- not be used to silently weaken tests on an already-implemented subsystem — if code exists, the user **MUST** explicitly acknowledge that the weaker evidence shape is acceptable for the existing code.
+
+Tier changes are a spec-level decision. They **MUST NOT** be introduced from inside `implementing-from-spec` or `revising-implementation`.
+
 ## Targeted Edits Only
 
 Apply targeted edits — change only what the revision requires. Do **NOT** rewrite sections for style, restructure unrelated content, or silently alter wording.
