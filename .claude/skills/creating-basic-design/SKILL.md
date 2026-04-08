@@ -45,6 +45,10 @@ flowchart TD
     Review --> End([Done])
 ```
 
+## Mermaid Quality (SHOULD)
+
+When writing any Mermaid diagram in the basic design document, you **SHOULD** consult the matching rule file under `../_shared/beautiful-mermaid-rules/` (e.g. `flowchart.md`, `sequence-diagram.md`, `state-diagram.md`, `class-diagram.md`, `entity-relationship-diagram.md`, `architecture.md`, `requirement-diagram.md`, `user-journey.md`, `quadrant-chart.md`, `packet.md`, `ishikawa.md`) and follow its guidance so the resulting diagram is clean and readable.
+
 ## References
 
 - `references/constraints-and-review.md` — hard constraints, verification gate, mandatory review parameters

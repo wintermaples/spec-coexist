@@ -20,6 +20,7 @@ See `references/lockstep-constraints.md` for full detail.
 - For subsystem revisions, both `{name}-requirements.md` and `{name}-design.md` **MUST** exist → **HALT** if either missing.
 - When a revision affects both documents → update them **in lockstep**.
 - After edits and before completion → **MUST** pass `verification-before-completion` (document mode).
+- When adding or modifying any Mermaid diagram in a requirements or basic-design document → **SHOULD** consult the matching rule file under `../_shared/beautiful-mermaid-rules/` (flowchart, sequence-diagram, state-diagram, class-diagram, entity-relationship-diagram, architecture, requirement-diagram, user-journey, quadrant-chart, packet, ishikawa) and follow its guidance so the diagram stays clean and readable.
 
 ## References
 

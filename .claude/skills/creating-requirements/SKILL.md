@@ -20,6 +20,7 @@ See `references/constraints.md` for full detail.
 - **MUST** read any draft file supplied at invocation before brainstorming.
 - **MUST** follow the template that matches the target document type.
 - **MUST** pass `verification-before-completion` (document mode) before reporting done.
+- **SHOULD** — when writing any Mermaid diagram in the requirements document, consult the matching rule file under `../_shared/beautiful-mermaid-rules/` (e.g. `flowchart.md`, `sequence-diagram.md`, `state-diagram.md`, `class-diagram.md`, `entity-relationship-diagram.md`, `user-journey.md`, `architecture.md`, `requirement-diagram.md`, `quadrant-chart.md`, `packet.md`, `ishikawa.md`) and follow its guidance so the resulting diagram is clean and readable.
 
 ## Steps
 
