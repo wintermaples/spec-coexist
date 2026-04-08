@@ -34,7 +34,7 @@ Do NOT trigger for pure typo fixes inside an already-conformant `references/` fi
 5. **Externalize scripts** — any shell/python helper **MUST** live under `.claude/skills/_shared/scripts/` if reusable, or `<skill>/scripts/` if skill-local. SKILL.md references them by name; it does not inline them.
 6. **Independence clause** — include the RFC 2119 "MUST NOT invoke `superpowers:*`" paragraph. This is non-negotiable; see `references/independence-rationale.md`.
 7. **Register in inventory** — update the Skill Inventory table in `.claude/skills/using-spec-coexist/SKILL.md` (or its references if it has moved there).
-8. **Trigger tests** — add ≥ 3 positive and ≥ 1 negative trigger cases to `_shared/tests/trigger-cases.jsonl` (create the file if absent; see `references/trigger-tests.md`).
+8. **Trigger tests** — add ≥ 3 positive and ≥ 1 negative trigger cases to `_shared/tests/trigger-cases.jsonl` (create the file if absent; see `references/trigger-tests.md`). Steps 8 and 9 **SHOULD** be driven by the RED-GREEN-REFACTOR protocol in `references/skill-tdd-protocol.md`, using fresh-subagent dispatch per `references/pressure-scenarios.md`.
 9. **Self-review against checklist** — walk the checklist in `references/conformance-checklist.md`. Any unchecked item blocks step 10.
 10. **Verify** — invoke `verification-before-completion` (document mode) with the checklist as the proof artifact. Report with a `Review:` outcome line.
 
@@ -74,6 +74,8 @@ flowchart TD
 - `references/conformance-checklist.md` — the final self-review checklist.
 - `references/trigger-tests.md` — format of `_shared/tests/trigger-cases.jsonl` and how to pick cases.
 - `references/independence-rationale.md` — why this suite does not delegate to `superpowers:*`.
+- `references/skill-tdd-protocol.md` — RED-GREEN-REFACTOR lifecycle for skill authoring; required for steps 8-9.
+- `references/pressure-scenarios.md` — adversarial fresh-subagent dispatch scenarios (≥ 6 per skill class).
 
 ## Scripts
 

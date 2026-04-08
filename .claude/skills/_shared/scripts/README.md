@@ -44,6 +44,10 @@ Skills **SHOULD NOT** hardcode the `./subsystem_deps.sh` form inside step text; 
 | `write_evidence.sh` | Append a verification or post-merge evidence record. |
 | `visual_server.py`, `start_visual_server.sh`, `stop_visual_server.sh` | Visual Companion helpers. |
 
+## Hook automation (proposal)
+
+A staged proposal for wiring these scripts into `.claude/settings.json` hooks lives at `../references/hook-automation-proposal.md` — **proposal only, requires explicit user approval before enablement**.
+
 ## Why not rewrite everything in Python?
 
 The scripts are small and side-effect heavy. Rewriting in Python would trade a 30-line shell script for a 60-line Python module that still has to shell out to `git`. The wrapper approach keeps the canonical implementation readable on the platforms the suite was designed for while unblocking Windows users who cannot install Git Bash yet.
