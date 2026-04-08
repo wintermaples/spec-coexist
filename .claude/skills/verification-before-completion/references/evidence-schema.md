@@ -62,3 +62,9 @@ After writing the `fail` record, the gate **MUST NOT** proceed to a completion c
 ## Retention
 
 Evidence files accumulate. When `docs/evidence/` grows past a few hundred entries, move older records to `docs/evidence/archive/YYYY-MM/`. This is a manual housekeeping operation, not a gate responsibility.
+
+## Proof types
+
+Evidence records carry a `proof-type` tag in the subject line so reviewers can grep by category. The tags below are recognized; new ones **MUST** be appended here, never repurposed.
+
+- `proof-type: debug-hypothesis` — written by `systematic-debugging` for each hypothesis evaluated in `references/hypothesis-evidence-loop.md`. Subject: `debug-hypothesis:<bug-slug>:H<N>`. Body **MUST** include the canonical Hypothesis block (statement / predicted PASS / predicted FAIL / experiment / observed / verdict / next / red-flag hits) and any rationalization-table entries that were rebutted.
