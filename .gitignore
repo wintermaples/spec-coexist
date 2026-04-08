@@ -82,3 +82,7 @@ $RECYCLE.BIN/
 
 # Packaging output
 /dist/
+
+# worktrees
+.worktree/
+.worktrees/
