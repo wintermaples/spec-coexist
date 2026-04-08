@@ -65,7 +65,8 @@ Evidence files accumulate. When `docs/evidence/` grows past a few hundred entrie
 
 ## Proof types
 
-Evidence records carry a `proof-type` tag in the subject line so reviewers can grep by category. The tags below are recognized; new ones **MUST** be appended here, never repurposed.
+Evidence records carry a `proof-type` tag in the subject line (and MAY also use a frontmatter `proof-type` field) so reviewers can grep by category. The tags below are recognized; new ones **MUST** be appended here, never repurposed.
 
 - `proof-type: tdd-red` — RED phase failure capture written by `test-driven-implementation/scripts/record_red_phase.sh`. Subject: `tdd-red:<slug>`. Records the failing test command and tail of stderr/stdout. Existence of a `tdd-red` record for a slug is a precondition for the matching `tdd-green` record.
 - `proof-type: tdd-green` — GREEN phase pass capture written by `test-driven-implementation/scripts/record_green_phase.sh`. Subject: `tdd-green:<slug>`. The slug **MUST** match a prior `tdd-red` record (or a documented waiver) so RED → GREEN can be correlated.
+- `proof-type: self-review` — written by `spec-coexist:enforcing-code-discipline` after the implementing agent has walked `code-quality-checklist.md` over its own diff. The evidence body MUST contain per-file section outcomes (`pass` / `fail: reason` / `n/a: reason`) and the red-flag scan result (`clean` or `rejected: #<row>`). A `self-review` record with `result: pass` is a MANDATORY precondition for `spec-coexist:requesting-code-review` and for any code-mode `verification-before-completion` pass that follows.

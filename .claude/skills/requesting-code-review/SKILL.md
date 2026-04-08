@@ -18,6 +18,10 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. The rev
 - `references/mandatory-triggers.md` — events that MUST trigger a review.
 - `references/severity-policy.md` — severity thresholds and pushback rules.
 
+## REQUIRED SUB-SKILLS
+
+- `spec-coexist:enforcing-code-discipline` — **self-review pre-step.** The implementing agent **MUST** invoke this skill on its own diff and obtain a `proof-type: self-review` evidence record with `result: pass` **before** the reviewer subagent is dispatched in Procedure step 2. This is a local, in-session checklist walk; it does **not** spawn a subagent. Critical and Important findings from the self-review **MUST** be fixed locally and **MUST NOT** be forwarded to the reviewer.
+
 ## Scripts
 
 - `scripts/collect-review-context.sh [--base <sha>]` — emits `BASE_SHA` and `HEAD_SHA`; fails if the working tree is dirty.
