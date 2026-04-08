@@ -12,12 +12,29 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 ## Independence
 
-This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. The brainstorming flow below is the only one it **MAY** use.
+This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. The brainstorming flow below is the only one it **MAY** use. The skill **MUST** invoke the project-local skills `requesting-code-review` and `receiving-code-review` (see Mandatory Design Review below), which are also independent of the `superpowers:*` package.
 
 ## Hard Constraints
 
 - This skill **MUST NOT** update an existing basic design document. If the target file already exists, the skill **MUST** halt and direct the user to `spec-coexist:revising-spec`.
 - If `docs/main-requirements.md` does not exist, the skill **MUST** halt immediately. A basic design without requirements is meaningless.
+- After the basic design document is written, and **before** reporting completion, the agent **MUST** invoke `requesting-code-review` on the newly created document and **MUST** handle the feedback via `receiving-code-review`. An unreviewed basic design is **NOT** a valid final state.
+
+## Mandatory Design Review
+
+Although the artifact here is a document rather than executable code, the same discipline applies: a fresh reviewer catches template-compliance gaps, vague requirements traceability, missing sections, and internal inconsistencies that are invisible to the author.
+
+1. After writing the document (and, if the draft is unstaged, committing it so `BASE_SHA` / `HEAD_SHA` are meaningful), the agent **MUST** invoke `requesting-code-review` with:
+   - `WHAT_WAS_IMPLEMENTED` — "Newly created basic design document at `<path>`".
+   - `PLAN_OR_REQUIREMENTS` — a pointer to `docs/main-requirements.md` (or the subsystem requirements) **and** to the template + rules files under `references/` that the document is supposed to follow.
+   - `BASE_SHA` — the commit immediately before the doc was added.
+   - `HEAD_SHA` — the commit containing the new doc.
+   - `DESCRIPTION` — 1–3 sentences on what the design covers.
+   The reviewer **MUST** be asked to specifically check: template/rules compliance, traceability to every requirement, internal consistency, unresolved "TBD"s, and any scope that exceeds the requirements.
+2. The agent **MUST** handle the returned feedback through `receiving-code-review`.
+3. **Critical** issues (missing sections, contradicts requirements, violates template rules) **MUST** be fixed before reporting completion. **Important** issues **MUST** be fixed unless the user explicitly waives them. **Minor** issues **MAY** be deferred but **MUST** be listed in the final report.
+4. After fixes, the agent **SHOULD** re-dispatch the reviewer on the new `HEAD_SHA`.
+5. The final report to the user **MUST** include a `Review:` line summarizing the outcome.
 
 ## References (bundled)
 
@@ -71,7 +88,11 @@ flowchart TD
     Clear{Design solidified?}
     Clear -- No --> BS
     Clear -- Yes --> Write[Write the basic design doc<br/>following the template]
-    Write --> End([Done])
+    Write --> Review[MANDATORY: requesting-code-review]
+    Review --> BFeedback[Handle feedback via<br/>receiving-code-review]
+    BFeedback --> BCrit{Critical/Important<br/>issues remain?}
+    BCrit -- Yes --> Write
+    BCrit -- No --> End([Done])
 ```
 
 ## Procedure
@@ -83,3 +104,5 @@ flowchart TD
 5. Read the matching template + rules from `references/`.
 6. Run the embedded brainstorming flow until the design is solid.
 7. Write the document in the template's exact structure.
+8. **MUST** invoke `requesting-code-review` on the new document and handle the feedback via `receiving-code-review`. Fix Critical/Important issues (re-review after fixes) before reporting completion.
+9. Report back with the document path and the `Review:` outcome line.

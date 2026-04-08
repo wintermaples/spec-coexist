@@ -12,7 +12,7 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 ## Independence
 
-This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. The plan-writing and plan-execution behaviors are embedded directly below.
+This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. The plan-writing and plan-execution behaviors are embedded directly below. The skill **MAY** — and in fact **MUST**, as specified in the Mandatory Code Review section — invoke the project-local skills `requesting-code-review` and `receiving-code-review`, which are also fully independent of the `superpowers:*` package.
 
 ## Hard Constraints
 
@@ -20,6 +20,20 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. The pla
 - For subsystem implementation, both `docs/subsystems/{id}_{name}/{name}-requirements.md` and `{name}-design.md` **MUST** exist; otherwise the skill **MUST** halt.
 - The agent **MUST NOT** begin implementation before the user explicitly approves the plan.
 - During implementation, the agent **MUST** make minimal, focused changes — no scope creep beyond what the spec dictates.
+- After implementation and verification, and **before** reporting completion to the user, the agent **MUST** invoke the `requesting-code-review` skill, and **MUST** handle the returned feedback through the `receiving-code-review` skill. "Implementation done without review" is **NOT** a valid final state for this skill.
+
+## Mandatory Code Review
+
+1. After the verification step passes (tests / type checks / linters), the agent **MUST** invoke `requesting-code-review`, passing:
+   - `WHAT_WAS_IMPLEMENTED` — a short summary of the implemented feature.
+   - `PLAN_OR_REQUIREMENTS` — a pointer to the approved plan and the originating `docs/main-requirements.md` / `docs/main-basic-design.md` (or subsystem equivalents).
+   - `BASE_SHA` — the commit immediately **before** this implementation began.
+   - `HEAD_SHA` — the current commit after verification.
+   - `DESCRIPTION` — 1–3 sentence human summary.
+2. The agent **MUST** process the returned review via `receiving-code-review`.
+3. **Critical** issues **MUST** be fixed before the skill reports completion. **Important** issues **MUST** be fixed unless the user is explicitly asked and explicitly waives them. **Minor** issues **MAY** be deferred but **MUST** be listed in the final report.
+4. After Critical / Important fixes are applied, the agent **SHOULD** re-run `requesting-code-review` on the new `HEAD_SHA`.
+5. The final report to the user **MUST** include a `Review:` line summarizing the outcome (e.g., `Review: approved after 1 round of fixes`).
 
 ## Shared Scripts
 
@@ -45,7 +59,11 @@ flowchart TD
     Approve -- No --> Plan
     Approve -- Yes --> Impl[Implement against the plan<br/>= executing-plans equivalent]
     Impl --> Verify[Run tests and verify]
-    Verify --> End([Done])
+    Verify --> Review[MANDATORY: requesting-code-review]
+    Review --> Feedback[Handle feedback via<br/>receiving-code-review]
+    Feedback --> CritQ{Critical/Important<br/>issues remain?}
+    CritQ -- Yes --> Impl
+    CritQ -- No --> End([Done])
 ```
 
 ## Embedded "Writing Plans" Equivalent
@@ -78,4 +96,6 @@ While executing:
 4. If a subsystem, locate `docs/subsystems/{id}_{name}/` and verify both subsystem documents exist; **HALT** if not. Read them.
 5. Draft the plan.
 6. Get user approval. Iterate as needed.
-7. Execute the plan. Verify. Report back with what changed and what passed.
+7. Execute the plan. Verify.
+8. **MUST** invoke `requesting-code-review` and handle the feedback via `receiving-code-review`. Fix Critical and Important issues (re-review after fixes) before proceeding.
+9. Report back with what changed, what passed, and the `Review:` outcome line.

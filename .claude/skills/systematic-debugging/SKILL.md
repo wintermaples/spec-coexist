@@ -12,7 +12,7 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 ## Independence
 
-This skill **MUST NOT** invoke any `superpowers:*` skill at runtime. It is fully self-contained.
+This skill **MUST NOT** invoke any `superpowers:*` skill at runtime. It is fully self-contained. The skill **MUST** invoke the project-local skills `requesting-code-review` and `receiving-code-review` (see Mandatory Code Review below), which are also independent of the `superpowers:*` package.
 
 ## Principles
 
@@ -20,6 +20,7 @@ This skill **MUST NOT** invoke any `superpowers:*` skill at runtime. It is fully
 2. The agent **MUST** identify the **root cause** before applying any fix. "It works now" is not the same as "I understand why it broke."
 3. The agent **MUST NOT** stop at "appears to be fixed." A reproducing test case **MUST** pass and a regression test **SHOULD** be added so the same bug cannot return unnoticed.
 4. If a hypothesis is disproved, that is progress — not a failure. Form a new hypothesis and continue.
+5. Once a fix is applied and the repro / regression test passes, the agent **MUST** route the change through `requesting-code-review` before declaring the bug fixed. A passing test proves the symptom is gone; it does not prove the fix is correct, minimal, and regression-safe. That is what review is for.
 
 The reason for this discipline: bugs that are "fixed" by guesswork tend to come back, often in disguised form. The cost of a few extra minutes of investigation is much lower than the cost of recurring incidents.
 
@@ -40,7 +41,11 @@ flowchart TD
     Fix --> Test[Verify with repro case<br/>+ add regression test]
     Test --> Pass{All tests pass?}
     Pass -- No --> H
-    Pass -- Yes --> End([Done])
+    Pass -- Yes --> Review[MANDATORY: requesting-code-review]
+    Review --> DFeedback[Handle feedback via<br/>receiving-code-review]
+    DFeedback --> DCrit{Critical/Important<br/>issues remain?}
+    DCrit -- Yes --> Fix
+    DCrit -- No --> End([Done])
 ```
 
 ## Procedure
@@ -53,7 +58,8 @@ flowchart TD
 6. **Iterate.** If disproved, form a new hypothesis informed by what you learned. If confirmed but still not at the underlying cause, drill deeper.
 7. **Fix.** Once the root cause is clear, apply the smallest change that addresses it. Do not refactor or "improve" surrounding code in the same fix.
 8. **Verify.** Run the original repro case. Run the full test suite. Add a regression test.
-9. **Report.** Tell the user the root cause, the fix, and the test that now guards against regression.
+9. **Review (MANDATORY).** Invoke `requesting-code-review` with the fix's `BASE_SHA` / `HEAD_SHA`, a description of the root cause, and a pointer to the bug report / failing test. Handle the returned feedback via `receiving-code-review`. Critical issues **MUST** be fixed; Important issues **MUST** be fixed unless the user explicitly waives them; Minor issues **MAY** be deferred but **MUST** be listed. After any fixes, the reviewer **SHOULD** be re-dispatched.
+10. **Report.** Tell the user the root cause, the fix, the regression test, and a `Review:` line summarizing the review outcome.
 
 ## Anti-patterns
 

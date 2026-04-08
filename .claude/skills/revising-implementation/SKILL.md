@@ -12,13 +12,26 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 ## Independence
 
-This skill **MUST NOT** invoke any `superpowers:*` skill. Brainstorming and plan execution are embedded.
+This skill **MUST NOT** invoke any `superpowers:*` skill. Brainstorming and plan execution are embedded. The skill **MUST** invoke the project-local skills `requesting-code-review` and `receiving-code-review` (see Mandatory Code Review below); these are also independent of the `superpowers:*` package.
 
 ## Hard Constraints
 
 - If `docs/main-requirements.md` or `docs/main-basic-design.md` is missing, the skill **MUST** halt.
 - The agent **MUST** read recent diffs of the spec documents (e.g., `git log -p -- docs/main-requirements.md docs/main-basic-design.md`, and the corresponding subsystem files when applicable) to understand what changed before brainstorming. Without this, it is impossible to know which code changes are required.
 - For subsystem implementation revisions, both `{name}-requirements.md` and `{name}-design.md` **MUST** exist.
+- After the implementation revision is applied and verification passes, and **before** reporting completion, the agent **MUST** invoke `requesting-code-review` and handle the result via `receiving-code-review`. Skipping review is **NOT** permitted even for small revisions — small changes are exactly where silent regressions hide.
+
+## Mandatory Code Review
+
+1. After verification passes, the agent **MUST** invoke `requesting-code-review` with:
+   - `WHAT_WAS_IMPLEMENTED` — summary of the revision.
+   - `PLAN_OR_REQUIREMENTS` — pointer to the updated spec documents and the diff range that describes what changed in the spec.
+   - `BASE_SHA` / `HEAD_SHA` — the commit range for the revision.
+   - `DESCRIPTION` — 1–3 sentence human summary of the revision.
+2. The agent **MUST** handle the returned feedback through `receiving-code-review`.
+3. Critical issues **MUST** be fixed. Important issues **MUST** be fixed unless explicitly waived by the user. Minor issues **MAY** be deferred but **MUST** be listed in the final report.
+4. After fixes, the agent **SHOULD** re-dispatch the review on the new `HEAD_SHA`.
+5. The final report **MUST** include a `Review:` line summarizing the outcome.
 
 ## Shared Scripts
 
@@ -62,7 +75,11 @@ flowchart TD
     Clear -- No --> BS
     Clear -- Yes --> Impl[Apply implementation changes]
     Impl --> Verify[Run tests and verify]
-    Verify --> End([Done])
+    Verify --> Review[MANDATORY: requesting-code-review]
+    Review --> RFeedback[Handle feedback via<br/>receiving-code-review]
+    RFeedback --> RCrit{Critical/Important<br/>issues remain?}
+    RCrit -- Yes --> Impl
+    RCrit -- No --> End([Done])
 ```
 
 ## Procedure
@@ -74,4 +91,5 @@ flowchart TD
 5. Brainstorm a revision plan with the user.
 6. Apply targeted, minimal implementation changes.
 7. Run the full verification suite (tests, type checks, linters as relevant).
-8. Summarize the diff and test results for the user.
+8. **MUST** invoke `requesting-code-review` and handle the feedback via `receiving-code-review`. Fix Critical/Important issues (re-review after fixes) before reporting completion.
+9. Summarize the diff, the test results, and the `Review:` outcome for the user.
