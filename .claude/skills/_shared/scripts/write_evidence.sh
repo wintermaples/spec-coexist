@@ -96,3 +96,18 @@ fi
 
 # Print the relative path so the caller can quote it in the completion report.
 printf '%s\n' "${OUT#${REPO_ROOT}/}"
+
+# Also write JSON evidence (WP2 dual-write)
+JSON_SCRIPT="${REPO_ROOT}/.claude/skills/_shared/scripts/write_evidence_json.sh"
+if [[ -x "${JSON_SCRIPT}" ]]; then
+    # Map subject to proof_type
+    PROOF_TYPE="verification-result"
+    case "${SUBJECT}" in
+        tdd-red:*)  PROOF_TYPE="tdd-red" ;;
+        tdd-green:*) PROOF_TYPE="tdd-green" ;;
+        self-review:*|self-check:*) PROOF_TYPE="self-check-result" ;;
+        debug-hypothesis:*) PROOF_TYPE="debug-hypothesis" ;;
+        tdd-waiver:*) PROOF_TYPE="tdd-waiver" ;;
+    esac
+    bash "${JSON_SCRIPT}" "${PROOF_TYPE}" "${MODE}" "${SUBJECT}" "${RESULT}" "${PROOF}" -1 "" 2>/dev/null || true
+fi

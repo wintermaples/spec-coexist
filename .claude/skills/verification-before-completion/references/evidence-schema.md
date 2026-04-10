@@ -59,9 +59,36 @@ When VERIFY fails, the gate **MUST** still write an evidence record with `result
 
 After writing the `fail` record, the gate **MUST NOT** proceed to a completion claim. The caller either fixes the underlying issue and re-invokes the gate, or reports honest failure to the user.
 
+## JSON Evidence (WP2)
+
+In addition to markdown evidence in `docs/evidence/`, the system now writes machine-verifiable JSON evidence to `.spec-coexist/evidence/<task-id>/*.json`.
+
+### JSON Schema
+
+All JSON evidence files conform to `_shared/schemas/evidence.schema.json` (JSON Schema draft 2020-12). The schema defines:
+- Required fields: `schema_version`, `timestamp_utc`, `proof_type`, `mode`, `subject`, `result`, `proof_hash`, `proof`
+- Conditional requirements: `tdd-green` requires `tdd_slug`, `tdd-waiver` requires `waiver`, `self-check-result` requires `self_check`, `debug-hypothesis` requires `hypothesis`
+- Proof types: `tdd-red`, `tdd-green`, `verification-result`, `self-check-result`, `debug-hypothesis`, `tdd-waiver`
+
+### Dual-write
+
+Both `write_evidence.sh` (markdown) and `write_evidence_json.sh` (JSON) are invoked. The markdown format is retained for human readability; the JSON format is used by CI gates (`verify_evidence.sh`) for machine verification.
+
+### CI enforcement
+
+- `validate_evidence.sh` — validates JSON against schema
+- `verify_evidence.sh` — checks evidence completeness per tier (T0/T1/T2/T3)
+- `verify_traceability.sh` — checks REQ-ID <-> test-ID bidirectional links
+- `pre-commit.sh` — pre-commit hook for staged evidence validation
+- `.github/workflows/spec-coexist.yml` — PR gate running all checks
+
+### Backdating prevention
+
+The `tdd-red` evidence commit SHA **MUST** be an ancestor of the `tdd-green` evidence commit SHA. This is verified by `verify_evidence.sh` using `git merge-base --is-ancestor`. See `test-driven-implementation/references/iron-law.md` for the full rule.
+
 ## Retention
 
-Evidence files accumulate. When `docs/evidence/` grows past a few hundred entries, move older records to `docs/evidence/archive/YYYY-MM/`. This is a manual housekeeping operation, not a gate responsibility.
+Evidence files accumulate. When `docs/evidence/` grows past a few hundred entries, move older records to `docs/evidence/archive/YYYY-MM/`. JSON evidence in `.spec-coexist/evidence/` follows the same retention policy. This is a manual housekeeping operation, not a gate responsibility.
 
 ## Proof types
 

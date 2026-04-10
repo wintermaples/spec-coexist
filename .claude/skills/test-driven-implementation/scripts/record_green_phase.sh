@@ -34,6 +34,14 @@ fi
 
 PROOF="tdd-green slug=${SLUG} cmd='$*' rc=0
 $(tail -n 20 "${LOG}")"
+OUTPUT_TAIL="$(tail -n 20 "${LOG}")"
 rm -f "${LOG}"
 
+# Write markdown evidence (legacy)
 bash "${SHARED}" code "tdd-green:${SLUG}" "${PROOF}" pass
+
+# Write JSON evidence (WP2)
+JSON_SCRIPT="${SCRIPT_DIR}/../../_shared/scripts/write_evidence_json.sh"
+if [[ -x "${JSON_SCRIPT}" ]]; then
+    EVIDENCE_TDD_SLUG="${SLUG}" bash "${JSON_SCRIPT}" tdd-green code "tdd-green:${SLUG}" pass "$*" 0 "${OUTPUT_TAIL}"
+fi
