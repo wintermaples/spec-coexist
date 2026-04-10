@@ -55,6 +55,7 @@ See `references/task-tiers.md` for definitions and `references/tier-examples.md`
 | `spec-coexist:pre-review-self-check` | T2–T3 | Sub-skill: self-review before code-review dispatch |
 | `spec-coexist:code-review-loop` | T2–T3 | Request + receive code review in one loop |
 | `spec-coexist:systematic-debugging` | T1–T3 | Any bug, test failure, or unexpected behavior |
+| `spec-coexist:delivery-snapshot` | T2–T3 | Generate stakeholder status report / traceability snapshot |
 | `spec-coexist:parallelizing-subsystem-work` | T3 | ≥2 subsystems concurrently in isolated worktrees |
 | `spec-coexist:finishing-subsystem-work` | T2–T3 | Integrate work: commit, changelog, push, PR, merge |
 | `spec-coexist:verification-before-completion` | T1–T3 | Gate before any "done" claim |
@@ -83,4 +84,6 @@ flowchart TD
 - `references/independence.md` — no `superpowers:*` delegation
 - `../_shared/references/doc-reference-syntax.md` — cross-document reference syntax
 - `../_shared/references/doc-lifecycle.md` — document lifecycle states
-- `../_shared/scripts/check_doc_links.sh` — link + lifecycle checker
+- `../_shared/references/id-conventions.md` — REQ-ID / DES-ID / test-ID naming rules
+- `../_shared/scripts/check_doc_links.sh` — link + lifecycle + evidence checker
+- `../_shared/scripts/build_traceability_matrix.sh` — full traceability matrix builder

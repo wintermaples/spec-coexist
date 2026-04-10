@@ -22,9 +22,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
+import subprocess
 import sys
 from dataclasses import dataclass, field, asdict
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable
 
@@ -36,6 +39,10 @@ HEADING_RE = re.compile(r"^(#{1,6})\s+(.*?)\s*$", re.MULTILINE)
 LIFECYCLE_ACTIVE = {"active", "draft"}
 LIFECYCLE_RETIRED = {"deprecated", "superseded"}
 LIFECYCLE_ALL = LIFECYCLE_ACTIVE | LIFECYCLE_RETIRED
+
+REQ_ID_RE = re.compile(r"REQ-[A-Z0-9_]+-[0-9]+")
+# Default: warn if a draft doc has not been updated for this many days
+STALE_DRAFT_DAYS = 30
 
 
 @dataclass
@@ -149,7 +156,7 @@ def is_template_file(p: Path) -> bool:
     return name.endswith("-template.md") or name.endswith("-template-rules.md")
 
 
-def check(root: Path, strict: bool) -> list[Finding]:
+def check(root: Path, strict: bool, stale_days: int = STALE_DRAFT_DAYS) -> list[Finding]:
     findings: list[Finding] = []
     md_files = [p for p in sorted(root.rglob("*.md")) if not is_template_file(p)]
     docs: dict[Path, DocMeta] = {}
@@ -217,6 +224,65 @@ def check(root: Path, strict: bool) -> list[Finding]:
                             f"(expected deprecated/superseded)", str(target))
                 )
 
+    # ─── Active REQ-ID evidence verification ───
+    # For each doc with status=active, check that every REQ-ID has at least one
+    # verification-result evidence in .spec-coexist/evidence/.
+    evidence_dir = root.parent / ".spec-coexist" / "evidence"
+    evidence_req_ids: set[str] = set()
+    if evidence_dir.is_dir():
+        for ev_file in evidence_dir.rglob("*.json"):
+            try:
+                ev_data = json.loads(ev_file.read_text(encoding="utf-8"))
+                if ev_data.get("proof_type") == "verification-result" and ev_data.get("result") == "pass":
+                    # Collect REQ-IDs referenced in the evidence subject or body
+                    ev_text = ev_file.read_text(encoding="utf-8")
+                    evidence_req_ids.update(REQ_ID_RE.findall(ev_text))
+            except Exception:
+                pass
+
+    for src, meta in docs.items():
+        if meta.status != "active":
+            continue
+        text = src.read_text(encoding="utf-8")
+        req_ids_in_doc = set(REQ_ID_RE.findall(text))
+        for req_id in sorted(req_ids_in_doc):
+            if req_id not in evidence_req_ids:
+                findings.append(
+                    Finding(
+                        "EVIDENCE_MISSING", "warning", str(src),
+                        f"active REQ-ID {req_id} has no passing verification-result evidence"
+                    )
+                )
+
+    # ─── Stale draft detection ───
+    # Warn if a draft document has not been modified for STALE_DRAFT_DAYS.
+    for src, meta in docs.items():
+        if meta.status != "draft":
+            continue
+        try:
+            # Use git log to find the last modification date
+            result = subprocess.run(
+                ["git", "log", "-1", "--format=%aI", "--", str(src)],
+                capture_output=True, text=True, timeout=10
+            )
+            if result.returncode == 0 and result.stdout.strip():
+                last_modified_str = result.stdout.strip()
+                # Parse ISO 8601 date
+                last_modified = datetime.fromisoformat(last_modified_str)
+                now = datetime.now(timezone.utc)
+                age_days = (now - last_modified).days
+                if age_days > stale_days:
+                    findings.append(
+                        Finding(
+                            "STALE_DRAFT", "warning", str(src),
+                            f"draft document unchanged for {age_days} days "
+                            f"(threshold: {stale_days} days)"
+                        )
+                    )
+        except (subprocess.TimeoutExpired, FileNotFoundError, ValueError):
+            # git not available or parse error — skip silently
+            pass
+
     # Cycle detection on extends graph
     def extends_targets(m: DocMeta) -> list[Path]:
         out = []
@@ -261,6 +327,8 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--root", default="docs", help="root directory to scan (default: docs)")
     ap.add_argument("--strict", action="store_true", help="treat warnings as errors")
     ap.add_argument("--json", action="store_true", help="emit JSON report")
+    ap.add_argument("--stale-days", type=int, default=STALE_DRAFT_DAYS,
+                     help=f"days before a draft is considered stale (default: {STALE_DRAFT_DAYS})")
     args = ap.parse_args(argv)
 
     root = Path(args.root).resolve()
@@ -271,7 +339,7 @@ def main(argv: list[str]) -> int:
         print(f"check_doc_links: root not a directory: {root}", file=sys.stderr)
         return 2
 
-    findings = check(root, args.strict)
+    findings = check(root, args.strict, stale_days=args.stale_days)
     errors = [f for f in findings if f.level == "error"]
     warnings = [f for f in findings if f.level == "warning"]
     files_scanned = sum(1 for _ in root.rglob("*.md"))
