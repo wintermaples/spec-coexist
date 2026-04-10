@@ -41,6 +41,7 @@ Skills **SHOULD NOT** hardcode the `./subsystem_deps.sh` form inside step text; 
 | `subsystem_deps.sh` | Dump the subsystem dependency edge list. |
 | `make_worktree.sh` | Create an isolated worktree + branch. |
 | `cleanup_worktree.sh` | Remove a worktree + branch with safety checks. |
+| `detect_worktree_conflicts.sh` | Detect file-level conflicts between active parallel worktrees. Exit 0 = clean, exit 1 = conflicts. |
 | `write_evidence.sh` | Append a verification or post-merge evidence record. |
 | `visual_server.py`, `start_visual_server.sh`, `stop_visual_server.sh` | Visual Companion helpers. |
 
