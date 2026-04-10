@@ -31,7 +31,7 @@ review_ref: docs/reviews/03_payment-2026-04-08.md   # optional
 - **subject** — short identifier of what was being claimed done. A human reading the filename should recognize it.
 - **result** — `pass` is the normal case. `fail` records exist too: when the gate fails, the claim is withdrawn, but the attempt is preserved so a reviewer can see that the agent did not silently retry.
 - **proof_hash** — 12-char sha256 prefix of `subject\nproof\n`. Two records with the same hash refer to the same logical claim (useful for correlating retries).
-- **review_ref** — optional pointer to the code/document review outcome that backs this claim. Required in practice for any change that went through `requesting-code-review` (which is most changes).
+- **review_ref** — optional pointer to the code/document review outcome that backs this claim. Required in practice for any change that went through `code-review-loop` (which is most changes).
 
 ## Body (required sections)
 
@@ -69,5 +69,5 @@ Evidence records carry a `proof-type` tag in the subject line (and MAY also use 
 
 - `proof-type: tdd-red` — RED phase failure capture written by `test-driven-implementation/scripts/record_red_phase.sh`. Subject: `tdd-red:<slug>`. Records the failing test command and tail of stderr/stdout. Existence of a `tdd-red` record for a slug is a precondition for the matching `tdd-green` record.
 - `proof-type: tdd-green` — GREEN phase pass capture written by `test-driven-implementation/scripts/record_green_phase.sh`. Subject: `tdd-green:<slug>`. The slug **MUST** match a prior `tdd-red` record (or a documented waiver) so RED → GREEN can be correlated.
-- `proof-type: self-review` — written by `spec-coexist:enforcing-code-discipline` after the implementing agent has walked `code-quality-checklist.md` over its own diff. The evidence body MUST contain per-file section outcomes (`pass` / `fail: reason` / `n/a: reason`) and the red-flag scan result (`clean` or `rejected: #<row>`). A `self-review` record with `result: pass` is a MANDATORY precondition for `spec-coexist:requesting-code-review` and for any code-mode `verification-before-completion` pass that follows.
+- `proof-type: self-review` — written by `spec-coexist:pre-review-self-check` after the implementing agent has walked `code-quality-checklist.md` over its own diff. The evidence body MUST contain per-file section outcomes (`pass` / `fail: reason` / `n/a: reason`) and the red-flag scan result (`clean` or `rejected: #<row>`). A `self-review` record with `result: pass` is a MANDATORY precondition for `spec-coexist:code-review-loop` and for any code-mode `verification-before-completion` pass that follows.
 - `proof-type: debug-hypothesis` — written by `systematic-debugging` for each hypothesis evaluated in `references/hypothesis-evidence-loop.md`. Subject: `debug-hypothesis:<bug-slug>:H<N>`. Body **MUST** include the canonical Hypothesis block (statement / predicted PASS / predicted FAIL / experiment / observed / verdict / next / red-flag hits) and any rationalization-table entries that were rebutted.

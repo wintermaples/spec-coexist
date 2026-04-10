@@ -10,7 +10,7 @@ Conformance keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) /
 
 ## Independence
 
-This skill **MUST NOT** invoke any `superpowers:*` skill. It **MUST** invoke the project-local `requesting-code-review` and `receiving-code-review` (see `references/procedure.md` step 9).
+This skill **MUST NOT** invoke any `superpowers:*` skill. It **MUST** invoke the project-local `code-review-loop` (see `references/procedure.md` step 9).
 
 ## Hard Constraints (RFC 2119)
 
@@ -30,7 +30,7 @@ This skill **MUST NOT** invoke any `superpowers:*` skill. It **MUST** invoke the
 
 ## Scripts
 
-- `scripts/get_review_range.sh [N]` — prints `BASE_SHA` and `HEAD_SHA` for the fix commit range; **MUST** be invoked before calling `requesting-code-review`.
+- `scripts/get_review_range.sh [N]` — prints `BASE_SHA` and `HEAD_SHA` for the fix commit range; **MUST** be invoked before calling `code-review-loop`.
 
 ## Ordered Steps (see `references/procedure.md` for detail)
 
@@ -42,7 +42,7 @@ This skill **MUST NOT** invoke any `superpowers:*` skill. It **MUST** invoke the
 6. **Iterate** — disproved → new hypothesis; symptom-only → drill deeper.
 7. **Fix** — smallest change that addresses root cause.
 8. **Verify (MANDATORY)** — `verification-before-completion` (code mode); fresh run required.
-9. **Review (MANDATORY)** — `scripts/get_review_range.sh`, then `requesting-code-review`; handle feedback via `receiving-code-review`.
+9. **Review (MANDATORY)** — `scripts/get_review_range.sh`, then `code-review-loop`.
 10. **Report** — root cause, fix, regression test, `Review:` outcome line.
 
 ## Flow
@@ -56,7 +56,7 @@ flowchart TD
     J -- No --> H
     J -- Yes --> Fix[Apply minimal fix]
     Fix --> V[verification-before-completion]
-    V --> Rv[requesting-code-review →<br/>receiving-code-review]
+    V --> Rv[code-review-loop]
     Rv --> Crit{Critical/Important<br/>remain?}
     Crit -- Yes --> Fix
     Crit -- No --> End([Done])

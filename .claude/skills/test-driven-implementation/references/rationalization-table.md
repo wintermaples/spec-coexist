@@ -8,7 +8,7 @@ When the agent (or the user) is about to skip RED, it **MUST** scan this table f
 |---|-----------------|-----------------|
 | 1 | 「このバグは小さいから先に直す」 | Small bugs cause the loudest regressions. Write the test first. |
 | 2 | 「テストを書く時間がない」 | Debugging time > testing time. Measured, not opinion. |
-| 3 | 「仕様が固まっていないからテストが書けない」 | Then it is not a spec-driven implementation. Return to `revising-spec`. |
+| 3 | 「仕様が固まっていないからテストが書けない」 | Then it is not a spec-driven implementation. Return to `revising`. |
 | 4 | 「実装を見ないとテストが書けない」 | Tests derive from the basic design, not the code. Re-read `docs/main-basic-design.md`. |
 | 5 | 「リファクタだけだから」 | Prove existing tests are green first. No green baseline, no refactor. |
 | 6 | "It's just a one-liner" | One-liners produce the highest defect density per LOC. Test it. |

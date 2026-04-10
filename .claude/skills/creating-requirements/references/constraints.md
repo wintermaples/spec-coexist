@@ -4,7 +4,7 @@
 
 This skill **MUST NOT** update an existing requirements document. If the target file already has non-trivial content, the skill **MUST** halt immediately and tell the user:
 
-> "That document already exists. To revise it, invoke `spec-coexist:revising-spec` instead."
+> "That document already exists. To revise it, invoke `spec-coexist:revising` instead."
 
 Use `check_doc_exists.sh <path>` to detect existence. A non-trivial file is any file whose content is not empty and is not solely the placeholder created in Step 1.
 

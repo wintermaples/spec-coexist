@@ -14,7 +14,7 @@ Conformance keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) /
 | 6 | 「hypothesis を書き出すのは時間の無駄」 | "Writing hypotheses down is overhead." | 書かない仮説は検証できない。`hypothesis-evidence-loop.md` invariant #1 (MUST write). |
 | 7 | 「再現手順は頭にあるから書かなくていい」 | "Repro steps are in my head." | 頭の中の repro は re-run できない。evidence に残せ (MUST). |
 | 8 | 「ログを読むより grep で十分」 | "grep is enough, no need to read full logs." | grep はサンプリングであって観察ではない。Step 5 Observe には verbatim log が必要 (MUST). |
-| 9 | 「fix は最小にしたつもり」 | "I think the fix is minimal." | 「つもり」は evidence ではない。diff を Read で全行確認 (MUST) — `enforcing-code-discipline` と連動. |
+| 9 | 「fix は最小にしたつもり」 | "I think the fix is minimal." | 「つもり」は evidence ではない。diff を Read で全行確認 (MUST) — `pre-review-self-check` と連動. |
 | 10 | 「review を自分で兼ねれば早い」 | "I'll self-review and skip the reviewer." | Self-review は第三者 review の代替ではない。`procedure.md` step 9 (MUST route). |
 | 11 | 「型システムが通ったから OK」 | "Types compile, ship it." | 型は仮説 subset を除去するだけで全 bug を除去しない。Runtime proof を出せ (MUST). |
 | 12 | 「テストが 1 回通ったから直ったはず」 | "Test passed once, must be fixed." | Flaky check のため fresh run を繰り返す (SHOULD N>=3 for intermittent bugs). |

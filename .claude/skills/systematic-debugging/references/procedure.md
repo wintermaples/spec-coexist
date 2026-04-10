@@ -41,10 +41,9 @@ Pass through `verification-before-completion` (code mode):
 ### 9 — Review (MANDATORY)
 
 1. Run `scripts/get_review_range.sh` to obtain `BASE_SHA` and `HEAD_SHA`.
-2. Invoke `requesting-code-review` with WHAT_WAS_IMPLEMENTED, PLAN_OR_REQUIREMENTS (bug report / failing test), BASE_SHA/HEAD_SHA, DESCRIPTION.
-3. Handle feedback via `receiving-code-review`.
-4. Critical MUST be fixed. Important MUST be fixed unless waived. Minor MAY be deferred but listed.
-5. After fixes, re-run step 8, then re-dispatch the reviewer.
+2. Invoke `code-review-loop` with WHAT_WAS_IMPLEMENTED, PLAN_OR_REQUIREMENTS (bug report / failing test), BASE_SHA/HEAD_SHA, DESCRIPTION.
+3. Critical MUST be fixed. Important MUST be fixed unless waived. Minor MAY be deferred but listed.
+4. After fixes, re-run step 8, then re-dispatch the reviewer.
 
 ### 10 — Report
 

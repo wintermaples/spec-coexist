@@ -7,10 +7,10 @@ Conformance keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) /
 The skill **MUST** halt immediately — before any file is modified or any git command is run — if any of the following is false:
 
 1. **Verification evidence present.** At least one file matching `docs/evidence/verification-*.md` exists whose `subject:` front-matter field clearly corresponds to the work being finished. If the evidence is ambiguous, ask the user to name the specific file; do not guess.
-2. **Review closure.** The most recent `receiving-code-review` session for this subject reports zero unresolved Critical or Important findings. "I'll fix it in a follow-up" does **NOT** satisfy this precondition for Critical/Important severities. (Nit / Suggestion severities **MAY** be deferred if the user acknowledges them explicitly.)
+2. **Review closure.** The most recent `code-review-loop` session for this subject reports zero unresolved Critical or Important findings. "I'll fix it in a follow-up" does **NOT** satisfy this precondition for Critical/Important severities. (Nit / Suggestion severities **MAY** be deferred if the user acknowledges them explicitly.)
 3. **Working tree sanity.** There **MUST NOT** be untracked files outside the intended change scope. The agent **MUST** run `git status` and surface anything unexpected to the user before proceeding.
 
-A HALT here is not a failure of this skill — it is the skill doing its job. Route the user to the upstream skill that closes the gap (`implementing-from-spec`, `revising-implementation`, `verification-before-completion`, or `receiving-code-review`).
+A HALT here is not a failure of this skill — it is the skill doing its job. Route the user to the upstream skill that closes the gap (`implementing-from-spec`, `revising`, `verification-before-completion`, or `code-review-loop`).
 
 ## Forbidden Operations
 

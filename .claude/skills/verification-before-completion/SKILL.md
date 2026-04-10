@@ -1,7 +1,7 @@
 ---
 name: verification-before-completion
 user-invocable: true
-description: Use whenever another skill — or the agent itself — is about to claim that a task is "done", "complete", "fixed", "passing", "implemented", or otherwise finished. Trigger on phrases like "終わりました", "完了しました", "実装できました", "fixed it", "all done", "tests pass", or any statement that asserts a positive end state. This skill is a hard gate; NO completion claim may be made without fresh verification evidence. It MUST be invoked by creating-requirements, creating-basic-design, revising-spec, implementing-from-spec, revising-implementation, and systematic-debugging before they report back to the user. This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
+description: Use whenever another skill — or the agent itself — is about to claim that a task is "done", "complete", "fixed", "passing", "implemented", or otherwise finished. Trigger on phrases like "終わりました", "完了しました", "実装できました", "fixed it", "all done", "tests pass", or any statement that asserts a positive end state. This skill is a hard gate; NO completion claim may be made without fresh verification evidence. It MUST be invoked by creating-requirements, creating-basic-design, revising, implementing-from-spec, and systematic-debugging before they report back to the user. This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
 ---
 
 # verification-before-completion

@@ -10,7 +10,7 @@ Conformance keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) /
 
 ## Independence
 
-This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. It operates strictly downstream of the project-local `verification-before-completion`, `requesting-code-review`, and `receiving-code-review` skills.
+This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. It operates strictly downstream of the project-local `verification-before-completion` and `code-review-loop` skills.
 
 ## Purpose
 
@@ -30,7 +30,7 @@ Turn "verified + reviewed" into "integrated" without losing audit trail. It is t
 ## Procedure
 
 1. **Verify precondition: verification evidence.** Confirm that at least one `docs/evidence/verification-*.md` file exists for the subject being finished. **HALT** if absent.
-2. **Verify precondition: review closure.** Confirm `receiving-code-review` reported zero unresolved Critical/Important findings. **HALT** if any remain; route the user back to `revising-implementation` or `implementing-from-spec`.
+2. **Verify precondition: review closure.** Confirm `code-review-loop` reported zero unresolved Critical/Important findings. **HALT** if any remain; route the user back to `revising` or `implementing-from-spec`.
 3. **Write changelog entry.** Append to `docs/changelog/{subsystem-or-main}-{YYYY-MM-DD}.md` a short entry: subject, rationale, acceptance bullets covered, links to RED evidence and verification evidence. **MUST** be committed in the same logical unit as the code change, not a trailing "docs" commit.
 4. **Shape commits.** Reshape staged work into one-logical-change-per-commit per `references/commit-shaping.md`. **MUST NOT** use `git commit --amend` on commits that have been pushed. **MUST NOT** use `git reset --hard`, `git push --force`, `git clean -f`, or `git branch -D` — see `references/merge-safety.md`.
 5. **Confirm with user (HALT).** Present the final commit list, the target branch, and the exact integration mode (commit only / push / PR create / merge). Wait for an explicit "proceed" from the user. Silence is not consent.
@@ -54,7 +54,7 @@ flowchart TD
     Start([Skill invoked]) --> V{verification-*.md<br/>exists?}
     V -- No --> Halt1([HALT])
     V -- Yes --> R{Critical/Important<br/>review findings?}
-    R -- Yes --> Halt2([HALT → revising-implementation])
+    R -- Yes --> Halt2([HALT → revising])
     R -- No --> CL[Write changelog entry]
     CL --> Shape[Shape commits<br/>one logical change = one commit]
     Shape --> Confirm{User confirms<br/>integration mode?}

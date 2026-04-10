@@ -69,7 +69,7 @@ sequenceDiagram
 
 ## 5.4 Test Strategy Tier
 <!-- REQUIRED: one of `strict` / `pipeline` / `ui`. Default `strict`.
-     Read by `spec-coexist:implementing-from-spec` and `revising-implementation`
+     Read by `spec-coexist:implementing-from-spec` and `spec-coexist:revising`
      to set the unit of RED observation for the TDD Iron Law.
      See implementing-from-spec/references/tdd-discipline.md §Test Strategy Tiers. -->
 

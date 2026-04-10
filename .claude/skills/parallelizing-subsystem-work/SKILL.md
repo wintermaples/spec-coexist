@@ -10,7 +10,7 @@ Conformance keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) /
 
 ## Independence
 
-This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. The `spec-coexist` suite owns its own worktree and parallel-execution discipline; see `../using-spec-coexist/references/independence.md`.
+This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. The `spec-coexist` suite owns its own worktree and parallel-execution discipline; see `../spec-coexist-router/references/independence.md`.
 
 ## Purpose
 

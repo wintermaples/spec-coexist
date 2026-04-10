@@ -70,7 +70,7 @@ with open(cases_file, encoding="utf-8") as f:
         else:
             per_skill[skill]["neg"] += 1
 
-# Coverage requirements from authoring-spec-coexist-skill:
+# Coverage requirements from _meta/authoring-skill:
 #   positive >= 3, negative >= 1, languages include ja AND en among positives.
 for skill, counts in sorted(per_skill.items()):
     if counts["pos"] < 3:
