@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "timestamp_utc": "20260401T100500Z",
+  "proof_type": "tdd-green",
+  "mode": "code",
+  "subject": "tdd-green:payment-calc",
+  "result": "pass",
+  "proof_hash": "abcdef012345",
+  "tdd_slug": "payment-calc",
+  "proof": {
+    "command": "pytest tests/test_payment.py -v",
+    "exit_code": 0,
+    "output_tail": "PASSED test_payment_calc"
+  }
+}

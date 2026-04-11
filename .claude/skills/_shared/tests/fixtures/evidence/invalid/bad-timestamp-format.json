@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "timestamp_utc": "2026-04-01T10:00:00Z",
+  "proof_type": "tdd-red",
+  "mode": "code",
+  "subject": "tdd-red:bad-ts",
+  "result": "fail",
+  "proof_hash": "abcdef012345",
+  "proof": {
+    "command": "pytest tests/test_x.py",
+    "exit_code": 1
+  }
+}

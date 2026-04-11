@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "timestamp_utc": "20260401T100000Z",
+  "proof_type": "tdd-red",
+  "mode": "code",
+  "subject": "tdd-red:missing-hash",
+  "result": "fail",
+  "proof": {
+    "command": "pytest tests/test_x.py",
+    "exit_code": 1
+  }
+}

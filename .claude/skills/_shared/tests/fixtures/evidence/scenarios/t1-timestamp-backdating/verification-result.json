@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "timestamp_utc": "20260401T111000Z",
+  "proof_type": "verification-result",
+  "mode": "code",
+  "subject": "verification:all-tests",
+  "result": "pass",
+  "proof_hash": "fedcba987654",
+  "proof": {
+    "command": "pytest --tb=short",
+    "exit_code": 0,
+    "output_tail": "10 passed"
+  }
+}
