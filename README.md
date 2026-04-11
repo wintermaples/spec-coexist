@@ -59,6 +59,8 @@ spec-coexist-router がユーザーのメッセージを自動的に分類し、
 │       │   ├── references/
 │       │   ├── schemas/
 │       │   └── templates/
+│       ├── _utils/
+│       │   └── github-workflows/     ← 利用者向け CI ワークフロー (コピーして使う)
 │       ├── spec-coexist-router/      ← タスクティアルーター
 │       ├── exploring-problem-space/
 │       ├── creating-requirements/
@@ -80,7 +82,6 @@ spec-coexist-router がユーザーのメッセージを自動的に分類し、
 │           └── plugin.json           ← 配布用プラグインマニフェスト (バージョン等)
 ├── scripts/
 │   └── package-spec-coexist.sh       ← パッケージングスクリプト
-├── docs/                             ← 要件・基本設計テンプレート、ドラフト置き場
 └── dist/                             ← パッケージングの出力 (git 管理外)
 ```
 
@@ -161,6 +162,24 @@ contents:
 ### 配布物のインストール方法 (受け取る側)
 
 生成された `dist/spec-coexist-<version>.tar.gz` を展開し、Claude Code のプラグインディレクトリに配置することでインストールできます。詳しくは [Claude Code Plugins ドキュメント](https://code.claude.com/docs/en/plugins) を参照してください。
+
+## CI ワークフロー (利用者向け)
+
+`.claude/skills/_utils/github-workflows/` に、スキルを使って開発した成果物を検証するための GitHub Actions ワークフローを同梱しています。
+
+| ファイル | 検証内容 |
+| --- | --- |
+| `spec-coexist.yml` | ティア自動判定、エビデンススキーマ検証、エビデンス完全性チェック、REQ-ID トレーサビリティ、ドキュメントリンク整合性 |
+
+### 導入方法
+
+利用先リポジトリの `.github/workflows/` にコピーしてください。
+
+```bash
+cp .claude/skills/_utils/github-workflows/spec-coexist.yml .github/workflows/
+```
+
+> **注意**: このワークフローはスキルを使った開発成果物 (`docs/`、`.spec-coexist/evidence/` 等) を検証するものであり、スキル自体の CI ではありません。
 
 ## 依存関係
 

@@ -308,6 +308,26 @@ python3 .claude/skills/_shared/scripts/visual_server.py
 
 ---
 
+## CI ワークフロー
+
+スキルを使った開発成果物 (ドキュメントリンク整合性、エビデンス完全性、REQ-ID トレーサビリティなど) を CI で検証するための GitHub Actions ワークフローを同梱しています。
+
+### 導入方法
+
+`.claude/skills/_utils/github-workflows/` にあるワークフローファイルを、利用先リポジトリの `.github/workflows/` にコピーしてください。
+
+```bash
+cp .claude/skills/_utils/github-workflows/spec-coexist.yml .github/workflows/
+```
+
+| ファイル | 検証内容 |
+| --- | --- |
+| `spec-coexist.yml` | ティア自動判定、エビデンススキーマ検証、エビデンス完全性、REQ-ID トレーサビリティ、ドキュメントリンク整合性 |
+
+> **注意**: このワークフローはスキルが生成した成果物 (`docs/`、`.spec-coexist/evidence/` 等) を検証するものであり、スキル自体の CI ではありません。
+
+---
+
 ## Tips
 
 ### スキルの自動選択に任せる
