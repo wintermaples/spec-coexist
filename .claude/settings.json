@@ -363,7 +363,8 @@
   },
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true,
-    "skill-creator@claude-plugins-official": true
+    "skill-creator@claude-plugins-official": true,
+    "spec-coexist@spec-coexist-marketplace": true
   },
   "sandbox": {
     "enabled": false,

@@ -20,5 +20,5 @@
     "code-review",
     "japanese"
   ],
-  "skills": ".claude/skills/"
+  "skills": "./.claude/skills/"
 }
