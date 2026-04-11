@@ -4,7 +4,7 @@ This directory holds the trigger-test assets for every skill in `.claude/skills/
 
 ## Files
 
-- `trigger-cases.jsonl` — one JSON object per line. Each entry is a (prompt → expected skill) pair. Schema and authoring rules: `../../authoring-spec-coexist-skill/references/trigger-tests.md`.
+- `trigger-cases.jsonl` — one JSON object per line. Each entry is a (prompt → expected skill) pair. Schema and authoring rules: `../../_meta/authoring-references/trigger-tests.md`.
 - `run_trigger_tests.sh` — static validator. Checks JSON validity, required fields, skill directory existence, and coverage requirements (≥ 3 positive + ≥ 1 negative per skill, plus at least one ja and one en positive).
 
 ## How to run
@@ -21,11 +21,11 @@ This is a **static** validator. It does not fire prompts against Claude and does
 
 ## When to update
 
-Whenever a skill is added, renamed, or has its trigger phrases changed, update `trigger-cases.jsonl` in the same commit. The `authoring-spec-coexist-skill` conformance checklist enforces this at skill-creation time, and the validator enforces it mechanically on every CI run.
+Whenever a skill is added, renamed, or has its trigger phrases changed, update `trigger-cases.jsonl` in the same commit. The `_meta/authoring-skill` conformance checklist enforces this at skill-creation time, and the validator enforces it mechanically on every CI run.
 
 ## Adding cases to a new skill
 
-See the skill-authoring reference at `../../authoring-spec-coexist-skill/references/trigger-tests.md`. In short:
+See the skill-authoring reference at `../../_meta/authoring-references/trigger-tests.md`. In short:
 
 - ≥ 3 positive cases, covering ja + en + one implicit phrasing.
 - ≥ 1 negative case, ideally a near-miss against an adjacent skill.

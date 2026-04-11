@@ -6,11 +6,11 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 ## Independence
 
-This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. It **MUST** invoke the project-local skills `requesting-code-review` and `receiving-code-review`.
+This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. It **MUST** invoke the project-local `code-review-loop` skill.
 
 ## Hard Constraints
 
-- This skill **MUST NOT** update an existing basic design document. If the target file already exists, the skill **MUST** halt and direct the user to `spec-coexist:revising-spec`.
+- This skill **MUST NOT** update an existing basic design document. If the target file already exists, the skill **MUST** halt and direct the user to `spec-coexist:revising`.
 - If `docs/main-requirements.md` does not exist, the skill **MUST** halt immediately. A basic design without requirements is meaningless.
 
 ## Verification Gate
@@ -30,9 +30,9 @@ Fix any failures and re-run the gate until it passes cleanly.
 
 Although the artifact is a document rather than executable code, the same review discipline applies: a fresh reviewer catches template-compliance gaps, vague requirements traceability, missing sections, and internal inconsistencies invisible to the author.
 
-### Step 1 — Invoke `requesting-code-review`
+### Step 1 — Invoke `code-review-loop`
 
-After writing the document (and, if the draft is unstaged, committing it so `BASE_SHA` / `HEAD_SHA` are meaningful), invoke `requesting-code-review` with:
+After writing the document (and, if the draft is unstaged, committing it so `BASE_SHA` / `HEAD_SHA` are meaningful), invoke `code-review-loop` with:
 
 | Parameter | Value |
 | --- | --- |
@@ -51,7 +51,7 @@ Instruct the reviewer to specifically check:
 
 ### Step 2 — Handle feedback
 
-The agent **MUST** handle the returned feedback through `receiving-code-review`.
+The agent **MUST** handle the returned feedback through `code-review-loop`.
 
 ### Step 3 — Fix policy
 

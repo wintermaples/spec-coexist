@@ -1,0 +1,134 @@
+name: spec-coexist Evidence Gate
+
+on:
+  pull_request:
+    branches: [master, main]
+    paths:
+      - '.spec-coexist/evidence/**'
+      - 'docs/**'
+      - 'src/**'
+      - 'tests/**'
+      - 'test/**'
+
+jobs:
+  detect-tier:
+    name: Detect task tier
+    runs-on: ubuntu-latest
+    outputs:
+      tier: ${{ steps.tier.outputs.tier }}
+      task_id: ${{ steps.tier.outputs.task_id }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect tier from evidence or diff size
+        id: tier
+        run: |
+          # Check for explicit tier in evidence files
+          TIER=""
+          TASK_ID="default"
+
+          # Look for evidence files in the PR
+          if [ -d ".spec-coexist/evidence" ]; then
+            # Find the task_id from evidence directories
+            for dir in .spec-coexist/evidence/*/; do
+              if [ -d "$dir" ]; then
+                TASK_ID="$(basename "$dir")"
+                break
+              fi
+            done
+          fi
+
+          # Estimate tier from diff size if not explicit
+          DIFF_STAT="$(git diff --stat origin/${{ github.base_ref }}...HEAD 2>/dev/null || echo '')"
+          INSERTIONS=$(echo "$DIFF_STAT" | tail -1 | grep -oP '\d+ insertion' | grep -oP '\d+' || echo 0)
+          DELETIONS=$(echo "$DIFF_STAT" | tail -1 | grep -oP '\d+ deletion' | grep -oP '\d+' || echo 0)
+          TOTAL=$((INSERTIONS + DELETIONS))
+          FILES_CHANGED=$(echo "$DIFF_STAT" | tail -1 | grep -oP '\d+ file' | grep -oP '\d+' || echo 0)
+
+          if [ "$TOTAL" -le 20 ] && [ "$FILES_CHANGED" -le 2 ]; then
+            TIER="T0"
+          elif [ "$TOTAL" -le 50 ] && [ "$FILES_CHANGED" -le 3 ]; then
+            TIER="T1"
+          elif [ "$TOTAL" -le 300 ] && [ "$FILES_CHANGED" -le 10 ]; then
+            TIER="T2"
+          else
+            TIER="T3"
+          fi
+
+          echo "tier=${TIER}" >> "$GITHUB_OUTPUT"
+          echo "task_id=${TASK_ID}" >> "$GITHUB_OUTPUT"
+          echo "Detected tier: ${TIER}, task_id: ${TASK_ID}, diff: ${TOTAL} lines, ${FILES_CHANGED} files"
+
+  validate-evidence:
+    name: Validate evidence schema
+    runs-on: ubuntu-latest
+    needs: detect-tier
+    if: needs.detect-tier.outputs.tier != 'T0'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install jsonschema
+        run: pip install jsonschema
+
+      - name: Validate evidence files
+        run: bash .claude/skills/_shared/scripts/validate_evidence.sh
+
+  verify-evidence:
+    name: Verify evidence completeness
+    runs-on: ubuntu-latest
+    needs: [detect-tier, validate-evidence]
+    if: always() && needs.detect-tier.outputs.tier != 'T0'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify evidence for tier
+        run: |
+          TIER="${{ needs.detect-tier.outputs.tier }}"
+          TASK_ID="${{ needs.detect-tier.outputs.task_id }}"
+          BASE_REF="origin/${{ github.base_ref }}"
+          bash .claude/skills/_shared/scripts/verify_evidence.sh "${TIER}" "${TASK_ID}" "${BASE_REF}"
+
+  verify-traceability:
+    name: Verify REQ traceability
+    runs-on: ubuntu-latest
+    needs: detect-tier
+    if: needs.detect-tier.outputs.tier == 'T2' || needs.detect-tier.outputs.tier == 'T3'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check REQ-ID traceability
+        run: |
+          BASE_REF="origin/${{ github.base_ref }}"
+          bash .claude/skills/_shared/scripts/verify_traceability.sh "${BASE_REF}"
+
+  check-doc-links:
+    name: Check document links
+    runs-on: ubuntu-latest
+    needs: detect-tier
+    if: needs.detect-tier.outputs.tier == 'T2' || needs.detect-tier.outputs.tier == 'T3'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate doc links
+        run: |
+          if [ -f ".claude/skills/_shared/scripts/check_doc_links.sh" ]; then
+            bash .claude/skills/_shared/scripts/check_doc_links.sh --root docs --strict
+          else
+            echo "check_doc_links.sh not found, skipping"
+          fi

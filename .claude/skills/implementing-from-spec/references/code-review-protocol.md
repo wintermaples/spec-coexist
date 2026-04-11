@@ -2,9 +2,9 @@
 
 ## When Review is Triggered
 
-After `verification-before-completion` (code mode) returns PASS, the agent **MUST** invoke `requesting-code-review` before reporting completion to the user.
+After `verification-before-completion` (code mode) returns PASS, the agent **MUST** invoke `code-review-loop` before reporting completion to the user.
 
-## Inputs to requesting-code-review
+## Inputs to code-review-loop
 
 - `WHAT_WAS_IMPLEMENTED` — short summary of the implemented feature or change.
 - `PLAN_OR_REQUIREMENTS` — pointer to the approved plan and the originating spec documents.
@@ -12,9 +12,9 @@ After `verification-before-completion` (code mode) returns PASS, the agent **MUS
 - `HEAD_SHA` — the current commit after verification passed.
 - `DESCRIPTION` — 1–3 sentence human summary of what changed and why.
 
-## Handling Feedback via receiving-code-review
+## Handling Feedback
 
-Pass the structured reviewer response to `receiving-code-review`, which governs how to evaluate the feedback.
+The `code-review-loop` skill handles receiving and processing feedback internally.
 
 ## Severity Policy
 
@@ -26,7 +26,7 @@ Pass the structured reviewer response to `receiving-code-review`, which governs 
 
 ## Re-review After Fixes
 
-After Critical or Important fixes, the agent **SHOULD** re-run `requesting-code-review` on the new `HEAD_SHA`.
+After Critical or Important fixes, the agent **SHOULD** re-run `code-review-loop` on the new `HEAD_SHA`.
 
 ## Final Report Requirement
 
@@ -34,4 +34,4 @@ The final report to the user **MUST** include a `Review:` line summarizing the o
 
 ## Pushback
 
-If the reviewer's finding is technically incorrect, push back using `receiving-code-review`'s rules (technical reasoning, reference to actual code or tests). Performative agreement with a wrong finding is not acceptable.
+If the reviewer's finding is technically incorrect, push back using `code-review-loop`'s rules (technical reasoning, reference to actual code or tests). Performative agreement with a wrong finding is not acceptable.

@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "spec-coexist/evidence.schema.json",
+  "title": "spec-coexist Evidence Record",
+  "description": "Machine-verifiable evidence record for tdd-red, tdd-green, verification-result, self-check-result, debug-hypothesis, and tdd-waiver proof types.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "timestamp_utc",
+    "proof_type",
+    "mode",
+    "subject",
+    "result",
+    "proof_hash",
+    "proof"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0",
+      "description": "Evidence schema version — bump on breaking changes."
+    },
+    "timestamp_utc": {
+      "type": "string",
+      "pattern": "^[0-9]{8}T[0-9]{6}Z$",
+      "description": "UTC timestamp in YYYYMMDDTHHMMSSz format."
+    },
+    "proof_type": {
+      "enum": [
+        "tdd-red",
+        "tdd-green",
+        "verification-result",
+        "self-check-result",
+        "debug-hypothesis",
+        "tdd-waiver"
+      ],
+      "description": "Category of evidence being recorded."
+    },
+    "mode": {
+      "enum": ["code", "document"],
+      "description": "Verification mode — code (executable proof) or document (artifact inspection)."
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120,
+      "description": "Short identifier of what is being claimed (e.g. 'tdd-red:payment-calc')."
+    },
+    "result": {
+      "enum": ["pass", "fail"],
+      "description": "Outcome of the proof execution."
+    },
+    "proof_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{12}$",
+      "description": "12-char sha256 prefix of subject+proof for correlation."
+    },
+    "proof": {
+      "type": "object",
+      "required": ["command", "exit_code"],
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "type": "string",
+          "description": "Exact command or observation that was executed."
+        },
+        "exit_code": {
+          "type": "integer",
+          "description": "Exit code of the proof command (0 = success). Use -1 for document mode."
+        },
+        "output_tail": {
+          "type": "string",
+          "maxLength": 4000,
+          "description": "Last N lines of stdout/stderr from the proof command."
+        }
+      },
+      "description": "Details of the proof execution."
+    },
+    "commit_sha": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{7,40}$",
+      "description": "Git commit SHA at the time of evidence recording."
+    },
+    "task_id": {
+      "type": "string",
+      "description": "Identifier linking this evidence to a task or changeset."
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]{1,40}$",
+      "description": "URL-safe slug derived from subject."
+    },
+    "review_ref": {
+      "type": "string",
+      "description": "Path or identifier of the review outcome backing this claim."
+    },
+    "tdd_slug": {
+      "type": "string",
+      "description": "For tdd-green: the slug that MUST match a prior tdd-red record."
+    },
+    "waiver": {
+      "type": "object",
+      "required": ["clause", "authorizer", "scope"],
+      "additionalProperties": false,
+      "properties": {
+        "clause": {
+          "type": "string",
+          "description": "Which negative-triggers.md clause applies."
+        },
+        "authorizer": {
+          "type": "string",
+          "description": "Human or caller skill that authorized the waiver."
+        },
+        "scope": {
+          "type": "string",
+          "description": "Single changeset this waiver applies to."
+        }
+      },
+      "description": "Required when proof_type is tdd-waiver."
+    },
+    "self_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "files_reviewed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["path", "outcome"],
+            "additionalProperties": false,
+            "properties": {
+              "path": { "type": "string" },
+              "outcome": { "enum": ["pass", "fail", "n/a"] },
+              "reason": { "type": "string" }
+            }
+          }
+        },
+        "red_flag_scan": {
+          "enum": ["clean", "rejected"],
+          "description": "Result of red-flag rationalization scan."
+        },
+        "severity_counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "critical": { "type": "integer", "minimum": 0 },
+            "important": { "type": "integer", "minimum": 0 },
+            "minor": { "type": "integer", "minimum": 0 }
+          }
+        }
+      },
+      "description": "Required when proof_type is self-check-result."
+    },
+    "hypothesis": {
+      "type": "object",
+      "required": ["id", "statement", "verdict"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^H[0-9]+$",
+          "description": "Hypothesis identifier (H1, H2, ...)."
+        },
+        "statement": { "type": "string" },
+        "predicted_pass": { "type": "string" },
+        "predicted_fail": { "type": "string" },
+        "experiment": { "type": "string" },
+        "observed": { "type": "string" },
+        "verdict": {
+          "enum": ["confirmed", "refuted", "inconclusive"]
+        },
+        "next": { "type": "string" }
+      },
+      "description": "Required when proof_type is debug-hypothesis."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-form human notes, separated from machine-verifiable fields."
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "proof_type": { "const": "tdd-green" } } },
+      "then": { "required": ["tdd_slug"] }
+    },
+    {
+      "if": { "properties": { "proof_type": { "const": "tdd-waiver" } } },
+      "then": { "required": ["waiver"] }
+    },
+    {
+      "if": { "properties": { "proof_type": { "const": "self-check-result" } } },
+      "then": { "required": ["self_check"] }
+    },
+    {
+      "if": { "properties": { "proof_type": { "const": "debug-hypothesis" } } },
+      "then": { "required": ["hypothesis"] }
+    }
+  ]
+}

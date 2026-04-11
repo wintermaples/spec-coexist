@@ -6,11 +6,45 @@ Step 7 of `parallelizing-subsystem-work` merges each worktree's branch back into
 
 1. Determine merge order by topological sort of the consolidation graph (usually empty — independent sets have no edges). If the graph has edges, the set was not actually independent; abort.
 2. Merge in a deterministic order (ascending by `subsystem-id`) so that conflict reports are reproducible across runs.
+3. When subsystems have **consumer relationships** (A provides an interface that B consumes, even if they passed the independence check because no shared files exist), merge the **provider first**. This ensures the integration test suite can validate the provider's API surface before the consumer's code references it.
+
+### Topological sort procedure
+
+```
+1. Read edges from subsystem_deps.sh output.
+2. For each subsystem in the independent set, collect its
+   transitive "provides" relationships from the design doc's
+   `Provides-to:` frontmatter (inverse of `Depends-on:`).
+3. Build a DAG: edge from A→B means "merge A before B".
+4. If the DAG has a cycle, the set is not independent — HALT.
+5. Topological sort the DAG. Ties broken by ascending subsystem-id.
+6. If no edges exist (typical), fall back to ascending subsystem-id.
+```
+
+### Pre-consolidation checkpoint
+
+Before merging the first branch, record the current HEAD:
+
+```bash
+PRE_CONSOLIDATION_SHA="$(git rev-parse HEAD)"
+```
+
+This SHA is required by the rollback procedure in `partial-failure.md`.
 
 ## Merge mode
 
 - Use `git merge --no-ff parallel/{id}` so that each integration stays visible as a merge commit. Fast-forward would hide the parallel structure from later archaeology.
 - **MUST NOT** use `git merge --squash`. Squashing destroys the per-worktree `verification-before-completion` evidence linkage.
+
+## Runtime conflict detection
+
+After all worktrees complete but **before** starting merges, run:
+
+```bash
+_shared/scripts/detect_worktree_conflicts.sh
+```
+
+If it reports overlapping files, the isolation check had a false negative. **HALT** and record the conflict in `docs/evidence/parallel-conflict-{YYYY-MM-DD}.md` before attempting any merge.
 
 ## Conflict handling
 

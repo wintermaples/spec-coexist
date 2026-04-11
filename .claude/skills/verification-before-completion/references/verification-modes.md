@@ -4,7 +4,7 @@ The five gate steps are the same for every artifact — only the *proof* differs
 
 ## Code Mode
 
-Applies to: `implementing-from-spec`, `revising-implementation`, `systematic-debugging`.
+Applies to: `implementing-from-spec`, `revising`, `systematic-debugging`.
 
 The agent **MUST** run, at minimum:
 
@@ -17,7 +17,7 @@ If any of these are absent, the agent **MUST** say so explicitly rather than sil
 
 ### Tier-aware TDD evidence
 
-When the claim is driven by `implementing-from-spec` or `revising-implementation`, the gate **MUST** read the declared `test-strategy` tier from the target basic design and confirm the *tier-appropriate* evidence shape. Absent or wrong-shape evidence → HALT.
+When the claim is driven by `implementing-from-spec` or `revising`, the gate **MUST** read the declared `test-strategy` tier from the target basic design and confirm the *tier-appropriate* evidence shape. Absent or wrong-shape evidence → HALT.
 
 | Tier | Required artifacts for PASS |
 |---|---|
@@ -29,12 +29,12 @@ Tiers narrow the *unit* of observation; they never remove the loop. The per-inst
 
 ## Document Mode
 
-Applies to: `creating-requirements`, `creating-basic-design`, `revising-spec`.
+Applies to: `creating-requirements`, `creating-basic-design`, `revising`.
 
 The agent **MUST** verify:
 
 1. The target file exists at the expected path (use `../_shared/scripts/check_doc_exists.sh`).
 2. The document conforms to the bundled template: every required section is present, order matches, frontmatter matches.
 3. No unresolved placeholders remain — no `TBD`, `TODO`, `???`, `<fill in>`, or empty bullet lists.
-4. For `revising-spec`: lockstep consistency between requirements and basic design when both were updated.
-5. For `creating-basic-design` and `revising-spec`: every requirement in scope is traceable to at least one design element.
+4. For `revising`: lockstep consistency between requirements and basic design when both were updated.
+5. For `creating-basic-design` and `revising`: every requirement in scope is traceable to at least one design element.

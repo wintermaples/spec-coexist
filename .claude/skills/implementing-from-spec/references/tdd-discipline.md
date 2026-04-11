@@ -2,7 +2,7 @@
 
 Conformance keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) / [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174).
 
-This document is the TDD gate embedded inside `implementing-from-spec` and `revising-implementation`. It is not a standalone skill; it is a MUST-level procedure that those skills execute inline.
+This document is the TDD gate embedded inside `implementing-from-spec` and `revising`. It is not a standalone skill; it is a MUST-level procedure that those skills execute inline.
 
 ## Iron Law
 
@@ -40,7 +40,7 @@ Rules that apply to every tier:
 
 - `pipeline` and `ui` do **not** exempt the skill from the Iron Law — they narrow the unit of observation so the loop stays honest but proportional.
 - Mis-categorization is a spec defect: if during implementation the agent finds logic that looks `strict` inside a `ui` or `pipeline` subsystem, the offending bullets **MUST** be lifted to strict RGR loops for that bullet, and the mismatch reported.
-- Tier selection is reviewed at basic-design review time. Changing tier after the fact **MUST** go through `revising-spec`.
+- Tier selection is reviewed at basic-design review time. Changing tier after the fact **MUST** go through `revising`.
 - Missing test infrastructure is still not a valid reason to downgrade. `pipeline` requires a fixture harness; `ui` requires a behavior-test runner. If neither exists, build them or waive explicitly.
 
 ## Acceptance Criteria → Loops
@@ -68,4 +68,4 @@ A waiver **MUST NOT** be issued silently, **MUST NOT** be issued by the agent fo
 
 ## Interaction with verification-before-completion
 
-`verification-before-completion` treats `docs/evidence/red-*.log` (or a matching `tdd-waiver-*.md`) as a required input for code-mode completion claims driven by this or `revising-implementation`. Absent evidence, the gate **MUST** HALT.
+`verification-before-completion` treats `docs/evidence/red-*.log` (or a matching `tdd-waiver-*.md`) as a required input for code-mode completion claims driven by this or `revising`. Absent evidence, the gate **MUST** HALT.

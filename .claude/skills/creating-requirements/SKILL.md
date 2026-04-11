@@ -16,7 +16,7 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill.
 
 See `references/constraints.md` for full detail.
 
-- **MUST NOT** update an existing document — halt and direct to `spec-coexist:revising-spec`.
+- **MUST NOT** update an existing document — halt and direct to `spec-coexist:revising`.
 - **MUST** read any draft file supplied at invocation before brainstorming.
 - **MUST** follow the template that matches the target document type.
 - **MUST** pass `verification-before-completion` (document mode) before reporting done.

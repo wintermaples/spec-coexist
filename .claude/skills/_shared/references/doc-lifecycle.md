@@ -22,7 +22,7 @@ draft ──► active ──► deprecated
                  └─► superseded
 ```
 
-Transitions **MUST** be performed via the `revising-spec` skill so that the link checker runs and frontmatter stays consistent.
+Transitions **MUST** be performed via the `revising` skill so that the link checker runs and frontmatter stays consistent.
 
 ## Rules
 

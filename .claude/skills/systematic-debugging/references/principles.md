@@ -22,4 +22,4 @@ Once a fix is applied, the agent **MUST** pass `verification-before-completion` 
 
 ## 6 — Mandatory review after verification
 
-After the verification gate reports PASS, the agent **MUST** route the change through `requesting-code-review` before declaring the bug fixed.
+After the verification gate reports PASS, the agent **MUST** route the change through `code-review-loop` before declaring the bug fixed.

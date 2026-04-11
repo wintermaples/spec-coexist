@@ -17,7 +17,7 @@
 #     prints the relative path on stdout so the caller can cite it.
 #
 # This script is the evidence source for the TDD gate embedded in
-# implementing-from-spec and revising-implementation. See
+# implementing-from-spec and revising. See
 # implementing-from-spec/references/tdd-discipline.md.
 
 set -euo pipefail

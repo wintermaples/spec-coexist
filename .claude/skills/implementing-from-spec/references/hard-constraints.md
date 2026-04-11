@@ -19,10 +19,10 @@ Every production change **MUST** be driven by a failing test observed in the cur
 
 ## Test Strategy Tier Declaration
 
-The basic design document **MUST** declare a `test-strategy` tier (one of `strict`, `pipeline`, `ui`) with a 1–3 sentence rationale. Absent declaration = `strict`. `implementing-from-spec` **MUST** HALT before step 5 if the target basic design lacks the declaration **and** the domain is unambiguously UI-heavy (contains §5 画面設計 with non-empty screen definitions, or equivalent `ui/` / `components/` paths in §6 Files Modified) or pipeline-heavy (contains §7 バッチ設計 with non-empty batch definitions, or `etl/` / `pipelines/` paths). HALT message **MUST** route the user to `revising-spec` to add the declaration — it **MUST NOT** be added silently by the implementer.
+The basic design document **MUST** declare a `test-strategy` tier (one of `strict`, `pipeline`, `ui`) with a 1–3 sentence rationale. Absent declaration = `strict`. `implementing-from-spec` **MUST** HALT before step 5 if the target basic design lacks the declaration **and** the domain is unambiguously UI-heavy (contains §5 画面設計 with non-empty screen definitions, or equivalent `ui/` / `components/` paths in §6 Files Modified) or pipeline-heavy (contains §7 バッチ設計 with non-empty batch definitions, or `etl/` / `pipelines/` paths). HALT message **MUST** route the user to `revising` to add the declaration — it **MUST NOT** be added silently by the implementer.
 
 ## Completion Gates (in order)
 
 1. **TDD evidence present** — at least one `docs/evidence/red-*.log` per acceptance criterion, or a documented waiver. No RED, no GREEN.
 2. **verification-before-completion (code mode)** — fresh full test / type / lint run, read the full output, confirm it matches the claim. Fix and retry until the gate reports PASS with evidence. No completion claim is permitted until this gate passes.
-3. **requesting-code-review + receiving-code-review** — mandatory after the verification gate passes. "Implementation done without review" is **NOT** a valid final state.
+3. **code-review-loop** — mandatory after the verification gate passes. "Implementation done without review" is **NOT** a valid final state.

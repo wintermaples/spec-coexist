@@ -8,7 +8,7 @@ description: Use whenever the user wants to CREATE a new basic design document �
 
 ## When to Trigger
 
-Create a brand-new basic design document (whole-system or subsystem). Do NOT trigger for updates to existing documents — use `spec-coexist:revising-spec` for that.
+Create a brand-new basic design document (whole-system or subsystem). Do NOT trigger for updates to existing documents — use `spec-coexist:revising` for that.
 
 ## Ordered Steps
 
@@ -23,7 +23,7 @@ Create a brand-new basic design document (whole-system or subsystem). Do NOT tri
 6. **Write** — produce the document in the template's exact section structure. The **test strategy tier** field (`strict` / `pipeline` / `ui`) with a 1–3 sentence rationale **MUST** be filled; see `../implementing-from-spec/references/tdd-discipline.md` §Test Strategy Tiers. Frontmatter and cross-doc links **MUST** follow `../_shared/references/doc-reference-syntax.md` and `../_shared/references/doc-lifecycle.md`.
 7. **Check doc links** — run `../_shared/scripts/check_doc_links.sh --root docs --strict`. Fix all errors before verification.
 8. **Verify** — invoke `verification-before-completion` (document mode). Re-run until it passes. See `references/constraints-and-review.md` §Verification Gate.
-9. **Review** — invoke `requesting-code-review` then handle feedback via `receiving-code-review`. See `references/constraints-and-review.md` §Mandatory Design Review for exact parameters and fix policy.
+9. **Review** — invoke `code-review-loop`. See `references/constraints-and-review.md` §Mandatory Design Review for exact parameters and fix policy.
 10. **Report** — state the document path, verification evidence, and a `Review:` outcome line.
 
 ## Flow Diagram
@@ -43,7 +43,7 @@ flowchart TD
     Q3B -- No --> BS
     BS --> Write[Write per template]
     Write --> Verify[verification-before-completion]
-    Verify --> Review[requesting-code-review → receiving-code-review]
+    Verify --> Review[code-review-loop]
     Review --> End([Done])
 ```
 

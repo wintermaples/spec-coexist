@@ -77,8 +77,9 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux
 
-# Spec Coexist
-.spec-coexist
+# Spec Coexist (track evidence for CI gate verification)
+.spec-coexist/*
+!.spec-coexist/evidence/
 
 # Packaging output
 /dist/

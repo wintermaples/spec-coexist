@@ -46,7 +46,7 @@ Field reference:
 | --- | --- | --- | --- |
 | `id` | string | yes | Stable identifier. For subsystems, use the `{id}_{name}` directory prefix. |
 | `title` | string | yes | Human-readable title. |
-| `version` | string | yes | Semantic-ish version; bumped by `revising-spec`. |
+| `version` | string | yes | Semantic-ish version; bumped by `revising`. |
 | `status` | enum | yes | One of `draft`, `active`, `deprecated`, `superseded`. |
 | `extends` | list of refs | no | Documents this doc inherits / specializes. Cycles are forbidden. |
 | `supersedes` | list of refs | no | Older documents this one replaces. Each target **SHOULD** be `deprecated` or `superseded`. |
