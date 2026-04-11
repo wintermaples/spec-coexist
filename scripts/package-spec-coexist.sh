@@ -40,6 +40,12 @@ mkdir -p "$plugin_root/.claude-plugin" "$plugin_root/skills"
 
 cp "$src_meta" "$plugin_root/.claude-plugin/plugin.json"
 
+# Copy marketplace.json if it exists.
+src_marketplace="$(dirname "$src_meta")/marketplace.json"
+if [[ -f "$src_marketplace" ]]; then
+  cp "$src_marketplace" "$plugin_root/.claude-plugin/marketplace.json"
+fi
+
 # Copy every skill directory (including _shared supporting files).
 # Using tar to preserve perms & skip nothing; excludes typical junk.
 tar -C "$src_skills" \

@@ -19,5 +19,6 @@
     "debugging",
     "code-review",
     "japanese"
-  ]
+  ],
+  "skills": ".claude/skills/"
 }

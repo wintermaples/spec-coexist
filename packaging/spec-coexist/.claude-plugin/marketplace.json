@@ -1,0 +1,37 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "spec-coexist-marketplace",
+  "version": "1.0.0",
+  "description": "Official marketplace for the spec-coexist skill suite",
+  "owner": {
+    "name": "wintermaples",
+    "url": "https://github.com/wintermaples"
+  },
+  "plugins": [
+    {
+      "name": "spec-coexist",
+      "description": "Spec-driven development skills: create and revise requirements/basic-design documents, implement from spec, and debug systematically",
+      "version": "1.0.0",
+      "author": {
+        "name": "wintermaples"
+      },
+      "source": {
+        "source": "url",
+        "url": "https://github.com/wintermaples/spec-coexist.git"
+      },
+      "category": "development",
+      "homepage": "https://github.com/wintermaples/spec-coexist",
+      "keywords": [
+        "spec",
+        "spec-driven",
+        "requirements",
+        "basic-design",
+        "implementation",
+        "tdd",
+        "debugging",
+        "code-review",
+        "japanese"
+      ]
+    }
+  ]
+}

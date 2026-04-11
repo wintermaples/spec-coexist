@@ -159,7 +159,19 @@ contents:
 }
 ```
 
-### 配布物のインストール方法 (受け取る側)
+### マーケットプレイスからのインストール (推奨)
+
+Claude Code CLI から直接インストールできます。
+
+```bash
+# プロジェクトスコープでインストール (チーム共有)
+claude plugin install spec-coexist --scope project
+
+# ユーザースコープでインストール (個人の全プロジェクト)
+claude plugin install spec-coexist --scope user
+```
+
+### アーカイブからのインストール
 
 生成された `dist/spec-coexist-<version>.tar.gz` を展開し、Claude Code のプラグインディレクトリに配置することでインストールできます。詳しくは [Claude Code Plugins ドキュメント](https://code.claude.com/docs/en/plugins) を参照してください。
 
