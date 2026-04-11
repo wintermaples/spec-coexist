@@ -1,0 +1,55 @@
+name: Test Suite
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  trigger-tests:
+    name: Trigger routing tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run trigger tests
+        run: bash .claude/skills/_shared/tests/run_trigger_tests.sh
+
+  evidence-tests:
+    name: Evidence validation tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install jsonschema
+        run: pip install jsonschema
+
+      - name: Run evidence tests
+        run: bash .claude/skills/_shared/tests/run_evidence_tests.sh
+
+  packaging-tests:
+    name: Packaging tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run packaging tests
+        run: bash .claude/skills/_shared/tests/run_packaging_tests.sh
+
+      - name: Upload tarball artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: spec-coexist-package
+          path: dist/spec-coexist-*.tar.gz
+          retention-days: 7

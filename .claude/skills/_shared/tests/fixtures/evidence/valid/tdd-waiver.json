@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "timestamp_utc": "20260401T102500Z",
+  "proof_type": "tdd-waiver",
+  "mode": "document",
+  "subject": "tdd-waiver:config-only-change",
+  "result": "pass",
+  "proof_hash": "001122334455",
+  "proof": {
+    "command": "review config change",
+    "exit_code": -1
+  },
+  "waiver": {
+    "clause": "NT-02: configuration-only change",
+    "authorizer": "developer",
+    "scope": "update logging level in config.yaml"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "timestamp_utc": "20260401T102000Z",
+  "proof_type": "debug-hypothesis",
+  "mode": "code",
+  "subject": "debug:null-pointer-crash",
+  "result": "pass",
+  "proof_hash": "aabbccddeeff",
+  "proof": {
+    "command": "python3 -c \"import app; app.run(None)\"",
+    "exit_code": 1,
+    "output_tail": "TypeError: NoneType"
+  },
+  "hypothesis": {
+    "id": "H1",
+    "statement": "app.run crashes when input is None",
+    "predicted_pass": "non-None input",
+    "predicted_fail": "None input causes TypeError",
+    "experiment": "call app.run(None)",
+    "observed": "TypeError: NoneType as predicted",
+    "verdict": "confirmed",
+    "next": "add None guard in app.run"
+  }
+}

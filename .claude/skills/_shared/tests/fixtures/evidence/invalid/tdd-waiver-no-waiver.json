@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "timestamp_utc": "20260401T100000Z",
+  "proof_type": "tdd-waiver",
+  "mode": "document",
+  "subject": "tdd-waiver:missing-waiver-obj",
+  "result": "pass",
+  "proof_hash": "abcdef012345",
+  "proof": {
+    "command": "review",
+    "exit_code": -1
+  }
+}

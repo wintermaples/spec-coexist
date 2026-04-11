@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "timestamp_utc": "20260401T100000Z",
+  "proof_type": "tdd-red",
+  "mode": "code",
+  "subject": "tdd-red:payment-calc",
+  "result": "fail",
+  "proof_hash": "abcdef012345",
+  "proof": {
+    "command": "pytest tests/test_payment.py -v",
+    "exit_code": 1,
+    "output_tail": "FAILED test_payment_calc - AssertionError"
+  }
+}
