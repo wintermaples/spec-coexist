@@ -108,13 +108,14 @@ Rules:
 - **At most 3–4 colors**. More than that becomes colorful noise.
 - Define styles with `classDef` (reusable classes) rather than inline `style`.
 - Pick mid-tones readable in both dark/light modes (avoid pure red / pure blue).
+- **Always set `color:` (text color) explicitly** when using `fill:`. Light backgrounds with no explicit text color become unreadable in some themes. Pair every light fill with a dark text color (e.g., `color:#333`).
 - Avoid stacking bold + thick borders + heavy fills.
 
 ```mermaid
 flowchart LR
-    classDef external fill:#eef,stroke:#557,stroke-width:1px;
-    classDef store fill:#efe,stroke:#575,stroke-width:1px;
-    classDef danger fill:#fee,stroke:#a33,stroke-width:1px;
+    classDef external fill:#eef,stroke:#557,stroke-width:1px,color:#333;
+    classDef store fill:#efe,stroke:#575,stroke-width:1px,color:#333;
+    classDef danger fill:#fee,stroke:#a33,stroke-width:1px,color:#333;
 
     api["API"]:::external --> svc["Order Service"]
     svc --> db[("Order DB")]:::store
@@ -204,8 +205,8 @@ Improvements:
 
 ```mermaid
 flowchart LR
-    classDef ext fill:#eef,stroke:#557;
-    classDef store fill:#efe,stroke:#575;
+    classDef ext fill:#eef,stroke:#557,color:#333;
+    classDef store fill:#efe,stroke:#575,color:#333;
 
     user(["User"]):::ext
 
@@ -255,6 +256,7 @@ After finishing a diagram, verify:
 - [ ] Are node shapes semantically consistent?
 - [ ] Is label style (noun/verb) consistent?
 - [ ] Is color used meaningfully and within 4 colors?
+- [ ] Does every `classDef` with `fill:` also set `color:` for text visibility?
 - [ ] Are line crossings minimized?
 - [ ] Are node / subgraph / edge counts within 15 / 4 / 25?
 - [ ] Is subgraph nesting within 2 levels?

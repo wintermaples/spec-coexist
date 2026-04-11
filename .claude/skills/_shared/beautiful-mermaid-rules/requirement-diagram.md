@@ -34,7 +34,7 @@ Mermaid supports 6 requirement types. The key is to distinguish them at matching
 
 ```
 functionalRequirement Product search {
-    id: FR-SEARCH-001
+    id: "FR-SEARCH-001"
     text: Users shall be able to search for products by keyword
     risk: Medium
     verifymethod: Test
@@ -202,31 +202,31 @@ Problems: Both IDs are `1` (duplicated), type stays `requirement`, `verifymethod
 requirementDiagram
 
 requirement Product purchase {
-    id: BR-PURCHASE-001
+    id: "BR-PURCHASE-001"
     text: Users shall be able to purchase products online
-    risk: High
-    verifymethod: Demonstration
+    risk: high
+    verifymethod: demonstration
 }
 
 functionalRequirement Product search {
-    id: FR-SEARCH-001
+    id: "FR-SEARCH-001"
     text: Users shall be able to search for products by keyword
-    risk: Medium
-    verifymethod: Test
+    risk: medium
+    verifymethod: test
 }
 
 functionalRequirement Cart function {
-    id: FR-CART-001
+    id: "FR-CART-001"
     text: Users shall be able to add products to the cart
-    risk: Low
-    verifymethod: Test
+    risk: low
+    verifymethod: test
 }
 
 functionalRequirement Payment processing {
-    id: FR-PAY-001
+    id: "FR-PAY-001"
     text: Users shall be able to pay by credit card
-    risk: High
-    verifymethod: Test
+    risk: high
+    verifymethod: test
 }
 
 Product purchase - contains -> Product search
@@ -240,17 +240,17 @@ Product purchase - contains -> Payment processing
 requirementDiagram
 
 performanceRequirement Search response performance {
-    id: PR-SEARCH-001
+    id: "PR-SEARCH-001"
     text: Search response shall be within 200ms at the 95th percentile
-    risk: High
-    verifymethod: Test
+    risk: high
+    verifymethod: test
 }
 
 functionalRequirement Product search {
-    id: FR-SEARCH-001
+    id: "FR-SEARCH-001"
     text: Users shall be able to search for products by keyword
-    risk: Medium
-    verifymethod: Test
+    risk: medium
+    verifymethod: test
 }
 
 element Search service implementation {
@@ -275,24 +275,24 @@ Search load test - verifies -> Search response performance
 requirementDiagram
 
 designConstraint Domestic DC constraint {
-    id: DC-DATA-001
+    id: "DC-DATA-001"
     text: Personal data shall be stored in a domestic data center
-    risk: High
-    verifymethod: Inspection
+    risk: high
+    verifymethod: inspection
 }
 
 interfaceRequirement Payment IF {
-    id: IR-PAY-001
+    id: "IR-PAY-001"
     text: The payment gateway API shall be connected over TLS 1.3
-    risk: High
-    verifymethod: Inspection
+    risk: high
+    verifymethod: inspection
 }
 
 functionalRequirement Personal data storage {
-    id: FR-PII-001
+    id: "FR-PII-001"
     text: User personal data shall be stored encrypted
-    risk: High
-    verifymethod: Test
+    risk: high
+    verifymethod: test
 }
 
 element Domestic DC policy document {
