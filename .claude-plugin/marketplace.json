@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "spec-coexist-marketplace",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Official marketplace for the spec-coexist skill suite",
   "owner": {
     "name": "wintermaples",
@@ -11,7 +11,7 @@
     {
       "name": "spec-coexist",
       "description": "Spec-driven development skills: create and revise requirements/basic-design documents, implement from spec, and debug systematically",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "author": {
         "name": "wintermaples"
       },
