@@ -1,7 +1,7 @@
 {
   "name": "spec-coexist",
   "description": "Spec-driven development skills: create and revise requirements/basic-design documents, implement from spec, and debug systematically",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "author": {
     "name": "wintermaples",
     "url": "https://github.com/wintermaples"

@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 # make_worktree.sh <subsystem-id>
 #
-# Create ../worktrees/{id} on branch parallel/{id}, forked from the current HEAD.
+# Create ../worktrees/{id} on branch parallel/{branch-safe-id}, forked from the current HEAD.
+#
+# <subsystem-id> may be a flat id (e.g. "003_payment") or a ~-separated
+# qualified id for nested subsystems (e.g. "001_common~001_notification").
+# The ~ in qualified IDs is replaced with -- for git branch names since
+# git refs cannot contain ~.
+#
 # Refuses if:
 #   - the repo is dirty
 #   - the branch parallel/{id} already exists
@@ -21,10 +27,12 @@ if [[ $# -ne 1 ]]; then
 fi
 
 id="$1"
+# Replace ~ with -- for git-ref-safe branch names (git rejects ~ in refs)
+branch_id="${id//\~/--}"
 ROOT="$(git rev-parse --show-toplevel)"
 PARENT="$(dirname "${ROOT}")"
 TARGET="${PARENT}/worktrees/${id}"
-BRANCH="parallel/${id}"
+BRANCH="parallel/${branch_id}"
 
 if [[ -n "$(git -C "${ROOT}" status --porcelain)" ]]; then
   echo "make_worktree.sh: refusing — repo is dirty" >&2

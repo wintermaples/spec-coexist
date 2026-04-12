@@ -5,7 +5,7 @@ version: 0.1
 status: draft
 extends:
   - ./{{SUBSYSTEM_NAME}}-requirements.md
-  - ../../main-basic-design.md
+  - {{EXTENDS_DESIGN_PATH}}
 supersedes: []
 superseded_by: []
 related: []

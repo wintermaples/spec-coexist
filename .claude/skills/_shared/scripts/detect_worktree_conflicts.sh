@@ -9,6 +9,9 @@
 #   detect_worktree_conflicts.sh              # check all active parallel/* worktrees
 #   detect_worktree_conflicts.sh id1 id2 ...  # check only named subsystem ids
 #
+# Subsystem ids may be flat (e.g. "003_payment") or ~-separated qualified ids
+# for nested subsystems (e.g. "001_common~001_notification").
+#
 # Output (tab-separated, one conflict per line):
 #   {id-A}\t{id-B}\t{conflicting-file}
 #
@@ -49,7 +52,9 @@ declare -A changed_files  # id -> newline-separated file list
 
 for id in "${ids[@]}"; do
   wt="${WT_BASE}/${id}"
-  branch="parallel/${id}"
+  # Replace ~ with -- for git-ref-safe branch names (git rejects ~ in refs)
+  branch_id="${id//\~/--}"
+  branch="parallel/${branch_id}"
 
   if [[ ! -d "${wt}" ]]; then
     echo "detect_worktree_conflicts.sh: worktree ${wt} does not exist, skipping" >&2

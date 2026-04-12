@@ -1,7 +1,7 @@
 ---
 name: creating-basic-design
 user-invocable: true
-description: Use whenever the user wants to CREATE a new basic design document — whole-system (`docs/main-basic-design.md`) or subsystem (`docs/subsystems/{id}_{name}/{name}-design.md`). Trigger on phrases like "基本設計を作る", "draft a basic design", "新しい設計書", or any request implying production of a fresh design artifact. This skill MUST NOT update an existing basic design document — it only creates new ones — and MUST halt if the corresponding requirements document does not exist.
+description: Use whenever the user wants to CREATE a new basic design document — whole-system (`docs/main-basic-design.md`) or subsystem (`docs/subsystems/{id}_{name}/{name}-design.md`, including nested subsystems like `docs/subsystems/.../subsystems/{id}_{name}/{name}-design.md`). Trigger on phrases like "基本設計を作る", "draft a basic design", "新しい設計書", or any request implying production of a fresh design artifact. This skill MUST NOT update an existing basic design document — it only creates new ones — and MUST halt if the corresponding requirements document does not exist.
 ---
 
 # creating-basic-design
@@ -15,7 +15,7 @@ Create a brand-new basic design document (whole-system or subsystem). Do NOT tri
 0. **Resolve locale** — apply `../_shared/templates/README.md`. `ja` loads templates from this skill's `references/`; `en` loads from `../_shared/templates/en/`. Record the resolved locale and use it in every template load below.
 1. **Guard** — run `check_doc_exists.sh docs/main-requirements.md`. If absent, HALT. See `references/constraints-and-review.md`.
 2. **Read requirements** — load `docs/main-requirements.md` (and any subsystem requirements) so the design is grounded.
-3. **Resolve target** — ask whole-system or subsystem (one question). Use `next_subsystem_id.sh` / `ensure_subsystem_dir.sh` for new subsystems. If the target design file already exists, HALT. See `references/constraints-and-review.md`.
+3. **Resolve target** — ask whole-system or subsystem (one question). For subsystems, ask whether top-level or nested under an existing subsystem. Use `next_subsystem_id.sh [parent-dir]` / `ensure_subsystem_dir.sh <name> [parent-dir]` for new subsystems. Resolve `{{EXTENDS_DESIGN_PATH}}` in the template (top-level: `../../main-basic-design.md`; nested: relative path to parent's design doc). If the target design file already exists, HALT. See `references/constraints-and-review.md`.
 4. **Load template + rules** — read the matching pair from `references/`:
    - Whole-system: `main-basic-design-template.md` + `main-basic-design-template-rules.md`
    - Subsystem: `subsystem-basic-design-template.md` + `subsystem-basic-design-template-rules.md`
@@ -35,7 +35,7 @@ flowchart TD
     Q1 -- Yes --> R1[Read requirements]
     R1 --> Q2{Whole-system or<br/>subsystem?}
     Q2 -- Whole-system --> Q3A{docs/main-basic-design.md<br/>exists?}
-    Q2 -- Subsystem --> S1[Select subsystem OR<br/>allocate via next_subsystem_id.sh]
+    Q2 -- Subsystem --> S1[Select subsystem<br/>top-level or nested<br/>allocate via next_subsystem_id.sh]
     S1 --> Q3B{"Target<br/>&#123;name&#125;-design.md exists?"}
     Q3A -- Yes --> Stop
     Q3A -- No --> BS[Begin brainstorming]
@@ -65,6 +65,8 @@ When writing any Mermaid diagram in the basic design document, you **SHOULD** co
 All scripts live in `../_shared/scripts/`:
 - `check_doc_exists.sh <path>`
 - `check_doc_links.sh --root docs --strict`
-- `next_subsystem_id.sh`
-- `ensure_subsystem_dir.sh <name>`
+- `next_subsystem_id.sh [parent-dir]`
+- `ensure_subsystem_dir.sh <name> [parent-dir]`
+- `qualify_subsystem_id.sh <path>`
+- `resolve_subsystem_path.sh <qualified-id>`
 - `gen_questions_path.sh basic-design`

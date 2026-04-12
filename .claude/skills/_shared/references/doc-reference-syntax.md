@@ -44,7 +44,7 @@ Field reference:
 
 | Field | Type | Required | Meaning |
 | --- | --- | --- | --- |
-| `id` | string | yes | Stable identifier. For subsystems, use the `{id}_{name}` directory prefix. |
+| `id` | string | yes | Stable identifier. For subsystems, use the `{id}_{name}` directory prefix. For nested subsystems, use the `~`-separated qualified form: `subsys-001_common~001_notification`. |
 | `title` | string | yes | Human-readable title. |
 | `version` | string | yes | Semantic-ish version; bumped by `revising`. |
 | `status` | enum | yes | One of `draft`, `active`, `deprecated`, `superseded`. |
@@ -54,6 +54,8 @@ Field reference:
 | `related` | list of refs | no | Non-inheriting cross-references (e.g. the matching basic-design for a requirements doc). |
 
 All ref values in `extends` / `supersedes` / `superseded_by` / `related` follow the **same Layer 1 path rules**, so the checker validates body links and frontmatter refs with a single pass.
+
+For nested subsystems, `extends` forms a chain: child subsystem → parent subsystem → main document. For example, `notification-requirements.md` extends `../../common-requirements.md`, which in turn extends `../../main-requirements.md`.
 
 ## Parser subset
 

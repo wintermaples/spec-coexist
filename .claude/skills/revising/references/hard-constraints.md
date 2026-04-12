@@ -9,7 +9,7 @@ This skill **MUST NOT** invoke any `superpowers:*` skill. Brainstorming and plan
 ## Document Existence
 
 - If `docs/main-requirements.md` or `docs/main-basic-design.md` is missing, the skill **MUST** halt immediately.
-- For subsystem revisions, both `docs/subsystems/{id}_{name}/{name}-requirements.md` and `{name}-design.md` **MUST** exist; otherwise **MUST** halt.
+- For subsystem revisions, both the subsystem's `{name}-requirements.md` and `{name}-design.md` **MUST** exist within the subsystem directory (which may be nested, e.g. `docs/subsystems/{parent_id}_{parent}/subsystems/{id}_{name}/`); otherwise **MUST** halt.
 
 ## Diff Inspection
 
