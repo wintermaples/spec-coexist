@@ -52,7 +52,9 @@ declare -A changed_files  # id -> newline-separated file list
 
 for id in "${ids[@]}"; do
   wt="${WT_BASE}/${id}"
-  branch="parallel/${id}"
+  # Replace ~ with -- for git-ref-safe branch names (git rejects ~ in refs)
+  branch_id="${id//\~/--}"
+  branch="parallel/${branch_id}"
 
   if [[ ! -d "${wt}" ]]; then
     echo "detect_worktree_conflicts.sh: worktree ${wt} does not exist, skipping" >&2

@@ -28,7 +28,7 @@ When subsystems are nested (e.g. `docs/subsystems/001_common-platform/subsystems
 
 - `docs/subsystems/001_common-platform/subsystems/001_notification/` → `REQ-NOTIFICATION-1`, `DES-NOTIFICATION-1`
 
-When a flat identifier is needed (branch names, changelog filenames, evidence directories, worktree paths), use the `~`-separated **qualified ID**: `001_common-platform~001_notification`.
+When a flat identifier is needed (changelog filenames, evidence directories, worktree paths), use the `~`-separated **qualified ID**: `001_common-platform~001_notification`. For **git branch names**, `~` is replaced with `--` since git refs cannot contain `~` (e.g. `parallel/001_common-platform--001_notification`).
 
 Scripts for conversion:
 - `qualify_subsystem_id.sh <dir-path>` — filesystem path → qualified ID

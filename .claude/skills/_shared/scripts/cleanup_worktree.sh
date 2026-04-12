@@ -26,10 +26,12 @@ if [[ $# -ne 1 ]]; then
 fi
 
 id="$1"
+# Replace ~ with -- for git-ref-safe branch names (git rejects ~ in refs)
+branch_id="${id//\~/--}"
 ROOT="$(git rev-parse --show-toplevel)"
 PARENT="$(dirname "${ROOT}")"
 TARGET="${PARENT}/worktrees/${id}"
-BRANCH="parallel/${id}"
+BRANCH="parallel/${branch_id}"
 FORCE="${CLEANUP_FORCE:-0}"
 
 if [[ ! -d "${TARGET}" ]]; then
@@ -46,7 +48,7 @@ fi
 
 # Check that branch is merged somewhere
 if git -C "${ROOT}" show-ref --verify --quiet "refs/heads/${BRANCH}"; then
-  if ! git -C "${ROOT}" branch --merged | grep -qE "^[ *]+${BRANCH}$"; then
+  if ! git -C "${ROOT}" branch --merged | grep -qF "${BRANCH}"; then
     if [[ "${FORCE}" != "1" ]]; then
       echo "cleanup_worktree.sh: refusing — ${BRANCH} is not merged into any checked-out branch. Re-run with CLEANUP_FORCE=1 only after user confirmation." >&2
       exit 3
