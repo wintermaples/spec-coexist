@@ -22,6 +22,20 @@ For requirements in `docs/main-requirements.md` (not subsystem-scoped), use subs
 
 `REQ-MAIN-1`, `REQ-MAIN-2`
 
+### Nested subsystem IDs
+
+When subsystems are nested (e.g. `docs/subsystems/001_common-platform/subsystems/001_notification/`), the `<SUBSYSTEM>` component in REQ/DES IDs uses the **leaf subsystem name** in uppercase:
+
+- `docs/subsystems/001_common-platform/subsystems/001_notification/` → `REQ-NOTIFICATION-1`, `DES-NOTIFICATION-1`
+
+When a flat identifier is needed (branch names, changelog filenames, evidence directories, worktree paths), use the `~`-separated **qualified ID**: `001_common-platform~001_notification`.
+
+Scripts for conversion:
+- `qualify_subsystem_id.sh <dir-path>` — filesystem path → qualified ID
+- `resolve_subsystem_path.sh <qualified-id>` — qualified ID → filesystem path
+
+Recommended maximum nesting depth: **2 levels** (parent + child). Deeper nesting is supported but not recommended.
+
 ### Placement
 
 Requirement IDs **MUST** appear as inline markers in requirements documents:

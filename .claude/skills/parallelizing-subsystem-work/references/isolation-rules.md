@@ -6,7 +6,7 @@ The value of `parallelizing-subsystem-work` is this decision procedure. If the p
 
 1. **No shared writable files.** The union of files that A's design says it will modify and the union of files that B's design says it will modify **MUST** be disjoint.
 2. **No shared main-* files.** Neither A nor B's design names any file matching `docs/main-*.md` or the root-level shared configuration files (`package.json`, `pyproject.toml`, `go.mod`, database migration directories). Root shared files are a special case of rule 1, listed separately because subsystem authors routinely forget them.
-3. **No declared dependency.** A's design **MUST NOT** mention B as a prerequisite, and vice versa. The dependency graph is read from `_shared/scripts/subsystem_deps.sh`, which scans `docs/subsystems/*/\*-design.md` for `Depends-on:` front-matter lines.
+3. **No declared dependency.** A's design **MUST NOT** mention B as a prerequisite, and vice versa. The dependency graph is read from `_shared/scripts/subsystem_deps.sh`, which recursively scans all `*-design.md` files under `docs/subsystems/` (including nested subsystems) for `Depends-on:` front-matter lines.
 4. **No shared public API signature.** If A adds a function that B is expected to consume, they are sequential, not parallel, even if the files differ.
 
 All four conditions **MUST** hold. Failing any one disqualifies the pair.
@@ -26,4 +26,4 @@ An agent that "parallelizes what it can and sequences the rest" is hard to audit
 
 ## Repository assumption
 
-This ruleset assumes the repository uses the `spec-coexist` subsystem layout (`docs/subsystems/{id}_{name}/{name}-design.md`). Porting to a different layout **MUST** begin by rewriting this file.
+This ruleset assumes the repository uses the `spec-coexist` subsystem layout (`docs/subsystems/{id}_{name}/{name}-design.md`), which supports nested subsystems (e.g. `docs/subsystems/{parent_id}_{parent}/subsystems/{id}_{name}/{name}-design.md`). Nested subsystems use `~`-separated qualified IDs (e.g. `001_common~001_notification`) for flat identifiers in branch names and edge lists. Porting to a different layout **MUST** begin by rewriting this file.

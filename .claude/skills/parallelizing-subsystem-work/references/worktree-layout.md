@@ -10,8 +10,9 @@ Each worktree is on branch `parallel/{subsystem-id}`, forked from the branch tha
 
 ## Naming
 
-- `subsystem-id` is the directory name under `docs/subsystems/`, e.g. `03_payment`.
-- Branch name uses the same slug: `parallel/03_payment`.
+- For **flat (top-level) subsystems**, `subsystem-id` is the directory name under `docs/subsystems/`, e.g. `03_payment`. Branch name: `parallel/03_payment`.
+- For **nested subsystems**, `subsystem-id` is a `~`-separated qualified identifier joining each `{id}_{name}` segment from root to leaf, e.g. `001_common~001_notification` for `docs/subsystems/001_common/subsystems/001_notification/`. Branch name: `parallel/001_common~001_notification`.
+- Use `qualify_subsystem_id.sh <path>` to compute the qualified ID from a filesystem path, and `resolve_subsystem_path.sh <qualified-id>` for the reverse.
 - No spaces, no uppercase letters.
 
 ## Lifecycle

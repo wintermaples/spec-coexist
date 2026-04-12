@@ -12,6 +12,7 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. It **MU
 
 - This skill **MUST NOT** update an existing basic design document. If the target file already exists, the skill **MUST** halt and direct the user to `spec-coexist:revising`.
 - If `docs/main-requirements.md` does not exist, the skill **MUST** halt immediately. A basic design without requirements is meaningless.
+- For nested subsystems, the parent subsystem's requirements document **MUST** also exist before creating a child subsystem's design.
 
 ## Verification Gate
 

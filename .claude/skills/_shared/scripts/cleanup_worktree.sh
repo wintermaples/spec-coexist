@@ -2,6 +2,10 @@
 # cleanup_worktree.sh <subsystem-id>
 #
 # Remove ../worktrees/{id} and delete branch parallel/{id}.
+#
+# <subsystem-id> may be a flat id (e.g. "003_payment") or a ~-separated
+# qualified id for nested subsystems (e.g. "001_common~001_notification").
+#
 # Refuses if:
 #   - the worktree has uncommitted changes
 #   - the branch has commits not yet merged into the parent branch

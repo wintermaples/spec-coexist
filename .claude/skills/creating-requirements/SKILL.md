@@ -1,7 +1,7 @@
 ---
 name: creating-requirements
 user-invocable: true
-description: Use whenever the user wants to CREATE a new requirements document — whole-system (`docs/main-requirements.md`) or subsystem (`docs/subsystems/{id}_{name}/{name}-requirements.md`). Trigger on phrases like "要件定義を作る", "draft requirements", "new requirements doc", "要件をまとめたい", or any request that implies producing a fresh requirements artifact. This skill MUST NOT update an existing requirements document — it only creates new ones.
+description: Use whenever the user wants to CREATE a new requirements document — whole-system (`docs/main-requirements.md`) or subsystem (`docs/subsystems/{id}_{name}/{name}-requirements.md`, including nested subsystems like `docs/subsystems/.../subsystems/{id}_{name}/{name}-requirements.md`). Trigger on phrases like "要件定義を作る", "draft requirements", "new requirements doc", "要件をまとめたい", or any request that implies producing a fresh requirements artifact. This skill MUST NOT update an existing requirements document — it only creates new ones.
 ---
 
 # creating-requirements
@@ -43,8 +43,10 @@ Invoke from `../_shared/scripts/`:
 | --- | --- |
 | `check_doc_exists.sh <path>` | Exit 0 if the file exists (signal to halt) |
 | `check_doc_links.sh --root docs --strict` | Validate frontmatter refs, body links, and lifecycle |
-| `next_subsystem_id.sh` | Print the next 3-digit subsystem id |
-| `ensure_subsystem_dir.sh <name>` | Allocate id and create `docs/subsystems/{id}_{name}/` |
+| `next_subsystem_id.sh [parent-dir]` | Print the next 3-digit subsystem id (default parent: `docs`) |
+| `ensure_subsystem_dir.sh <name> [parent-dir]` | Allocate id and create `{parent}/subsystems/{id}_{name}/` (default parent: `docs`) |
+| `qualify_subsystem_id.sh <path>` | Convert subsystem dir path to `~`-separated qualified id |
+| `resolve_subsystem_path.sh <qualified-id>` | Convert qualified id back to filesystem path |
 | `gen_questions_path.sh requirements` | Print the questions-file path and ensure its parent dir |
 
 ## References

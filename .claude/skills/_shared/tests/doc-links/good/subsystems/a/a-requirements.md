@@ -5,6 +5,8 @@ version: 0.1
 status: active
 extends:
   - ../../main-requirements.md
+related:
+  - subsystems/a1/a1-requirements.md
 ---
 
 # Subsystem A

@@ -28,14 +28,15 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. It **MU
 
 - `../_shared/scripts/check_doc_exists.sh <path>` — verify each input document exists before proceeding. Invoke; do not reimplement.
 - `../_shared/scripts/record_test_failure.sh <slug> -- <cmd>` — capture a RED run as `docs/evidence/red-*.log`. MUST be invoked at the RED step of every loop.
+- `../_shared/scripts/resolve_subsystem_path.sh <qualified-id>` — convert a `~`-separated qualified ID to a filesystem path for nested subsystems.
 
 ## Procedure
 
 1. Run `check_doc_exists.sh` on `docs/main-requirements.md` and `docs/main-basic-design.md`. HALT if either is missing.
 2. Read both documents.
 3. Ask whether the target is whole-system or a specific subsystem.
-4. If a subsystem, locate `docs/subsystems/{id}_{name}/`, verify both subsystem documents exist; HALT if not. Read them.
-5. Read the basic design's declared **test strategy tier** (`strict` / `pipeline` / `ui`); default `strict` if absent. HALT per `references/hard-constraints.md` §Test Strategy Tier Declaration when the domain is UI- or pipeline-heavy and the declaration is missing, routing the user to `revising`. Extract acceptance criteria into `docs/acceptance/{feature}.md` (or `docs/subsystems/{id}_{name}/acceptance.md`), annotating each bullet with the tier-appropriate RED unit per `references/tdd-discipline.md` §Test Strategy Tiers.
+4. If a subsystem, locate its directory (may be nested, e.g. `docs/subsystems/{id}_{name}/` or `docs/subsystems/{parent_id}_{parent}/subsystems/{id}_{name}/`). Use `resolve_subsystem_path.sh` if given a qualified ID. Verify both subsystem documents exist; HALT if not. Read them.
+5. Read the basic design's declared **test strategy tier** (`strict` / `pipeline` / `ui`); default `strict` if absent. HALT per `references/hard-constraints.md` §Test Strategy Tier Declaration when the domain is UI- or pipeline-heavy and the declaration is missing, routing the user to `revising`. Extract acceptance criteria into `docs/acceptance/{feature}.md` (or `<subsystem-dir>/acceptance.md`), annotating each bullet with the tier-appropriate RED unit per `references/tdd-discipline.md` §Test Strategy Tiers.
 6. Draft the implementation plan following `references/plan-template.md`. Present and iterate until the user approves.
 7. Execute the plan per `references/execution-rules.md`. For each acceptance bullet run one Red-Green-Refactor loop per `references/tdd-discipline.md`; RED evidence is mandatory.
 8. **MUST** pass `verification-before-completion` (code mode); it HALTs without `docs/evidence/red-*.log` (or a documented waiver).

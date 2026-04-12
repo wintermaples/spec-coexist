@@ -4,7 +4,7 @@ title: Requirements Definition — {{SUBSYSTEM_NAME}}
 version: 0.1
 status: draft
 extends:
-  - ../../main-requirements.md
+  - {{EXTENDS_PATH}}
 supersedes: []
 superseded_by: []
 related: []

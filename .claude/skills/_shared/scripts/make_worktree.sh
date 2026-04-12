@@ -2,6 +2,11 @@
 # make_worktree.sh <subsystem-id>
 #
 # Create ../worktrees/{id} on branch parallel/{id}, forked from the current HEAD.
+#
+# <subsystem-id> may be a flat id (e.g. "003_payment") or a ~-separated
+# qualified id for nested subsystems (e.g. "001_common~001_notification").
+# Both forms are valid in filesystem paths and git branch names.
+#
 # Refuses if:
 #   - the repo is dirty
 #   - the branch parallel/{id} already exists
