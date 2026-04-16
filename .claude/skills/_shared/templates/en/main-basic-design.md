@@ -21,8 +21,19 @@ related: []
      - Do not write per-feature design here — that belongs in each
        subsystem's basic design doc. If you feel the urge to elaborate,
        it's a signal to delegate to the subsystem doc instead.
-     - Empty sections fail the verification gate. Either fill, mark
-       "N/A — reason: ...", or delete the heading.
+     - If a section does not apply, KEEP the heading and write
+       "N/A — reason: ..." on one line. Do NOT delete the heading.
+       Preserving headings lets later readers distinguish "considered
+       and dismissed" from "never considered."
+     - This applies to EVERY section, not just the obvious ones.
+       Example: a project with no shared batch infrastructure should
+       NOT invent a common batch policy — write "N/A — reason: no
+       shared batch layer; each subsystem schedules independently."
+       Same rule for common logging, common error handling, common UI,
+       etc.
+     - The urge to "pad to look thorough" is the signal to choose N/A.
+     - Verification gate fails placeholders (TBD / TODO / ??? / empty
+       bullet lists). A one-line "N/A — reason: ..." passes.
      - The template is a coverage checklist, not an essay assignment. -->
 
 

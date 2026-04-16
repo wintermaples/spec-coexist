@@ -19,8 +19,19 @@ related: []
        docs. The document length MUST scale with the system, not with habit.
      - Do not pad sections to look thorough. If nothing applies, write
        "N/A — reason: ..." in one line and move on.
-     - Empty sections fail the verification gate. Either fill, mark N/A, or
-       delete the heading.
+     - If a section does not apply, KEEP the heading and write
+       "N/A — reason: ..." on one line. Do NOT delete the heading.
+       Preserving headings lets later readers distinguish "considered
+       and dismissed" from "never considered."
+     - This applies to EVERY section, not just the obvious ones.
+       Example: a foundational project with no business KPIs of its own
+       should NOT invent KPIs — write "N/A — reason: this project is
+       internal infrastructure; business KPIs are owned by consuming
+       projects." Same rule for stakeholder lists, common interfaces,
+       migration requirements, etc.
+     - The urge to "pad to look thorough" is the signal to choose N/A.
+     - Verification gate fails placeholders (TBD / TODO / ??? / empty
+       bullet lists). A one-line "N/A — reason: ..." passes.
      - The template is a coverage checklist, not an essay assignment. -->
 
 

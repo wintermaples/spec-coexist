@@ -20,8 +20,17 @@ related: []
        area of the subsystem (number of modules, screens, integrations).
      - Do not pad sections to look thorough. If nothing applies, write
        "N/A — reason: ..." in one line and move on.
-     - Empty sections fail the verification gate. Either fill, mark N/A,
-       or delete the heading.
+     - If a section does not apply, KEEP the heading and write
+       "N/A — reason: ..." on one line. Do NOT delete the heading.
+       Preserving headings lets later readers distinguish "considered
+       and dismissed" from "never considered."
+     - This applies to EVERY section, not just the obvious ones.
+       Example: a synchronous-only subsystem should NOT invent a batch
+       — write "N/A — reason: no async processing; synchronous only."
+       Same rule for reports, external IFs, data migration, etc.
+     - The urge to "pad to look thorough" is the signal to choose N/A.
+     - Verification gate fails placeholders (TBD / TODO / ??? / empty
+       bullet lists). A one-line "N/A — reason: ..." passes.
      - For UI subsystems: describe screens by COMPONENTS and BEHAVIORS
        (areas, components, fields, actions, states, roles, messages,
        a11y, navigation params). Markdown is poor for layout — keep

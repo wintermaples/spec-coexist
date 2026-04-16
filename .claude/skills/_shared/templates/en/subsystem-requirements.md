@@ -20,8 +20,18 @@ related: []
        with feature count and business complexity.
      - Do not pad sections to look thorough. If nothing applies, write
        "N/A — reason: ..." in one line and move on.
-     - Empty sections fail the verification gate. Either fill, mark N/A, or
-       delete the heading.
+     - If a section does not apply, KEEP the heading and write
+       "N/A — reason: ..." on one line. Do NOT delete the heading.
+       Preserving headings lets later readers distinguish "considered
+       and dismissed" from "never considered."
+     - This applies to EVERY section, not just the obvious ones.
+       Example: a screen-only subsystem with no printed forms should
+       NOT invent a form — write "N/A — reason: no printed output;
+       this subsystem is purely interactive." Same rule for KPIs,
+       external interfaces, migration requirements, etc.
+     - The urge to "pad to look thorough" is the signal to choose N/A.
+     - Verification gate fails placeholders (TBD / TODO / ??? / empty
+       bullet lists). A one-line "N/A — reason: ..." passes.
      - The template is a coverage checklist, not an essay assignment. -->
 
 
