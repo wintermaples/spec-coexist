@@ -35,6 +35,8 @@ FRONTMATTER_RE = re.compile(r"^---\n(.*?)\n---\n", re.DOTALL)
 # Markdown link: [text](target)
 MD_LINK_RE = re.compile(r"\[([^\]]*)\]\(([^)]+)\)")
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.*?)\s*$", re.MULTILINE)
+# Fenced code block fence (``` or ~~~), optionally with info string.
+FENCE_RE = re.compile(r"^[ \t]{0,3}(`{3,}|~{3,})")
 
 LIFECYCLE_ACTIVE = {"active", "draft"}
 LIFECYCLE_RETIRED = {"deprecated", "superseded"}
@@ -109,8 +111,48 @@ def extract_headings(body: str) -> set[str]:
     return {slugify(h[1]) for h in HEADING_RE.findall(body)}
 
 
+def strip_fenced_code_blocks(body: str) -> str:
+    """Drop fenced code blocks so example links/headings inside them are ignored.
+
+    Example:
+
+        ```markdown
+        See [§4.3 Security](../../main-requirements.md#43-security).
+        ```
+
+    The link above is illustrative; treating it as a real ref produces a false
+    positive. Recognises both ``` and ~~~ fences (with optional info string)
+    and tolerates up to 3 leading spaces, per CommonMark."""
+    out: list[str] = []
+    fence: str | None = None  # the opening fence character ('`' or '~') when inside
+    fence_len = 0
+    for raw_line in body.splitlines(keepends=True):
+        m = FENCE_RE.match(raw_line)
+        if fence is None:
+            if m:
+                marker = m.group(1)
+                fence = marker[0]
+                fence_len = len(marker)
+            else:
+                out.append(raw_line)
+        else:
+            # Inside a fenced block: closing fence must use the same char and
+            # be at least as long as the opening fence.
+            if m:
+                marker = m.group(1)
+                if marker[0] == fence and len(marker) >= fence_len:
+                    fence = None
+                    fence_len = 0
+            # drop content lines and fence lines themselves
+    return "".join(out)
+
+
 def extract_links(body: str) -> list[tuple[str, str]]:
-    """Return list of (path, anchor) tuples for local .md links only."""
+    """Return list of (path, anchor) tuples for local .md links only.
+
+    Links inside fenced code blocks are ignored — they are documentation
+    examples, not real cross-references."""
+    body = strip_fenced_code_blocks(body)
     out: list[tuple[str, str]] = []
     for _text, target in MD_LINK_RE.findall(body):
         target = target.strip()
@@ -149,16 +191,38 @@ def resolve(src: Path, ref: str, root: Path) -> Path:
 
 
 def is_template_file(p: Path) -> bool:
-    """Skeleton/template files under docs/ are not production specs — they
-    carry placeholder links (e.g. `subsystem-A/...`) that intentionally do not
-    resolve. Match filenames ending in `-template.md` or `-template-rules.md`."""
+    """Skeleton/template files are not production specs — they carry
+    placeholder links (e.g. `subsystem-A/...`, `{{SUBSYSTEM_NAME}}-…`) that
+    intentionally do not resolve. Skip:
+
+    - filenames ending in `-template.md` or `-template-rules.md`, and
+    - any file under a directory named `templates` (e.g.
+      `_shared/templates/en/subsystem-basic-design.md`)."""
     name = p.name
-    return name.endswith("-template.md") or name.endswith("-template-rules.md")
+    if name.endswith("-template.md") or name.endswith("-template-rules.md"):
+        return True
+    return any(part == "templates" for part in p.parts)
+
+
+def is_intentional_fixture(p: Path) -> bool:
+    """Test fixtures under `tests/doc-links/broken/` and `tests/doc-links/cycle/`
+    are deliberate bad-data examples used by the linter's own test suite to
+    prove it detects each error class. Skip them when walking the tree —
+    flagging them would defeat their purpose. The sibling `good/` fixture
+    is allowed to be scanned (it must remain valid)."""
+    parts = p.parts
+    for i in range(len(parts) - 2):
+        if parts[i] == "tests" and parts[i + 1] == "doc-links" and parts[i + 2] in ("broken", "cycle"):
+            return True
+    return False
 
 
 def check(root: Path, strict: bool, stale_days: int = STALE_DRAFT_DAYS) -> list[Finding]:
     findings: list[Finding] = []
-    md_files = [p for p in sorted(root.rglob("*.md")) if not is_template_file(p)]
+    md_files = [
+        p for p in sorted(root.rglob("*.md"))
+        if not is_template_file(p) and not is_intentional_fixture(p)
+    ]
     docs: dict[Path, DocMeta] = {}
 
     for p in md_files:
@@ -342,7 +406,10 @@ def main(argv: list[str]) -> int:
     findings = check(root, args.strict, stale_days=args.stale_days)
     errors = [f for f in findings if f.level == "error"]
     warnings = [f for f in findings if f.level == "warning"]
-    files_scanned = sum(1 for _ in root.rglob("*.md"))
+    files_scanned = sum(
+        1 for p in root.rglob("*.md")
+        if not is_template_file(p) and not is_intentional_fixture(p)
+    )
 
     if args.json:
         print(json.dumps({
