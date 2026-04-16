@@ -154,7 +154,7 @@ contents:
 ```json
 {
   "name": "spec-coexist",
-  "version": "1.1.0",
+  "version": "1.2.0",
   ...
 }
 ```
