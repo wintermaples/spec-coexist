@@ -12,7 +12,21 @@ related: []
 ---
 
 <!-- Frontmatter schema: see .claude/skills/_shared/references/doc-reference-syntax.md
-     Lifecycle rules:   see .claude/skills/_shared/references/doc-lifecycle.md -->
+     Lifecycle rules:   see .claude/skills/_shared/references/doc-lifecycle.md
+
+     LENGTH POLICY (read before writing):
+     - There is NO target line/page count. Do not anchor to ~1000 lines.
+     - Quality over quantity. Length MUST scale with the actual surface
+       area of the subsystem (number of modules, screens, integrations).
+     - Do not pad sections to look thorough. If nothing applies, write
+       "N/A — reason: ..." in one line and move on.
+     - Empty sections fail the verification gate. Either fill, mark N/A,
+       or delete the heading.
+     - For UI subsystems: describe screens by COMPONENTS and BEHAVIORS
+       (areas, components, fields, actions, states, roles, messages,
+       a11y, navigation params). Markdown is poor for layout — keep
+       wireframes/Figma external and link to them. -->
+
 
 # Basic Design — {{SUBSYSTEM_NAME}}
 

@@ -11,7 +11,20 @@ related: []
 ---
 
 <!-- Frontmatter schema: see .claude/skills/_shared/references/doc-reference-syntax.md
-     Lifecycle rules:   see .claude/skills/_shared/references/doc-lifecycle.md -->
+     Lifecycle rules:   see .claude/skills/_shared/references/doc-lifecycle.md
+
+     LENGTH POLICY (read before writing):
+     - There is NO target line/page count. Do not anchor to ~1000 lines.
+     - Quality over quantity: a single-subsystem project may finish this
+       doc in under 100 lines; a multi-team programme will be much longer.
+       Length MUST scale with shared concerns, not with habit.
+     - Do not write per-feature design here — that belongs in each
+       subsystem's basic design doc. If you feel the urge to elaborate,
+       it's a signal to delegate to the subsystem doc instead.
+     - Empty sections fail the verification gate. Either fill, mark
+       "N/A — reason: ...", or delete the heading.
+     - The template is a coverage checklist, not an essay assignment. -->
+
 
 # Basic Design (Whole System)
 

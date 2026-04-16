@@ -11,7 +11,19 @@ related: []
 ---
 
 <!-- Frontmatter schema: see .claude/skills/_shared/references/doc-reference-syntax.md
-     Lifecycle rules:   see .claude/skills/_shared/references/doc-lifecycle.md -->
+     Lifecycle rules:   see .claude/skills/_shared/references/doc-lifecycle.md
+
+     LENGTH POLICY (read before writing):
+     - There is NO target line/page count. Do not anchor to ~1000 lines.
+     - Quality over quantity. A 3-feature subsystem doc that runs 80–150
+       lines is correct; a 20-feature subsystem cannot. Length MUST scale
+       with feature count and business complexity.
+     - Do not pad sections to look thorough. If nothing applies, write
+       "N/A — reason: ..." in one line and move on.
+     - Empty sections fail the verification gate. Either fill, mark N/A, or
+       delete the heading.
+     - The template is a coverage checklist, not an essay assignment. -->
+
 
 # Requirements Definition — {{SUBSYSTEM_NAME}}
 
