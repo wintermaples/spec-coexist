@@ -78,7 +78,8 @@ fi
 DES_MAP_FILE="$(mktemp)"
 if [[ -d "${DOCS_DIR}" ]]; then
     # Find design docs and extract DES-ID -> REQ-ID mappings
-    find "${DOCS_DIR}" -name '*design*' -name '*.md' -not -name '*template*' -type f 2>/dev/null | while IFS= read -r design_file; do
+    # Match files named *design*.md OR any .md file inside a detail-design/ directory
+    find "${DOCS_DIR}" \( -name '*design*' -o -path '*/detail-design/*' \) -name '*.md' -not -name '*template*' -type f 2>/dev/null | while IFS= read -r design_file; do
         # Extract DES-IDs and nearby REQ-IDs from the same section
         current_des=""
         while IFS= read -r line; do

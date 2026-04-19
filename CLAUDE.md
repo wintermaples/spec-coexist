@@ -46,6 +46,7 @@ All skills live in `.claude/skills/` (live-reloaded by Claude Code — edits tak
 
 ```
 exploring-problem-space → creating-requirements → creating-basic-design
+    → creating-detail-design (optional, recommended)
     → implementing-from-spec (uses test-driven-implementation)
     → pre-review-self-check → code-review-loop
     → verification-before-completion → finishing-subsystem-work
