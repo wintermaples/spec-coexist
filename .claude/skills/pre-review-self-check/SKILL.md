@@ -48,6 +48,7 @@ Findings from this skill should be fixed locally; they should not be deferred to
 
 ## Hard Constraints
 
+- For T1 tasks, this skill is **RECOMMENDED** before `spec-coexist:code-review-loop` (if review is requested).
 - For T2/T3 tasks, the implementing agent **MUST** run this skill before `spec-coexist:code-review-loop`.
 - Critical and Important findings **MUST NOT** be forwarded to the reviewer subagent.
 - This skill **MUST NOT** spawn a subagent.

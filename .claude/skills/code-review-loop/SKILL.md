@@ -6,7 +6,7 @@ description: |
   Combines requesting and receiving review into one loop. Trigger on phrases like "コードレビューして",
   "review this change", "実装できたのでレビュー", "before I merge", "レビューが返ってきた",
   "here is the review feedback", "reviewer said...". Dispatches a fresh reviewer subagent, then
-  processes feedback with verification-before-implementation discipline.
+  processes feedback with verify-then-fix discipline (verify each item against the codebase before implementing any fix).
   Do NOT trigger on T0/T1 tasks unless the user explicitly requests review.
   This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
 ---
@@ -21,9 +21,10 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill.
 
 Single skill that handles the full code-review cycle: request review → receive feedback → verify → fix → re-review if needed. Replaces the former separate `requesting-code-review` and `receiving-code-review` skills.
 
-## Required Pre-step
+## Applicability
 
-For T2/T3 tasks, `spec-coexist:pre-review-self-check` should be run before this skill.
+- **T0/T1 tasks**: Do NOT trigger unless the user explicitly requests review.
+- **T2/T3 tasks**: `spec-coexist:pre-review-self-check` should be run before this skill.
 
 ## Procedure
 
@@ -38,7 +39,7 @@ For T2/T3 tasks, `spec-coexist:pre-review-self-check` should be run before this 
 6. **Verify** each item against the actual codebase. Does the problem exist?
 7. **Evaluate** technical correctness for this codebase.
 8. **Respond** with fix or reasoned pushback (see `references/pushback-rules.md`).
-9. **Implement** one item at a time, severity order. Run tests after each fix.
+9. **Implement** one item at a time, in severity order (Critical → Important → Minor/Suggestion). Run tests after each fix.
 
 ### Phase 3: Re-review (if needed)
 10. After Critical/Important fixes, re-dispatch on new `HEAD_SHA`.

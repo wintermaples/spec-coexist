@@ -49,7 +49,7 @@ The mode is determined from the user's request. Both modes share brainstorming f
 4. Invoke `spec-coexist:test-driven-implementation` for each behavior change.
 5. Apply targeted, minimal implementation changes.
 6. Pass `spec-coexist:verification-before-completion` (code mode).
-7. For T2/T3: invoke `spec-coexist:code-review-loop` and handle feedback.
+7. Invoke `spec-coexist:code-review-loop` and handle feedback (mandatory for all tiers — small revisions are where silent regressions hide).
 8. Report diff summary, evidence paths, and `Review:` outcome line.
 
 ## Flow
@@ -65,7 +65,7 @@ flowchart TD
     IE --> IB[Brainstorm revision plan]
     IB --> IT[TDD for each change]
     IT --> IV[verification-before-completion]
-    IV --> IR[code-review-loop T2/T3]
+    IV --> IR[code-review-loop]
     SV --> Done([Done])
     IR --> Done
 ```

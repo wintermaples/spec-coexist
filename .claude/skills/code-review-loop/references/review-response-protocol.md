@@ -6,7 +6,7 @@ Detailed policy for `code-review-loop`. The SKILL.md orchestrator points here fo
 
 When acting on multi-item feedback, the agent **MUST** implement in this order:
 
-1. Clarify anything unclear (stop until clarified — see SKILL.md "Handling Unclear Feedback").
+1. Clarify anything unclear (stop until clarified — ask the user or the reviewer for specifics before attempting a fix).
 2. Blocking issues (bugs, security, data loss).
 3. Simple fixes (typos, imports, obvious errors).
 4. Complex fixes (refactors, logic changes).
