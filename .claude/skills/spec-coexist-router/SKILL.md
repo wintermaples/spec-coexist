@@ -49,6 +49,7 @@ See `references/task-tiers.md` for definitions and `references/tier-examples.md`
 | `spec-coexist:exploring-problem-space` | T3 | Unstructured wish → handoff memo before requirements |
 | `spec-coexist:creating-requirements` | T3 | Create a new requirements document |
 | `spec-coexist:creating-basic-design` | T3 | Create a new basic design document |
+| `spec-coexist:creating-detail-design` | T3 | Create a new detailed design document (after basic design) |
 | `spec-coexist:implementing-from-spec` | T2–T3 | Implement code from existing requirements + design |
 | `spec-coexist:revising` | T1–T3 | Revise spec or update implementation after spec change |
 | `spec-coexist:test-driven-implementation` | T1–T3 | Sub-skill: RED-GREEN-REFACTOR cycle |

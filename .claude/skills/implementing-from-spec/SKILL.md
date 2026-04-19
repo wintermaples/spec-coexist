@@ -36,12 +36,13 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. It **MU
 2. Read both documents.
 3. Ask whether the target is whole-system or a specific subsystem.
 4. If a subsystem, locate its directory (may be nested, e.g. `docs/subsystems/{id}_{name}/` or `docs/subsystems/{parent_id}_{parent}/subsystems/{id}_{name}/`). Use `resolve_subsystem_path.sh` if given a qualified ID. Verify both subsystem documents exist; HALT if not. Read them.
-5. Read the basic design's declared **test strategy tier** (`strict` / `pipeline` / `ui`); default `strict` if absent. HALT per `references/hard-constraints.md` §Test Strategy Tier Declaration when the domain is UI- or pipeline-heavy and the declaration is missing, routing the user to `revising`. Extract acceptance criteria into `docs/acceptance/{feature}.md` (or `<subsystem-dir>/acceptance.md`), annotating each bullet with the tier-appropriate RED unit per `references/tdd-discipline.md` §Test Strategy Tiers.
-6. Draft the implementation plan following `references/plan-template.md`. Present and iterate until the user approves.
-7. Execute the plan per `references/execution-rules.md`. For each acceptance bullet run one Red-Green-Refactor loop per `references/tdd-discipline.md`; RED evidence is mandatory.
-8. **MUST** pass `verification-before-completion` (code mode); it HALTs without `docs/evidence/red-*.log` (or a documented waiver).
-9. **MUST** invoke `code-review-loop`, fix Critical/Important issues, re-verify and re-review as needed. See `references/code-review-protocol.md`.
-10. Report what changed, RED evidence paths, verification evidence, and a `Review:` outcome line.
+5. **Check detail design (soft gate)** — look for `detail-design/index.md` at the target path (`docs/main-detail-design/index.md` for whole-system, or `<subsystem-dir>/detail-design/index.md` for subsystem). See `references/hard-constraints.md` §Detail Design Soft Gate. If present, read all files in the `detail-design/` directory as additional implementation input. If absent, **WARN** the user that detailed design is not available and implementation may diverge from intent. Ask whether to (a) proceed without it or (b) create it first via `spec-coexist:creating-detail-design`. This is a soft gate — the user **MAY** choose to proceed.
+6. Read the basic design's declared **test strategy tier** (`strict` / `pipeline` / `ui`); default `strict` if absent. HALT per `references/hard-constraints.md` §Test Strategy Tier Declaration when the domain is UI- or pipeline-heavy and the declaration is missing, routing the user to `revising`. Extract acceptance criteria into `docs/acceptance/{feature}.md` (or `<subsystem-dir>/acceptance.md`), annotating each bullet with the tier-appropriate RED unit per `references/tdd-discipline.md` §Test Strategy Tiers.
+7. Draft the implementation plan following `references/plan-template.md`. Present and iterate until the user approves.
+8. Execute the plan per `references/execution-rules.md`. For each acceptance bullet run one Red-Green-Refactor loop per `references/tdd-discipline.md`; RED evidence is mandatory.
+9. **MUST** pass `verification-before-completion` (code mode); it HALTs without `docs/evidence/red-*.log` (or a documented waiver).
+10. **MUST** invoke `code-review-loop`, fix Critical/Important issues, re-verify and re-review as needed. See `references/code-review-protocol.md`.
+11. Report what changed, RED evidence paths, verification evidence, and a `Review:` outcome line.
 
 ## Flow
 
@@ -50,7 +51,13 @@ flowchart TD
     Start([Skill invoked]) --> Q1{Both spec docs<br/>exist?}
     Q1 -- No --> Stop([HALT])
     Q1 -- Yes --> R[Read docs]
-    R --> Plan[Draft plan per<br/>references/plan-template.md]
+    R --> DD{Detail design<br/>exists?}
+    DD -- Yes --> DDR[Read detail design<br/>as additional input]
+    DD -- No --> Warn[WARN: no detail design<br/>implementation may diverge]
+    Warn --> Ask{User chooses?}
+    Ask -- Create detail design --> Stop2([Redirect to<br/>creating-detail-design])
+    Ask -- Proceed --> Plan
+    DDR --> Plan[Draft plan]
     Plan --> Approve{User approves?}
     Approve -- No --> Plan
     Approve -- Yes --> Impl[Execute per<br/>references/execution-rules.md]

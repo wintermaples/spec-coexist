@@ -6,7 +6,7 @@ The `spec-coexist` suite's document templates are **locale-aware**. Every skill 
 
 | Locale | Canonical templates | Status |
 |---|---|---|
-| `ja` | `creating-requirements/references/*-template.md`, `creating-basic-design/references/*-template.md` | Primary, battle-tested. |
+| `ja` | `creating-requirements/references/*-template.md`, `creating-basic-design/references/*-template.md`, `creating-detail-design/references/*-template.md` | Primary, battle-tested. |
 | `en` | `_shared/templates/en/*.md` | Secondary, seeded as direct translations of `ja` with `TODO:` markers. Refine during use. |
 
 The physical location difference is historical: `ja` templates live next to the skills that first used them; `en` templates are centralized under `_shared/templates/en/` so new locales can be added without touching each skill. A future consolidation **MAY** move `ja` under `_shared/templates/ja/` — until then, treat the table above as authoritative.
@@ -37,7 +37,7 @@ If the `en` template is missing a section that the `ja` template has, the skill 
 
 ## Adding a new locale
 
-1. Create `_shared/templates/{locale}/` with the four files: `main-requirements.md`, `subsystem-requirements.md`, `main-basic-design.md`, `subsystem-basic-design.md`.
+1. Create `_shared/templates/{locale}/` with the template files: `main-requirements.md`, `subsystem-requirements.md`, `main-basic-design.md`, `subsystem-basic-design.md`, `main-detail-design.md`, `subsystem-detail-design.md`, `detail-design-module.md`.
 2. Add a row to the table above.
 3. Add trigger-test cases exercising a greeting in the new locale and verify the resolver picks it.
 4. Leave `TODO(i18n):` markers liberally — direct translation is acceptable v1 per the Phase 4 plan.
