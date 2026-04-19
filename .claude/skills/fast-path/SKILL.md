@@ -65,7 +65,7 @@ flowchart TD
 
 ## References
 
-- `../spec-coexist-router/references/task-tiers.md` — tier definitions (will be at this path after rename)
+- `../spec-coexist-router/references/task-tiers.md` — tier definitions
 - `../spec-coexist-router/references/tier-examples.md` — examples for T0/T1 boundary cases
 
 ## Scripts

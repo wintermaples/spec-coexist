@@ -35,9 +35,9 @@ Do NOT trigger for: creating/revising specs, running traceability checks only, d
 
 1. **Build traceability matrix** — run `build_traceability_matrix.sh` to get fresh data.
 2. **Scan document lifecycle** — read frontmatter `status` from all docs to classify active/draft/retired.
-3. **Collect recent changes** — `git log --since=<period>` for recently modified design docs.
-4. **Generate snapshot** — assemble `docs/_generated/snapshot-<date>.md` per `references/snapshot-format.md`.
-5. **Generate dependency graph** — produce mermaid diagram of subsystem dependencies via `subsystem_deps.sh`.
+3. **Collect recent changes** — `git log --since=<period>` for recently modified design docs (default: 14 days; use the user's stated period if given, e.g. "今週" → 7 days).
+4. **Generate dependency graph** — produce mermaid diagram of subsystem dependencies via `subsystem_deps.sh`.
+5. **Assemble snapshot** — combine steps 1-4 results into `docs/_generated/snapshot-<date>.md` per `references/snapshot-format.md`.
 6. **Report** — state outcome: number of active/draft REQs, coverage %, uncovered REQ-IDs.
 
 ## Flow
@@ -47,9 +47,9 @@ flowchart TD
     Start([Invoked]) --> TM[build_traceability_matrix.sh]
     TM --> Scan[Scan doc lifecycle status]
     Scan --> Git[Collect recent changes]
-    Git --> Gen[Generate snapshot-DATE.md]
-    Gen --> Dep[Generate mermaid dependency graph]
-    Dep --> Report([Report summary])
+    Git --> Dep[Generate mermaid dependency graph]
+    Dep --> Gen[Assemble snapshot-DATE.md]
+    Gen --> Report([Report summary])
 ```
 
 ## References
