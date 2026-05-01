@@ -19,6 +19,7 @@ See `references/constraints.md` for full detail.
 - **MUST NOT** update an existing document — halt and direct to `spec-coexist:revising`.
 - **MUST** read any draft file supplied at invocation before brainstorming.
 - **MUST** follow the template that matches the target document type.
+- **MUST** apply the 7-element document readability framework defined in `../_shared/references/document-readability.md` while writing and during the verification gate.
 - **MUST** pass `verification-before-completion` (document mode) before reporting done.
 - **SHOULD** — when writing any Mermaid diagram in the requirements document, consult the matching rule file under `../_shared/beautiful-mermaid-rules/` (e.g. `flowchart.md`, `sequence-diagram.md`, `state-diagram.md`, `class-diagram.md`, `entity-relationship-diagram.md`, `user-journey.md`, `architecture.md`, `requirement-diagram.md`, `quadrant-chart.md`, `packet.md`, `ishikawa.md`) and follow its guidance so the resulting diagram is clean and readable.
 
@@ -30,7 +31,7 @@ See `references/constraints.md` for full detail.
 3. **Decide scope** — ask one question: whole-system or subsystem?
 4. **Resolve target path** — see `references/path-resolution.md`.
 5. **Brainstorm** — follow `references/brainstorming-rules.md`. Read the relevant template + rules files so questions align with what the template requires.
-6. **Write document** — follow the template strictly (`references/main-requirements-template.md` or `references/subsystem-requirements-template.md` + their `*-rules.md` companions). Frontmatter and cross-doc links **MUST** follow `../_shared/references/doc-reference-syntax.md` and `../_shared/references/doc-lifecycle.md`.
+6. **Write document** — follow the template strictly (`references/main-requirements-template.md` or `references/subsystem-requirements-template.md` + their `*-rules.md` companions). The drafted text **MUST** apply the 7 readability elements defined in `../_shared/references/document-readability.md`. Frontmatter and cross-doc links **MUST** follow `../_shared/references/doc-reference-syntax.md` and `../_shared/references/doc-lifecycle.md`.
 7. **Check doc links** — run `../_shared/scripts/check_doc_links.sh --root docs --strict`. All errors **MUST** be fixed before proceeding.
 8. **Verify (MANDATORY)** — pass through `verification-before-completion` (document mode); see `references/verification-checklist.md`. Fix and re-run until PASS.
 9. **Stop** — do not start design or implementation in the same skill invocation.
@@ -57,6 +58,7 @@ Invoke from `../_shared/scripts/`:
 | `references/path-resolution.md` | Target path resolution for whole-system vs subsystem |
 | `references/brainstorming-rules.md` | Question rules, question-file threshold, Visual Companion gate |
 | `references/verification-checklist.md` | Mandatory checks before reporting completion |
+| `../_shared/references/document-readability.md` | 7-element readability framework applied during writing and verification |
 | `references/main-requirements-template.md` | Whole-system document template |
 | `references/main-requirements-template-rules.md` | Whole-system authoring guide |
 | `references/subsystem-requirements-template.md` | Subsystem document template |

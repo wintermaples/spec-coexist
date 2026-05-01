@@ -15,6 +15,7 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. It **MU
   - Whole-system: `docs/main-basic-design.md` must exist.
   - Subsystem: `docs/subsystems/{id}_{name}/{name}-design.md` must exist.
 - For nested subsystems, the parent subsystem's basic design document **MUST** also exist before creating a child subsystem's detailed design.
+- The detailed design text **MUST** apply the 7 readability elements (grammatical readability / reader fit / clarity & conciseness / referentiality / consistency / structure / use of diagrams and formal language) defined in `../../_shared/references/document-readability.md`. The verification gate and the reviewer re-check the same elements. Scope is content only; visual typography is out of scope.
 
 ## Notation Constraint — Mermaid First
 
@@ -33,6 +34,7 @@ After all detailed design files are written, the agent **MUST** pass through `ve
 - Confirm no `TBD` / `TODO` / `???` placeholders remain.
 - Confirm no empty sections (use "N/A — reason: ..." for inapplicable sections).
 - Confirm Mermaid diagrams render without syntax errors.
+- Re-check each of the 7 readability elements (`../../_shared/references/document-readability.md`): grammatical readability (sentence length, demonstratives), reader fit (intended-reader statement, acronym expansions), clarity & conciseness (no vague qualifiers, no duplication), referentiality (basic-design / sibling-module links resolve, DES-IDs unique), consistency (terminology, table column order), structure (template section order, one idea per paragraph), diagrams and formal language (every diagram/table has a 1-line caption; strict contracts use formal notation).
 
 Fix any failures and re-run the gate until it passes cleanly.
 
@@ -57,6 +59,7 @@ Instruct the reviewer to specifically check:
 - No implementation-level code without justification
 - Internal consistency across module files
 - Unresolved `TBD`s
+- **Conformance to the 7 readability elements** (`../../_shared/references/document-readability.md`): grammatical readability / reader fit / clarity & conciseness / referentiality / consistency / structure / use of diagrams and formal language
 
 ### Step 2 — Handle feedback
 

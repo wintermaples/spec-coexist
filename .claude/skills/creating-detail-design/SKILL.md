@@ -34,7 +34,7 @@ Create a brand-new detailed design document (whole-system or subsystem). For upd
 4. **Load template + rules** — read the matching pair from `references/`. Also load `references/module-template.md`.
 5. **Plan folder structure** — extract modules from basic design, propose folder layout per `references/folder-structure-guidelines.md`. Confirm with user.
 6. **Brainstorm** — follow `references/brainstorming-rules.md`. Process one module at a time, using Mermaid diagrams as the primary notation.
-7. **Write** — produce `index.md` and per-module files. Mermaid is primary; code ONLY when diagrams cannot prevent drift. See template rules.
+7. **Write** — produce `index.md` and per-module files. Mermaid is primary; code ONLY when diagrams cannot prevent drift. The drafted text **MUST** apply the 7 readability elements in `../_shared/references/document-readability.md`. See template rules.
 8. **Check doc links** — run `check_doc_links.sh --root docs --strict`. Fix all errors.
 9. **Verify** — invoke `verification-before-completion` (document mode).
 10. **Review** — invoke `code-review-loop`. See `references/constraints-and-review.md` §Mandatory Design Review.
@@ -64,6 +64,7 @@ When writing Mermaid diagrams, consult `../_shared/beautiful-mermaid-rules/` and
 
 ## References
 
+- `../_shared/references/document-readability.md` — 7-element readability framework applied during writing and verification
 - `references/constraints-and-review.md` — hard constraints, verification gate, review protocol
 - `references/brainstorming-rules.md` — one-question-per-message, module-by-module approach
 - `references/folder-structure-guidelines.md` — multi-file organization rules
