@@ -19,17 +19,20 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill.
 
 ## Purpose
 
-Unified revision skill that handles two modes:
-- **Spec mode** — revise requirements or basic design documents in lockstep
-- **Implementation mode** — update code after a spec change, with TDD
+Unified revision skill with two modes, both sharing the same brainstorming flow and verification gates:
 
-The mode is determined from the user's request. Both modes share brainstorming flow and verification gates.
+- **Spec mode** — revise requirements or basic design documents in lockstep.
+- **Implementation mode** — update code after a spec change, driven by TDD.
+
+The mode is detected from the user's request.
 
 ## Mode Detection
 
-- Mentions "requirements", "design", "spec", "要件", "設計" → **spec mode**
-- Mentions "implementation", "code", "実装", "コード" → **implementation mode**
-- If both → start with spec mode, then chain to implementation mode
+| User mentions | Mode |
+|---|---|
+| "requirements", "design", "spec", "要件", "設計" | **spec mode** |
+| "implementation", "code", "実装", "コード" | **implementation mode** |
+| Both kinds of terms | start with **spec mode**, then chain to **implementation mode** |
 
 ## Spec Mode Procedure
 

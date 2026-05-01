@@ -4,7 +4,7 @@ Conformance keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) /
 
 デバッグ中に頭をよぎった時点で **立ち止まるべき** 思考パターン。いずれかが発火したら、コードを触る前に `references/principles.md` §1 と `references/hypothesis-evidence-loop.md` に戻ること。
 
-A debugging session **MUST** halt and re-enter the hypothesis loop whenever any of the following thoughts occurs. These are **not** hypotheses; they are excuses disguised as intuition.
+A debugging session **MUST** halt and re-enter the hypothesis loop whenever any of the following thoughts occurs — these are **not** hypotheses, they are excuses disguised as intuition.
 
 | # | 危険思考 (JA) | Red flag (EN) | 反論 / Counter |
 |---|---------------|---------------|----------------|

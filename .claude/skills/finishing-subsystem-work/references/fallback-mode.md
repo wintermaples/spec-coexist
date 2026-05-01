@@ -4,14 +4,14 @@ Conformance keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) /
 
 ## When This Mode Activates
 
-The skill **MUST** switch to fallback mode when any of the following is detected:
+The skill **MUST** switch to fallback mode whenever any of the following is detected:
 
-- `gh` CLI is not installed or not on `PATH`.
+- The `gh` CLI is not installed or is not on `PATH`.
 - `gh auth status` reports no authenticated user.
-- The current user does not have push permission to the target remote (detected by a dry-run `git push --dry-run` returning a permission error).
+- The current user lacks push permission to the target remote (a dry-run `git push --dry-run` returns a permission error).
 - The target remote is unreachable from the current environment.
 
-In fallback mode, the skill **MUST NOT** attempt to execute the integration step itself. Guessing at a substitute command or bypassing the missing capability is prohibited.
+In fallback mode, the skill **MUST NOT** attempt the integration step itself. Guessing at a substitute command or bypassing the missing capability is prohibited.
 
 ## What Fallback Mode Does
 

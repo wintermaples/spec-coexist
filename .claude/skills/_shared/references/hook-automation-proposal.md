@@ -15,25 +15,25 @@
 ## 1. Goal & Rationale / 目的と背景
 
 ### EN
-The spec-coexist suite currently relies on human goodwill to honor RFC 2119
-constraints (TDD, evidence, verification-before-completion). Comparison
-report weakness **W5** identifies the lack of harness-level enforcement: a
-well-intentioned agent can still skip the RED phase, fabricate a "done"
-claim, or commit without evidence. Hooks close that gap by letting the
-Claude Code harness — not the model — run discipline checks at
-deterministic lifecycle points.
+The spec-coexist suite currently relies on human goodwill to honor its
+RFC 2119 constraints (TDD, evidence, verification-before-completion).
+Weakness **W5** in the comparison report flags the missing piece:
+harness-level enforcement. A well-intentioned agent can still skip the RED
+phase, fabricate a "done" claim, or commit without evidence. Hooks close
+that gap by letting the Claude Code harness — not the model — run
+discipline checks at deterministic lifecycle points.
 
 ### JA
-現在の spec-coexist は RFC 2119 の規律 (TDD、evidence、完了前検証) の遵守を
-人間の善意に依存している。比較レポートの弱点 **W5** が指摘するとおり、
-ハーネスレベルの強制力が無いためエージェントは RED フェーズを飛ばしたり、
+現在の spec-coexist は RFC 2119 の規律 (TDD、evidence、完了前検証) を
+人間の善意に依存して守っている。比較レポートの弱点 **W5** が指摘するとおり、
+ハーネスレベルの強制力が無いため、エージェントは RED フェーズを飛ばしたり、
 証拠無しで完了宣言したり、evidence 無しで commit することが可能である。
-フックは Claude Code ハーネス (モデルではなく) がライフサイクルの確定的な
-タイミングで規律チェックを走らせる仕組みを提供し、この欠落を埋める。
+フックは、モデルではなく Claude Code ハーネスがライフサイクルの確定的な
+タイミングで規律チェックを実行する仕組みを提供し、この欠落を埋める。
 
 ### Non-goals
-- Hooks **MUST NOT** replace skill-level RFC 2119 text; they complement it.
-- Hooks **MUST NOT** block exploratory/legacy work excluded by
+- Hooks **MUST NOT** replace skill-level RFC 2119 text — they complement it.
+- Hooks **MUST NOT** block exploratory or legacy work that is excluded by
   `test-driven-implementation/references/negative-triggers.md` (once Phase 1
   lands). A hook that cannot distinguish excluded paths **MUST** default to
   warn-only.
@@ -65,18 +65,18 @@ canonical repo layout (`.claude/skills/_shared/scripts/`).
 }
 ```
 
-**Effect:** after every `Edit`/`Write`/`MultiEdit` that touches a source
-file, `verify_test_first.sh` walks `git log` to confirm a failing test was
-recorded (via `record_test_failure.sh` / evidence) **before** the production
-change. In `--mode=warn` it prints a non-blocking reminder; in
-`--mode=enforce` it exits non-zero, which the harness surfaces as a tool
-failure.
+**Effect:** after every `Edit` / `Write` / `MultiEdit` that touches a
+source file, `verify_test_first.sh` walks `git log` to confirm that a
+failing test was recorded (via `record_test_failure.sh` or evidence)
+**before** the production change. In `--mode=warn` the script prints a
+non-blocking reminder; in `--mode=enforce` it exits non-zero, which the
+harness surfaces as a tool failure.
 
-**File-type filter:** the script itself **SHOULD** filter by extension
-(`.py`, `.ts`, `.tsx`, `.js`, `.jsx`, `.rs`, `.go`, `.java`, `.kt`, `.rb`,
-`.cs`) and **MUST** skip docs (`*.md`), config (`*.json`, `*.yml`,
-`*.yaml`, `*.toml`), and lockfiles. Hook-level matchers are not
-expressive enough for this — keep the logic in the script.
+**File-type filter:** the script itself **SHOULD** filter by source
+extension (`.py`, `.ts`, `.tsx`, `.js`, `.jsx`, `.rs`, `.go`, `.java`,
+`.kt`, `.rb`, `.cs`) and **MUST** skip docs (`*.md`), config (`*.json`,
+`*.yml`, `*.yaml`, `*.toml`), and lockfiles. Hook-level matchers cannot
+express this discrimination — keep the logic inside the script.
 
 ### 2.2 Stop — gate checklist before completion claim
 
@@ -97,14 +97,14 @@ expressive enough for this — keep the logic in the script.
 }
 ```
 
-**Effect:** when the agent is about to stop, `run_gate_checklist.sh`
-verifies that a verification-before-completion evidence record exists for
-the current session. If absent, the script emits a reminder. This directly
-reinforces the `verification-before-completion` skill without changing
-skill text.
+**Effect:** just before the agent stops, `run_gate_checklist.sh` verifies
+that a verification-before-completion evidence record exists for the
+current session, and emits a reminder if none is found. This reinforces
+the `verification-before-completion` skill at the harness level without
+changing the skill's text.
 
-**Note:** `run_gate_checklist.sh` does not yet exist in the repo. Enabling
-this hook **MUST** be gated on its landing in a separate PR.
+**Note:** `run_gate_checklist.sh` does not yet exist in the repo, so
+enabling this hook **MUST** wait until that script lands in a separate PR.
 
 ### 2.3 PreToolUse — block commits without evidence
 
@@ -127,12 +127,13 @@ this hook **MUST** be gated on its landing in a separate PR.
 ```
 
 **Effect:** intercepts `Bash` tool calls; the script inspects
-`$CLAUDE_TOOL_COMMAND` and only acts if the command contains `git commit`.
-When triggered, it confirms that an evidence record exists for the staged
-changes. This prevents "silent" commits that bypass the evidence ledger.
+`$CLAUDE_TOOL_COMMAND` and only acts when the command contains
+`git commit`. In that case, it confirms that an evidence record exists
+for the staged changes — preventing "silent" commits that bypass the
+evidence ledger.
 
-**Note:** `check_commit_has_evidence.sh` does not yet exist. Same PR-gating
-caveat as 2.2.
+**Note:** `check_commit_has_evidence.sh` does not yet exist. The same
+PR-gating caveat as 2.2 applies.
 
 ---
 
@@ -175,8 +176,8 @@ caveat as 2.2.
 | 2.2 Stop | `run_gate_checklist.sh` (new), evidence ledger | Phase 1 + new script PR |
 | 2.3 PreToolUse | `check_commit_has_evidence.sh` (new) | new script PR |
 
-This proposal is intentionally written so it does **not** depend on Phase 1
-being merged at authoring time. Enablement, however, does.
+This proposal is intentionally written so that **authoring** does not
+depend on Phase 1 being merged. **Enabling** the hooks, however, does.
 
 ---
 
@@ -209,7 +210,7 @@ obtain explicit user approval.
 - Only after Stage 3 has run for a full release cycle with zero
   false-positive incidents.
 
-At any stage a rollback **MUST** be possible by reverting a single commit
+At every stage, rollback **MUST** be possible by reverting a single commit
 to `.claude/settings.json`.
 
 ---

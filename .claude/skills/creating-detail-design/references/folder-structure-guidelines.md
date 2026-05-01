@@ -1,6 +1,6 @@
 # Folder Structure Guidelines
 
-Detailed design documents are organized as a **folder of multiple files** rather than a single monolithic file. This prevents documents from growing unmanageably long and allows parallel work on different modules.
+Detailed design documents are organized as a **folder of multiple files** rather than a single monolithic file. This keeps each file focused, prevents unmanageable length, and allows parallel work across modules.
 
 ## Recommended Layout
 
@@ -44,7 +44,7 @@ docs/subsystems/{parent_id}_{parent}/subsystems/{id}_{name}/detail-design/
 Extract modules from the basic design's functional decomposition:
 
 1. Read §4 アプリケーション機能設計 (or §2 Structure in EN templates) from the basic design.
-2. Group related functions by cohesion — functions that share data, collaborate closely, or serve the same user workflow.
+2. Group related functions by cohesion — those that share data, collaborate closely, or serve the same user workflow.
 3. Each group becomes one module file.
 4. Aim for 3–10 module files per subsystem. Fewer than 3 suggests the design is too coarse; more than 10 suggests over-decomposition.
 

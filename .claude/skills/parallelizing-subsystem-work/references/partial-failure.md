@@ -1,6 +1,6 @@
 # Partial-Failure Playbook
 
-When one or more worktrees fail while others succeed, this playbook governs continuation, rollback, and evidence handling decisions.
+When one or more worktrees fail while others succeed, this playbook governs the decisions that follow: whether to continue, when to roll back, and how to handle evidence.
 
 ## Failure Categories
 
@@ -14,21 +14,21 @@ When one or more worktrees fail while others succeed, this playbook governs cont
 
 ## Decision: Continue or Halt?
 
-When a worktree fails, evaluate whether the remaining successful worktrees can still be consolidated independently.
+When a worktree fails, decide whether the remaining successful worktrees can still be consolidated independently.
 
-### Continue consolidating successful worktrees IF:
+### Continue consolidating successful worktrees if **all** of these hold:
 
-1. The failed worktree is **independent** of all successful ones (guaranteed by `isolation-rules.md`).
-2. The failure is **not** a constraint violation (no cross-boundary file modifications).
-3. `detect_worktree_conflicts.sh` reports **no overlapping files** between the failed and successful worktrees.
+1. The failed worktree is **independent** of every successful worktree (guaranteed by `isolation-rules.md`).
+2. The failure is **not** a constraint violation — no cross-boundary file modifications occurred.
+3. `detect_worktree_conflicts.sh` reports **no overlapping files** between the failed worktree and any successful worktree.
 
-If all three hold, the successful worktrees' isolation guarantees are intact. Proceed with consolidation for those, and handle the failed worktree separately.
+When all three hold, the successful worktrees' isolation guarantees are intact: proceed with their consolidation and handle the failed worktree separately.
 
-### HALT all consolidation IF:
+### HALT all consolidation if **any** of these hold:
 
-1. The failure is a **constraint violation** — the failed agent touched files outside its boundary, potentially corrupting other worktrees' assumptions.
-2. `detect_worktree_conflicts.sh` reports **file overlaps** involving the failed worktree.
-3. The failed worktree produced **partial commits** that were pushed to its branch before the failure — these may contain incomplete state that affects integration tests.
+1. The failure is a **constraint violation** — the failed agent touched files outside its boundary, which may have corrupted other worktrees' assumptions.
+2. `detect_worktree_conflicts.sh` reports **file overlaps** that involve the failed worktree.
+3. The failed worktree pushed **partial commits** to its branch before the failure — those commits may contain incomplete state that breaks integration tests.
 
 When halting, **do not merge any branch**. Return control to the user with the full diagnostic.
 

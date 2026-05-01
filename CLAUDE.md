@@ -34,9 +34,9 @@ The `spec-coexist-router` classifies every user message into a tier and routes t
 
 ### Skill Layout
 
-All skills live in `.claude/skills/` (live-reloaded by Claude Code — edits take effect next turn, no restart needed). Each skill is a directory containing a `SKILL.md` file.
+All skills live in `.claude/skills/` and are live-reloaded by Claude Code: edits take effect on the next turn with no restart needed. Each skill is a directory containing a `SKILL.md` file.
 
-**Prefixed directories are infrastructure, not skills:**
+**Underscore-prefixed directories are infrastructure, not skills:**
 - `_docs/` — end-user guides (ja/en)
 - `_meta/` — skill authoring guides for contributors
 - `_shared/` — cross-skill scripts, templates, schemas, references, tests
@@ -71,7 +71,7 @@ POSIX shell scripts for document validation, subsystem management, worktree oper
 
 ### Packaging & Distribution
 
-The packaging script assembles `.claude/skills/` content into the official Claude Code plugin layout under `packaging/spec-coexist/.claude-plugin/`. The `dist/` directory is gitignored.
+The packaging script assembles the contents of `.claude/skills/` into the official Claude Code plugin layout under `packaging/spec-coexist/.claude-plugin/`. The `dist/` directory is gitignored.
 
 ### CI (`_utils/github-workflows/spec-coexist.yml`)
 

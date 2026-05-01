@@ -1,8 +1,8 @@
 # Self-Review Protocol
 
 The exact sequence the implementing agent **MUST** follow when running
-`spec-coexist:pre-review-self-check`. This is a self-review — performed by the same agent that
-wrote the code, with the full diff in view. It is **not** a fresh subagent dispatch; that role
+`spec-coexist:pre-review-self-check`. This is a **self**-review: performed by the same agent that
+wrote the code, with the full diff in view. It is **not** a fresh subagent dispatch — that role
 belongs to `spec-coexist:code-review-loop`.
 
 Conformance keywords follow RFC 2119.

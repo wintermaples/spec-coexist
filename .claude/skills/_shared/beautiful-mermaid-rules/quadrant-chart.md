@@ -1,30 +1,30 @@
 # Rules for Creating Beautiful, Readable Mermaid Quadrant Charts
 
-This document summarizes guidelines for using Mermaid's **Quadrant Chart (2x2 matrix)** in requirements and basic-design documents. It aims to help readers correctly understand qualitative decision-support diagrams such as the Eisenhower matrix, Impact/Effort matrix, and competitive positioning maps.
+This document summarizes guidelines for using Mermaid's **Quadrant Chart (2×2 matrix)** in requirements and basic-design documents. The aim is to help readers correctly understand qualitative decision-support diagrams such as the Eisenhower matrix, Impact / Effort matrix, and competitive-positioning maps.
 
 ---
 
 ## 1. Overview and Purpose
 
-A quadrant chart crosses two independent evaluation axes and classifies targets (requirements, features, initiatives, competing products, etc.) into four quadrants. Typical uses:
+A quadrant chart crosses two independent evaluation axes to classify targets — requirements, features, initiatives, competing products, etc. — into four quadrants. Typical uses:
 
 - **Priority analysis**: Sort requirements by urgency × importance (Eisenhower matrix)
-- **Initiative evaluation**: Pick or drop feature candidates by Impact × Effort
-- **Competitive analysis**: Position products by price × features, share × growth
+- **Initiative evaluation**: Select or drop feature candidates by Impact × Effort
+- **Competitive analysis**: Position products by price × features, or share × growth
 - **Risk analysis**: Plot risks by probability × impact
 - **Technology selection**: Organize candidate technologies by maturity × fit
 
-The key is visualizing **relative positions**, not exact numbers.
+The goal is to visualize **relative positions**, not exact numbers.
 
 ---
 
 ## 2. Choosing Axes (Independent, Orthogonal, Measurable)
 
-Good axes meet three conditions.
+Good axes satisfy three conditions:
 
-1. **Independent (orthogonal)**: When the two axes correlate, points line up on the diagonal and quadrantization becomes meaningless.
-2. **Measurable or agreeable**: Even without strict numbers, a shared comparison basis must exist.
-3. **Tied to decision-making**: The axis partition must change what you do next.
+1. **Independent (orthogonal)**: If the two axes correlate, points line up on the diagonal and the quadrant split becomes meaningless.
+2. **Measurable or agreeable**: Even without strict numbers, a shared basis for comparison must exist.
+3. **Tied to decision-making**: How a target falls relative to each axis must change what you do next.
 
 Avoid: "feature count × lines of code" (strong correlation), "usability × goodness" (vague and overlapping).
 

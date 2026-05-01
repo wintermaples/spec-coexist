@@ -1,6 +1,11 @@
 # Description Field Rules
 
-The `description` field in the frontmatter is the **only** signal the harness uses to auto-trigger a skill. Getting it wrong causes two failure modes: under-triggering (skill never runs when it should) and over-triggering (skill runs on unrelated conversation, wasting tokens and polluting output). The spec-coexist suite leans slightly toward over-triggering via the 1% rule, but that only works if each description is *specific enough* to distinguish its own territory.
+The `description` field in the frontmatter is the **only** signal the harness uses to auto-trigger a skill. Getting it wrong causes two failure modes:
+
+- **Under-triggering** — the skill never runs when it should.
+- **Over-triggering** — the skill runs on unrelated conversation, wasting tokens and polluting output.
+
+The spec-coexist suite leans slightly toward over-triggering via the 1% rule, but that only works if each description is *specific enough* to distinguish its own territory.
 
 ## Required elements
 
@@ -14,7 +19,7 @@ A conformant `description` **MUST** contain, in this order:
 
 ## Length
 
-Target 80–180 words. Shorter descriptions under-trigger (the harness has too little signal). Longer descriptions waste always-in-context budget and tend to contradict themselves.
+Target 80–180 words. Shorter descriptions under-trigger because the harness has too little signal. Longer descriptions waste always-in-context budget and tend to contradict themselves.
 
 ## Phrase selection
 

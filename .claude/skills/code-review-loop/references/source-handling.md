@@ -1,17 +1,17 @@
-# Source-Specific Handling
+# Source-specific handling
 
-Trust levels and verification requirements depending on where the review feedback originated.
+Trust levels and verification requirements vary by where the review feedback originated.
 
 ## From the `code-reviewer` subagent (via `code-review-loop`)
 
-- Treat as a knowledgeable-but-context-limited external reviewer.
+- Treat as a knowledgeable but context-limited external reviewer.
 - **MUST** verify each suggestion against the codebase before acting.
-- **MAY** push back with technical reasoning if the reviewer lacks context.
+- **MAY** push back with technical reasoning when the reviewer lacks context.
 
 ## From the user directly
 
 - Trusted. Implement after understanding, but **MUST** still ask if scope is unclear.
-- **MUST NOT** produce performative agreement. Skip to action.
+- **MUST NOT** produce performative agreement — skip straight to action.
 
 ## From an external reviewer (human, PR comments, etc.)
 

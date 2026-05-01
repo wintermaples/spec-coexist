@@ -5,8 +5,8 @@ These rules govern how the agent executes an approved implementation plan.
 ## Step-by-Step Discipline
 
 1. Work step-by-step, in the order defined in the approved plan. Do not collapse multiple steps into one pass.
-2. Every production-code step **MUST** begin with a Red-Green-Refactor loop per `references/tdd-discipline.md`. RED evidence is captured with `_shared/scripts/record_test_failure.sh` and emitted as `docs/evidence/red-*.log`.
-3. After each meaningful step, **MUST** run the relevant tests / type checks / linters for the changed area. A step is not complete until its local verification passes.
+2. Every production-code step **MUST** begin with a Red-Green-Refactor loop per `references/tdd-discipline.md`. RED evidence is captured with `_shared/scripts/record_test_failure.sh` and written to `docs/evidence/red-*.log`.
+3. After each meaningful step, the agent **MUST** run the relevant tests, type checks, and linters for the changed area. A step is not complete until its local verification passes.
 4. Do **NOT** defer all testing to the end. Catching failures step-by-step is faster than debugging a fully assembled system.
 
 ## Plan Deviation Handling

@@ -11,7 +11,7 @@ The agent **MUST NOT** begin any implementation before the user explicitly appro
 
 ## Scope Discipline
 
-During implementation, the agent **MUST** make minimal, focused changes — only what the spec dictates. Discovering additional work does not license silent scope expansion; surface it to the user first.
+During implementation, the agent **MUST** make minimal, focused changes — only what the spec dictates. Discovering additional work does not license silent scope expansion: surface it to the user first.
 
 ## TDD Iron Law
 

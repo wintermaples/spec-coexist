@@ -31,10 +31,10 @@ related: []
 ## 1. Responsibility and Boundary
 
 ### 1.1 What this module does
-(1–3 sentences)
+(1–3 sentences.)
 
 ### 1.2 What this module does NOT do
-(Clarify boundaries with adjacent modules)
+(Clarify the boundary against adjacent modules.)
 
 ---
 
@@ -112,7 +112,7 @@ flowchart TD
 
 ### 4.2 Decision logic
 
-Use decision tables for complex branching.
+Use a decision table for complex branching.
 
 | Condition 1 | Condition 2 | Condition 3 | Action |
 | --- | --- | --- | --- |

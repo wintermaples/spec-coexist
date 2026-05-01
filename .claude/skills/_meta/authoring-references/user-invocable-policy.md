@@ -1,6 +1,6 @@
 # `user-invocable` Policy
 
-Every spec-coexist skill declares `user-invocable: true` or `user-invocable: false` in its frontmatter. The flag controls whether the user can run the skill directly (via the `Skill` tool or `/` shorthand) or whether the skill is only reachable through another skill's orchestration.
+Every spec-coexist skill declares `user-invocable: true` or `user-invocable: false` in its frontmatter. This flag controls whether the user can run the skill directly — via the `Skill` tool or the `/` shorthand — or whether the skill is reachable only through another skill's orchestration.
 
 ## Set `user-invocable: true` when
 
@@ -17,7 +17,7 @@ Every spec-coexist skill declares `user-invocable: true` or `user-invocable: fal
 
 ## Default
 
-If in doubt, **default to `true`**. Blocking direct invocation is a strong restriction and should be justified. The suite prefers "user could call it but usually won't" over "user can't call it even when they need to".
+If in doubt, **default to `true`**. Blocking direct invocation is a strong restriction and must be justified. The suite prefers "user could call it but usually won't" over "user can't call it even when they need to".
 
 ## Current suite at a glance
 

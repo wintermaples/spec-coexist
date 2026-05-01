@@ -1,8 +1,8 @@
 # Verification Evidence Schema
 
-Every successful run of the `verification-before-completion` gate **MUST** leave a record under `docs/evidence/`. The record is the sole audit point: downstream skills (e.g. a future `finishing-subsystem-work`) will check for its presence as a precondition, and reviewers can grep the directory to reconstruct the "done" history of the repository.
+Every successful run of the `verification-before-completion` gate **MUST** leave a record under `docs/evidence/`. The record is the sole audit point: downstream skills (e.g. a future `finishing-subsystem-work`) check its presence as a precondition, and reviewers can grep the directory to reconstruct the "done" history of the repository.
 
-Records are written by `_shared/scripts/write_evidence.sh`. Do not hand-write them — the script guarantees the filename convention and hash, which matter for correlation.
+Records are written by `_shared/scripts/write_evidence.sh`. Do **not** hand-write them — the script guarantees the filename convention and the hash that matter for correlation.
 
 ## Filename
 

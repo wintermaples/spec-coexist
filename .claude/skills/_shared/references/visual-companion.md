@@ -1,8 +1,8 @@
 # Visual Companion (spec-coexist)
 
-A self-contained, browser-based visual brainstorming mode used inside any spec-coexist skill. This is the project-local equivalent of `superpowers:brainstorming`'s `visual-companion.md`.
+A self-contained, browser-based visual brainstorming mode that any spec-coexist skill can invoke. This is the project-local equivalent of `superpowers:brainstorming`'s `visual-companion.md`.
 
-The server is **a single Python file using only the standard library** (`http.server`) — no third-party dependencies, no licensing concerns. Everything ships under `_shared/scripts/`.
+The server is **a single Python file using only the standard library** (`http.server`): no third-party dependencies and no licensing concerns. All assets ship under `_shared/scripts/`.
 
 ## When to Launch
 
@@ -18,11 +18,11 @@ Decide per question, not per session. The test: **would the user understand this
 
 **Stay in plain terminal Q&A when** the question is conceptual: scope, A/B/C wording choices, API design, tradeoffs, clarifications.
 
-A question *about* a UI topic is not automatically visual. "What kind of dashboard do you want?" is conceptual. "Which of these dashboard layouts feels right?" is visual.
+A question *about* a UI topic is not automatically a visual question. "What kind of dashboard do you want?" is conceptual; "Which of these dashboard layouts feels right?" is visual.
 
 ## Consent
 
-You **MUST** request consent to launch the Visual Companion exactly once, in its own standalone message — no other questions in the same message. Example:
+You **MUST** request consent to launch the Visual Companion exactly once, and only as its own standalone message — never bundled with other questions. Example:
 
 > I'd like to switch into Visual Companion mode for the next few questions because they're about screen layout. Is that okay? (yes / no)
 
@@ -46,11 +46,11 @@ log=/tmp/spec-coexist-visual.XXXXXX.log
 
 You **MUST** capture and remember `screen_dir`, `state_dir`, `url`, and `pid`.
 
-Tell the user the URL and ask them to open it in a browser. Add `.spec-coexist/` to `.gitignore` if it's not already there.
+Tell the user the URL and ask them to open it in a browser. Add `.spec-coexist/` to `.gitignore` if it is not already there.
 
-**Host binding:** the server binds to `0.0.0.0` by default so devcontainers and remote environments work out of the box, and the printed URL uses `localhost`. Pass `--host 127.0.0.1` if you need loopback-only binding.
+**Host binding:** the server binds to `0.0.0.0` by default — so devcontainers and remote environments work out of the box — and the printed URL uses `localhost`. Pass `--host 127.0.0.1` for loopback-only binding.
 
-The server exits automatically after **30 minutes of inactivity** and writes a `state_dir/server-stopped` marker. If you see that marker, restart the server before pushing new content.
+The server exits automatically after **30 minutes of inactivity** and leaves a `state_dir/server-stopped` marker behind. If you see that marker, restart the server before pushing new content.
 
 ## The Loop
 
@@ -77,9 +77,9 @@ The server exits automatically after **30 minutes of inactivity** and writes a `
 
 ## Content Fragments vs Full Documents
 
-If your HTML file starts with `<!doctype` or `<html`, the server serves it as-is (only the auto-reload poller is implicit via the frame). Otherwise, the server wraps your content in the frame template — header, theme CSS, selection indicator, polling client, all included.
+If your HTML file starts with `<!doctype` or `<html`, the server serves it as-is (the auto-reload poller is implicit via the frame). Otherwise, the server wraps your content in the frame template, which includes the header, theme CSS, selection indicator, and polling client.
 
-**Write content fragments by default.** Only write a full document when you need complete control over the page.
+**Default to writing content fragments.** Use a full document only when you need complete control over the page.
 
 ## CSS Classes Provided by the Frame
 
@@ -148,20 +148,20 @@ Clicks are appended as JSONL to `state_dir/events`:
 {"type":"click","choice":"b","text":"Two Column — Sidebar nav","timestamp":1706000115}
 ```
 
-The full stream shows the user's exploration path. The last `choice` is typically the final selection, but multiple clicks may signal hesitation worth probing. If the file does not exist, the user did not click — use only their terminal text.
+The full stream shows the user's exploration path. The last `choice` is typically the final selection, but multiple clicks may signal hesitation worth probing. If the file does not exist, the user did not click; rely on the terminal text alone.
 
 ## Design Tips
 
-- **Scale fidelity to the question.** Wireframes for layout, polish only for polish questions.
+- **Scale fidelity to the question.** Use wireframes for layout questions and polished mockups only for polish questions.
 - **Restate the question on every screen.** "Which layout feels more compact?" beats "Pick one."
-- **2–4 options per screen.** More overwhelms.
-- **Iterate by versioning**, not overwriting. Users may want to compare A vs A-v2.
-- **One question per screen** — matches the brainstorming "one question per message" rule.
+- **Show 2–4 options per screen.** More overwhelms the reader.
+- **Iterate by versioning, not by overwriting.** Users may want to compare A vs. A-v2.
+- **One question per screen** — mirrors the brainstorming "one question per message" rule.
 
 ## Files
 
 - `_shared/scripts/visual_server.py` — single-file stdlib HTTP server (Python 3.10+).
-- `_shared/scripts/start_visual_server.sh` — backgrounded launcher; emits `server-started` JSON, `pid=…`, `log=…`.
+- `_shared/scripts/start_visual_server.sh` — backgrounded launcher; emits `server-started` JSON, `pid=…`, and `log=…`.
 - `_shared/scripts/stop_visual_server.sh` — `kill <pid>`.
 
-No third-party Python packages are required. The server uses only `http.server`, `threading`, `json`, `pathlib`, and friends from the standard library, so there are no licensing concerns.
+No third-party Python packages are required. The server uses only `http.server`, `threading`, `json`, `pathlib`, and similar standard-library modules, so there are no licensing concerns.

@@ -2,7 +2,7 @@
 
 Conformance keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) / [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174).
 
-This document catalogues which git operations are safe to perform from inside `finishing-subsystem-work`, which are forbidden, and the reasoning behind each rule so edge cases can be judged.
+This document catalogues which git operations are safe to perform from inside `finishing-subsystem-work`, which are forbidden, and the reasoning behind each rule, so edge cases can be judged.
 
 ## Safe (MAY execute with step-5 confirmation)
 
@@ -21,9 +21,9 @@ This document catalogues which git operations are safe to perform from inside `f
 
 ## Rationale
 
-The blast radius of a destructive git operation is irreversible loss of work. The cost of asking the user is a single message. The ratio is never close. Everything in the "Forbidden" list has a history of turning a successful implementation into an incident — force-push to a shared branch in particular has no undo from the remote side.
+The blast radius of a destructive git operation is irreversible loss of work. The cost of asking the user is a single message. The ratio is never close. Everything in the "Forbidden" list has, at some point, turned a successful implementation into an incident — force-push to a shared branch in particular has no undo on the remote side.
 
-Fast-forward pushes to a feature branch are the only git operations whose failure mode is bounded: worst case, the remote rejects the push and the local state is untouched. Everything else can put the repository in a state the user cannot recover without extraordinary measures.
+Fast-forward pushes to a feature branch are the only git operations whose failure mode is bounded: in the worst case, the remote rejects the push and the local state is untouched. Everything else can leave the repository in a state the user cannot recover from without extraordinary measures.
 
 ## Edge Cases
 

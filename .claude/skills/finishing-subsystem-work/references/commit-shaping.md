@@ -8,10 +8,10 @@ One logical change = one commit. A "logical change" is the smallest unit that ca
 
 ## Consequences
 
-- A feature that adds a new module + wires it into the router **MAY** be a single commit (the wiring is part of the same logical change).
-- A feature that adds a new module AND refactors an unrelated helper **MUST** be two commits. The refactor is a separate logical change.
-- Changelog entries **MUST** travel in the same commit as the code they describe, not a trailing "docs: update changelog" commit.
-- Acceptance test, RED evidence reference, and production code **SHOULD** live in the same commit when possible so the commit is self-contained for bisect.
+- A feature that adds a new module *and wires it into the router* **MAY** be a single commit — the wiring is part of the same logical change.
+- A feature that adds a new module *and also refactors an unrelated helper* **MUST** be two commits — the refactor is a separate logical change.
+- Changelog entries **MUST** travel in the same commit as the code they describe, never as a trailing "docs: update changelog" commit.
+- Acceptance test, RED evidence reference, and production code **SHOULD** live in the same commit when possible, so the commit is self-contained for bisect.
 
 ## Shaping Procedure
 

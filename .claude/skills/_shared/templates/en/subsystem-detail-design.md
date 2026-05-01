@@ -35,7 +35,7 @@ related: []
 
 # Detailed Design — {{SUBSYSTEM_NAME}}
 
-This document takes the basic design elements and specifies them with enough precision to prevent implementation drift. Mermaid diagrams are the primary notation.
+This document takes each element of the basic design and specifies it with enough precision to prevent implementation drift. Mermaid diagrams are the primary notation.
 
 | Field | Value |
 | --- | --- |
@@ -57,9 +57,9 @@ This document takes the basic design elements and specifies them with enough pre
 
 ### 1.1 Scope
 
-- Takes the basic design's "what to build" and defines "how it behaves"
-- Does NOT write implementation code (code only when Mermaid cannot prevent drift)
-- Goal: an implementer can work from this document without guessing at design intent
+- Takes the basic design's "what to build" and defines "how it behaves".
+- Does NOT include implementation code (use code only when Mermaid cannot prevent drift).
+- Goal: an implementer can work from this document without guessing at design intent.
 
 ### 1.2 Related documents
 

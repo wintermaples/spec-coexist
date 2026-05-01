@@ -33,7 +33,7 @@ related: []
 
 # Detailed Design (Whole System)
 
-This document captures whole-system detailed design patterns and indexes per-subsystem detailed design documents.
+This document captures the whole-system detailed-design patterns and indexes the per-subsystem detailed-design documents.
 
 | Field | Value |
 | --- | --- |
@@ -55,7 +55,7 @@ This document captures whole-system detailed design patterns and indexes per-sub
 
 ### 1.1 Purpose
 
-This document takes the basic design's architectural decisions and specifies them with enough precision to prevent implementation drift. Mermaid diagrams are the primary notation.
+This document takes the architectural decisions from the basic design and specifies them with enough precision to prevent implementation drift. Mermaid diagrams are the primary notation.
 
 ### 1.2 Relation to basic design
 

@@ -2,20 +2,20 @@
 
 Single source of truth for what "disciplined code" means in this suite. Walk this file end-to-end
 for every changed file in the diff. Each section lists concrete questions; a file passes only when
-every applicable question is answered affirmatively in writing.
+every applicable question has been answered affirmatively in writing.
 
 Conformance keywords follow RFC 2119.
 
 ## 1. SOLID (lightweight)
 
-- **Single responsibility** — does this function/class do exactly one thing described by its name?
+- **Single responsibility** — does this function or class do exactly one thing, as described by its name?
 - **Open/closed** — when a new case is added, is the change additive (new file, new branch) rather
-  than invasive rewrites of stable callers?
-- **Liskov** — do subtypes honor the contract of their supertype? No weakened preconditions, no
+  than an invasive rewrite of stable callers?
+- **Liskov** — do subtypes honor the supertype's contract, with no weakened preconditions and no
   strengthened postconditions?
-- **Interface segregation** — are callers forced to depend on methods they do not use?
+- **Interface segregation** — are callers forced to depend on methods they do not actually use?
 - **Dependency inversion** — does the module depend on an abstraction the caller owns, rather than
-  a concretion the callee imposes?
+  on a concretion the callee imposes?
 
 Any "no" is **at least Important**.
 

@@ -54,11 +54,11 @@ flowchart TD
 
 ## Termination / 終端条件
 
-ループは以下のいずれかで終わる (MUST satisfy one):
+ループは以下のいずれか **1 つ** を満たして終わる (MUST satisfy one):
 
-- **Root cause identified.** Keep 判定された仮説が症状の全変化を説明しきり、`procedure.md` step 7 に進める状態。
-- **Insufficient data, escalate.** N>=5 回の reject が続き、新しい仮説が立てられない場合、user にエスカレーションし調査停止を宣言すること。Silent stall は禁止 (MUST NOT).
-- **Out of scope, file issue.** Root cause が現 repo 外 (upstream lib, infra) にあると判明した場合、issue を切って link し、workaround を取る場合は `common-failure-patterns.md` #5 の counter-action を適用。
+- **Root cause identified.** Keep と判定された仮説が症状の全変化を説明しきり、`procedure.md` step 7 に進める状態。
+- **Insufficient data, escalate.** N≥5 回の reject が連続し、新しい仮説が立てられない場合は user にエスカレーションし調査停止を宣言する。Silent stall は禁止 (MUST NOT).
+- **Out of scope, file issue.** Root cause が現 repo 外 (upstream lib, infra 等) にあると判明した場合は issue を切って link する。Workaround を取る場合は `common-failure-patterns.md` #5 の counter-action を適用。
 
 ## Anti-patterns cross-reference
 

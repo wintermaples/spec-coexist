@@ -1,28 +1,28 @@
 # Rules for Beautiful Mermaid Class Diagrams
 
-This document collects guidance for writing **Mermaid class diagrams** in design documentation so they stay "readable and robust as they scale." It is based on the official Mermaid documentation (mermaid.js.org) and general UML class-diagram best practices.
+This document collects guidance for writing **Mermaid class diagrams** in design documents so they stay readable and robust as they scale. It is based on the official Mermaid documentation (mermaid.js.org) and general UML class-diagram best practices.
 
 ---
 
 ## 1. Overview and Purpose
 
-A class diagram expresses the **types (classes, interfaces, value objects)** that make up a system and their **static relationships**. In design docs, it is mainly used for:
+A class diagram expresses the **types (classes, interfaces, value objects)** that make up a system and their **static relationships**. In design docs, it is used mainly for:
 
-- Sharing the structure of a domain model (DDD domain model diagrams)
-- Showing the contract of public APIs / SPIs
+- Sharing the structure of a domain model (DDD domain-model diagrams)
+- Documenting the contract of public APIs / SPIs
 - Showing dependencies between layers (Controller / UseCase / Repository, etc.)
 - Comparing structure before and after a refactor
 
-**Not appropriate for**: runtime behavior (use sequence diagrams), state transitions (use state diagrams), or deployment topology (use component/flowchart diagrams). If you start drawing "processing flow" in a class diagram, it's a sign to reconsider your design.
+**Not appropriate for**: runtime behavior (use sequence diagrams), state transitions (use state diagrams), or deployment topology (use component / flowchart diagrams). If you start drawing "processing flow" in a class diagram, that is a sign to reconsider your design.
 
 ---
 
 ## 2. Class Placement and `direction` Guidelines
 
-- **Default to `direction LR`** (left-to-right). This is most readable when inheritance hierarchies are shallow and dependencies flow horizontally.
-- For diagrams where inheritance is the main subject (e.g., domain taxonomy), use `direction TB` (top-down) and **place superclasses at the top**.
+- **Default to `direction LR`** (left-to-right). This reads best when inheritance hierarchies are shallow and dependencies flow horizontally.
+- When inheritance is the main subject (e.g., domain taxonomy), use `direction TB` (top-down) and **place superclasses at the top**.
 - Aim for **7 ± 2** classes per diagram. Always split once you exceed 20 (see §8).
-- Place related classes adjacent. Since Mermaid's declaration order affects layout, **declare logically close items in order**.
+- Place related classes adjacent. Mermaid's declaration order influences layout, so **declare logically close items consecutively**.
 
 ---
 
@@ -37,7 +37,7 @@ A class diagram expresses the **types (classes, interfaces, value objects)** tha
 | `#` | protected |
 | `~` | package / internal |
 
-In design docs, showing **only public (`+`)** is generally enough. Only include privates for "attributes important to the invariant discussion."
+In design docs, showing **only public (`+`)** members is generally enough. Include private members only when they are central to discussing class invariants.
 
 ### 3.2 Type notation
 
@@ -69,7 +69,7 @@ Generics are written `List~T~` (tildes). Avoid `<>`, which requires HTML escapin
 | `-->`  | Association (holds a reference) | Holds another class as a field |
 | `..>`  | Dependency | Only used as argument/return/temporarily |
 
-**Reading direction rule**: In Mermaid, `A <|-- B` means "**B inherits from A**." The arrowhead points at the "parent (abstract)" side. **Always keep the arrowhead direction consistent** across the whole diagram (mixing is the worst anti-pattern).
+**Reading direction rule**: In Mermaid, `A <|-- B` means "**B inherits from A**." The arrowhead points to the parent (abstract) side. **Keep arrowhead direction consistent** across the whole diagram — mixing it is the worst anti-pattern.
 
 ---
 
@@ -118,12 +118,12 @@ Dependencies that cross namespaces are "boundary-crossing dependencies" and are 
 
 ## 7. Deciding Which Members to Show
 
-A class diagram conveys "design intent" and is not a copy of source code. Choose members with these criteria:
+A class diagram conveys "design intent"; it is not a copy of source code. Choose members with these criteria:
 
 - **Public API only**: Omit private fields and internal helpers.
-- **Only domain-significant attributes**: IDs and those tied to key invariants. Omit metadata like `createdAt`.
-- **No getters/setters**: These are language features and carry no design information.
-- **Only "externally callable operations"** as methods: Drop private methods introduced by internal refactoring.
+- **Only domain-significant attributes**: IDs and attributes tied to key invariants; omit metadata like `createdAt`.
+- **No getters / setters**: They are language features and carry no design information.
+- **Only externally callable operations** as methods: Drop private methods introduced by internal refactoring.
 
 When in doubt, ask: "**What would I want to know looking at this diagram six months from now?**"
 

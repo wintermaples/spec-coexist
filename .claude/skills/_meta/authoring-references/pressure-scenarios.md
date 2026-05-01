@@ -8,11 +8,11 @@ Pressure scenarios are adversarial user prompts dispatched to a **fresh general-
 
 ## How to Dispatch / ディスパッチ方法
 
-1. Open a **fresh** general-purpose subagent. The subagent **MUST NOT** inherit context from the authoring session — that is the entire point; an authoring session that is already primed to think the skill is good cannot falsify it.
-2. Provide the subagent only with: (a) the project-level skill inventory as it will exist after merge, (b) the pressure prompt verbatim, (c) no hints about which skill you expect to fire.
+1. Open a **fresh** general-purpose subagent. The subagent **MUST NOT** inherit context from the authoring session — that is the entire point. An authoring session already primed to think the skill is good cannot falsify it.
+2. Provide the subagent only with: (a) the project-level skill inventory as it will exist after merge, (b) the pressure prompt verbatim, and (c) no hints about which skill you expect to fire.
 3. Observe whether the subagent invokes the target skill, invokes an adjacent skill, or invokes no skill at all.
 4. Record the result against the expectation in `_shared/tests/trigger-cases.jsonl`.
-5. If the subagent *does* trigger the skill but then **abandons** the skill's hard constraints under the pressure wording, that counts as a **FAIL** — trigger alone is not enough; the skill must also *hold*.
+5. If the subagent *does* trigger the skill but then **abandons** the skill's hard constraints under the pressure wording, that counts as a **FAIL**. Trigger alone is not enough; the skill must also *hold*.
 6. Repeat per scenario. Each skill under authoring **MUST** be stress-tested against **>= 6** scenarios drawn from its skill class before being declared GREEN.
 
 1. **新しい** general-purpose subagent を開く。authoring セッションの文脈を引き継いではならない (MUST NOT)。

@@ -1,6 +1,6 @@
 # Conformance Checklist
 
-Walk this checklist before step 10 (verification). Any unchecked item **MUST** block completion. Copy the list into the session and mark each item explicitly — do not skim.
+Walk this checklist before step 10 (verification). Any unchecked item **MUST** block completion. Copy the list into the session and mark each item explicitly. Do not skim.
 
 ## Frontmatter
 

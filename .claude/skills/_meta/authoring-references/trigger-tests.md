@@ -1,6 +1,6 @@
 # Trigger Test Format
 
-Trigger tests live at `.claude/skills/_shared/tests/trigger-cases.jsonl`. Each line is one JSON object representing a (prompt → expected skill) pair. The file is append-only; new skills add their cases at the bottom.
+Trigger tests live at `.claude/skills/_shared/tests/trigger-cases.jsonl`. Each line is one JSON object representing a `(prompt → expected skill)` pair. The file is append-only: new skills add their cases at the bottom.
 
 ## Schema
 
@@ -56,8 +56,8 @@ A prompt is good if you can imagine it being typed by a stressed engineer on a T
 
 ## Negative cases are where triggering gets interesting
 
-Most false positives come from over-general trigger phrases matching adjacent territory. A negative case like `"要件を少し直したい"` for `creating-requirements` (it should route to `revising`, not `creating-requirements`) is worth more than five obvious positive cases. Budget your attention accordingly.
+Most false positives come from over-general trigger phrases matching adjacent territory. For example, a negative case like `"要件を少し直したい"` for `creating-requirements` (it should route to `revising`, not `creating-requirements`) is worth more than five obvious positive cases. Budget your attention accordingly.
 
 ## Running the tests
 
-A runner script does not yet exist — this is Phase 0 work (see `SPEC_COEXIST_EXTENSION_PLAN.md` §6). Until then, the file serves as a specification: human reviewers check new skills against these cases manually. When the runner lands, it will consume this same file without format changes.
+A runner script does not yet exist — this is Phase 0 work (see `SPEC_COEXIST_EXTENSION_PLAN.md` §6). Until it lands, the file serves as a specification: human reviewers check new skills against these cases manually. When the runner does land, it will consume this same file without format changes.

@@ -2,7 +2,7 @@
 
 You are reviewing code changes for production readiness. You have no prior context on this work beyond what is written below — evaluate the **diff**, not the author's intent.
 
-## Your Task
+## Your task
 
 1. Review the change described in `WHAT_WAS_IMPLEMENTED`.
 2. Compare it against `PLAN_OR_REQUIREMENTS`.
@@ -22,7 +22,7 @@ You are reviewing code changes for production readiness. You have no prior conte
 
 {DESCRIPTION}
 
-## Git Range to Review
+## Git range to review
 
 - **Base:** {BASE_SHA}
 - **Head:** {HEAD_SHA}
@@ -36,9 +36,9 @@ git diff {BASE_SHA}..{HEAD_SHA}
 
 You **MAY** read any file in the repository to understand context. You **MUST NOT** modify anything.
 
-## Review Checklist
+## Review checklist
 
-**Code Quality**
+**Code quality**
 - Clean separation of concerns?
 - Proper error handling at real boundaries?
 - Type safety (where applicable)?
@@ -54,15 +54,15 @@ You **MAY** read any file in the repository to understand context. You **MUST NO
 - Edge cases covered?
 - All tests passing in the diff's scope?
 
-**Requirements Alignment**
+**Requirements alignment**
 - Do the changes actually satisfy the plan / requirements / bug description?
 - Any scope creep that was not asked for?
 
-**Production Readiness**
+**Production readiness**
 - Migration or backward-compatibility concerns?
 - Any obvious bugs introduced?
 
-## Output Format (use this exact structure)
+## Output format (use this exact structure)
 
 ### Strengths
 [What is genuinely well done. Be specific — file:line references.]

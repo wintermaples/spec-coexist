@@ -20,13 +20,13 @@ This skill **MUST NOT** invoke any `superpowers:*` skill. It **MUST** invoke the
 
 ## References
 
-- `references/principles.md` — the hypothesis→experiment discipline and why it matters.
-- `references/procedure.md` — the ten-step procedure with full detail.
+- `references/principles.md` — hypothesis → experiment discipline, and why it matters.
+- `references/procedure.md` — ten-step procedure with full detail.
 - `references/anti-patterns.md` — patterns that **MUST NOT** be followed.
 - `references/red-flags.md` — instant halt-thoughts (16 bilingual rows).
 - `references/rationalization-table.md` — end-of-session excuses → rebuttals (18 bilingual rows).
 - `references/common-failure-patterns.md` — 8 typical session-failure flows.
-- `references/hypothesis-evidence-loop.md` — invariants + canonical record format + termination conditions.
+- `references/hypothesis-evidence-loop.md` — invariants, canonical record format, and termination conditions.
 
 ## Scripts
 

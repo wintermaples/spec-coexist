@@ -8,7 +8,7 @@ This document is the TDD gate embedded inside `implementing-from-spec` and `revi
 
 **Production code MUST NOT be added, modified, or deleted unless a failing test exists in the working tree and its failure has been observed in the current session.**
 
-"Observed" means: the test runner was actually executed, produced a non-zero exit code, and that run was recorded as RED evidence (see below). A test that is merely *believed* to fail does not satisfy the Iron Law.
+"Observed" means the test runner was actually executed, produced a non-zero exit code, and that run was recorded as RED evidence (see below). A test that is merely *believed* to fail does not satisfy the Iron Law.
 
 ## Red-Green-Refactor Loop
 

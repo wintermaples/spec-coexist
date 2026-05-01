@@ -1,6 +1,6 @@
 # Namespace Policy
 
-Several skill names in this suite (`systematic-debugging`, `code-review-loop`, `verification-before-completion`, `writing-plans`-adjacent work, etc.) **collide** with skill names in `superpowers`. In repositories where both suites are installed, an unqualified reference can route to either implementation, breaking the suite's **independence** guarantee (see `independence.md`).
+Several skill names in this suite — `systematic-debugging`, `code-review-loop`, `verification-before-completion`, `writing-plans`-adjacent work, and others — **collide** with skill names in `superpowers`. In repositories that have both suites installed, an unqualified reference may route to either implementation, breaking the suite's **independence** guarantee (see `independence.md`).
 
 ## Rule
 

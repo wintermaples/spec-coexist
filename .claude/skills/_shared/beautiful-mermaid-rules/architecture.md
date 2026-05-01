@@ -1,25 +1,25 @@
 # Rules for Beautiful Mermaid Architecture Diagrams
 
-This document summarizes the principles for visualizing system configurations and cloud service deployments using the `architecture-beta` syntax in design documents. It integrates the official Mermaid (mermaid.js.org) architecture diagram specification with general best practices for C4 modeling and cloud architecture.
+This document summarizes principles for visualizing system configurations and cloud-service deployments with the `architecture-beta` syntax in design documents. It combines the official Mermaid (mermaid.js.org) architecture-diagram specification with general best practices for C4 modeling and cloud architecture.
 
 ---
 
 ## 1. Overview and Purpose
 
-`architecture-beta` is a Mermaid diagram for expressing structural relationships between systems and services. It is used primarily for:
+`architecture-beta` is a Mermaid diagram for expressing structural relationships between systems and services. Primary uses:
 
-- **Cloud service deployment diagrams**: Visualizing resource placement on AWS / GCP / Azure, etc.
+- **Cloud-service deployment diagrams**: Resource placement on AWS / GCP / Azure, etc.
 - **System configuration diagrams**: Relationships between microservices, containers, and data stores
 - **Logical architecture diagrams**: Responsibility allocation and communication paths between subsystems
-- **Deployment diagrams**: Configurations spanning VPCs / regions / availability zones
+- **Deployment diagrams**: Configurations spanning VPCs, regions, and availability zones
 
-While sequence diagrams and flowcharts represent "behavior," architecture diagrams focus exclusively on "static structure and boundaries." Do not draw timelines or logic branches in them.
+Sequence diagrams and flowcharts represent "behavior"; architecture diagrams represent only "static structure and boundaries." Do not draw timelines or logic branches in them.
 
 ---
 
 ## 2. Grouping with `group`
 
-`group` is the most important element for expressing logical and physical boundaries. Group by the following units:
+`group` is the most important element for expressing logical and physical boundaries. Common grouping units:
 
 | Group unit | Example usage |
 |---|---|
@@ -29,7 +29,7 @@ While sequence diagrams and flowcharts represent "behavior," architecture diagra
 | Subsystem / bounded context | `group order_ctx(server)[Order_Context]` |
 | Physical facility (on-prem DC, etc.) | `group dc1(server)[DC_Tokyo]` |
 
-**Principle**: Groups can be nested (`in parent_group`), but keep nesting to **at most 3 levels**. Beyond that, split into a separate diagram.
+**Principle**: Groups can be nested (`in parent_group`), but cap nesting at **3 levels**. Split into a separate diagram beyond that.
 
 ---
 
@@ -43,18 +43,18 @@ While sequence diagrams and flowcharts represent "behavior," architecture diagra
 
 ### Important label constraints (v11 series)
 
-The `architecture-beta` parser does **not** allow the following inside labels `[...]`. Violating these causes parse errors.
+The `architecture-beta` parser rejects the following inside `[...]` labels; using them causes parse errors.
 
 - **CJK characters (Japanese / Chinese / Korean)** — e.g., `[注文API]` fails
 - **Half-width spaces** — e.g., `[Order API]` fails
-- **Symbols like `/` `.` `-` `:`** — e.g., `[10.0.0.0/16]`, `[ap-northeast-1]` fails
+- **Symbols such as `/` `.` `-` `:`** — e.g., `[10.0.0.0/16]`, `[ap-northeast-1]` fails
 
 Workarounds:
-- Put native-language names and long descriptions **outside the diagram** (caption, prerequisites, explanatory text)
+- Place native-language names and long descriptions **outside the diagram** (caption, prerequisites, explanatory text)
 - Normalize labels to ASCII with underscores (`VPC_apnortheast1`, `RDS_Postgres`, `S3_Images`)
-- If non-ASCII labels are truly required, substitute `flowchart` (subgraph + classDef can reproduce a cloud-like appearance)
+- If non-ASCII labels are truly required, switch to `flowchart` (subgraph + classDef can mimic a cloud-like appearance)
 
-Group IDs and service IDs themselves must also use lowercase letters and underscores only. Avoid collisions with reserved words (`in`, etc.) — `public` works, but `public_sn` is safer.
+Group IDs and service IDs must also use only lowercase letters and underscores. Avoid collisions with reserved words (`in`, etc.) — `public` works, but `public_sn` is safer.
 
 ### Icon (iconify) selection guidelines
 
@@ -77,18 +77,18 @@ service_a:R -- L:service_b
 
 `L`/`R`/`T`/`B` specifies the connection point (left/right/top/bottom), controlling where arrows attach.
 
-### Principle of direction consistency
+### Direction consistency
 
-- **Keep the primary direction of data flow consistent**: e.g., "requests flow left to right," "writes flow top to bottom"
-- User request flows are easiest to read **L → R**; persistence flows **T → B**
-- Combine bidirectional communication into one edge with `service_a:R <--> L:service_b`
-- Labels are not mandatory on arrows, but add 1–3 words for protocol / purpose: `HTTPS`, `gRPC`, `JDBC`, `Kafka`
+- **Keep the primary data-flow direction consistent**: e.g., "requests flow left to right," "writes flow top to bottom"
+- User request flows read most easily **L → R**; persistence flows **T → B**
+- Express bidirectional communication as a single edge: `service_a:R <--> L:service_b`
+- Arrow labels are optional, but add 1–3 words for protocol or purpose: `HTTPS`, `gRPC`, `JDBC`, `Kafka`
 
 ---
 
 ## 5. Aligning the Abstraction Level
 
-Place **only elements of the same abstraction level** in a single diagram. In Mermaid architecture diagrams, distinguish levels using C4 as a reference:
+Place **only elements of the same abstraction level** in a single diagram. Distinguish levels using C4 as a reference:
 
 | Level | Content | Example |
 |---|---|---|
@@ -104,33 +104,33 @@ Do not mix L1 and L3 in one diagram. Do not place an "ALB" and a "DDD domain ser
 
 Mermaid `architecture-beta` is not strictly C4, but the following mapping works well:
 
-- **Person / External System** → Placed as `service` on the outermost edge of the diagram (`cloud` icon)
+- **Person / External System** → A `service` on the diagram's outermost edge (use the `cloud` icon)
 - **System Boundary** → Top-level `group`
 - **Container** → `service` inside a `group`
-- **Component** → Create a separate (L3) diagram
-- **Code level (L4)** → Not drawn in architecture diagrams (use class diagrams)
+- **Component** → A separate L3 diagram
+- **Code level (L4)** → Not drawn in architecture diagrams; use class diagrams instead
 
-In design documents, clearly label headings as "L1: Context Diagram," "L2: Container Diagram," and split into multiple diagrams.
+In design documents, label headings explicitly ("L1: Context Diagram," "L2: Container Diagram," etc.) and split content across multiple diagrams.
 
 ---
 
 ## 7. Concise Labels and Explicit Protocols
 
 - Service labels: nouns only. Avoid verb phrases like "API that does X"
-- Edge labels: `protocol + purpose` format (`HTTPS / place order`, `gRPC / stock lookup`)
-- Unify identical meanings within a diagram (do not mix `HTTPS` and `https`)
-- When mixing languages, use English only for proper nouns (AWS, Kubernetes) and native language for the rest
+- Edge labels: use the `protocol + purpose` format (`HTTPS / place order`, `gRPC / stock lookup`)
+- Unify wording for identical meanings within a diagram (do not mix `HTTPS` and `https`)
+- When mixing languages, restrict English to proper nouns (AWS, Kubernetes) and use the native language for everything else
 
 ---
 
 ## 8. Handling Scale
 
-Readability drops rapidly as elements multiply. Cap each diagram at **about 15 nodes**.
+Readability drops rapidly as elements multiply. Cap each diagram at **about 15 nodes**, and split using one of these axes:
 
-- **Level split**: Split into separate L1 / L2 / L3 diagrams (as above)
+- **Level split**: Separate L1, L2, and L3 diagrams (as above)
 - **Subsystem split**: "Order subsystem diagram," "Member subsystem diagram," etc., divided by responsibility
-- **Concern split**: Separate "synchronous communication," "asynchronous communication," and "monitoring/operations" diagrams
-- **Zoom hierarchy**: Overview at L1 → drill down to L2 for areas of interest
+- **Concern split**: Separate "synchronous communication," "asynchronous communication," and "monitoring / operations" diagrams
+- **Zoom hierarchy**: Show the overview at L1, then drill down to L2 for areas of interest
 
 ---
 
@@ -230,7 +230,7 @@ architecture-beta
     stock_api:R -- L:redis
 ```
 
-Key points: User requests flow consistently L→R. VPC / Subnet boundaries are explicit. Labels are unified as ASCII with underscores, the region name is embedded in the VPC label, and nesting is limited to 2 levels.
+Key points: user requests flow consistently L→R; VPC / Subnet boundaries are explicit; labels are unified as ASCII with underscores; the region name is embedded in the VPC label; nesting is limited to 2 levels.
 
 ---
 

@@ -2,7 +2,7 @@
 
 Conformance keywords follow RFC 2119.
 
-The following patterns **MUST** be recognized and rejected. Each entry describes the smell, why it is wrong, and the correction.
+The following patterns **MUST** be recognized and rejected. Each entry has three parts: **Smell** (how to spot it), **Why wrong** (the underlying defect), and **Correction** (what to do instead).
 
 ## 1. Test-after masquerade
 

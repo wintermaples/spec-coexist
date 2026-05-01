@@ -1,12 +1,12 @@
 # Document Reference Syntax
 
-Canonical rules for how spec-coexist documents reference each other. This is the single source of truth — every `creating-*` and `revising-*` skill points at this file instead of duplicating the rules.
+Canonical rules for how spec-coexist documents reference each other. This file is the single source of truth: every `creating-*` and `revising-*` skill links here rather than duplicating the rules.
 
 Conformance keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) / [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174).
 
 ## Layer 1 — Body links
 
-Documents **MUST** use plain GitHub-flavored Markdown links for all references to other spec documents:
+Documents **MUST** reference other spec documents through plain GitHub-flavored Markdown links:
 
 ```markdown
 See [§4.3 Security](../../main-requirements.md#43-security).
@@ -15,10 +15,10 @@ Supersedes [old auth design](../auth-v1/auth-v1-design.md).
 
 Rules:
 
-1. Paths **MUST** be relative to the source file (no absolute filesystem paths). A leading `/` is interpreted as "relative to the docs root" by the link checker, but prefer `../` style for portability.
+1. Paths **MUST** be relative to the source file; absolute filesystem paths are forbidden. The link checker treats a leading `/` as "relative to the docs root", but prefer `../` style for portability.
 2. The path component **MUST** end in `.md`. Non-`.md` links (images, code, external URLs) are ignored by the checker.
-3. Anchors are optional. When present, they **MUST** use GitHub-style slugs: lowercase, spaces → `-`, punctuation stripped. The checker validates every anchor against the heading slugs of the target file.
-4. External links (`http://`, `https://`, `mailto:`) and pure in-page anchors (`#section`) are out of scope for the checker and **MAY** be used freely.
+3. Anchors are optional. When present, they **MUST** use GitHub-style slugs (lowercase, spaces replaced with `-`, punctuation stripped). The checker validates every anchor against the heading slugs of the target file.
+4. External links (`http://`, `https://`, `mailto:`) and pure in-page anchors (`#section`) are outside the checker's scope and **MAY** be used freely.
 
 ## Layer 2 — Lifecycle frontmatter
 
@@ -53,19 +53,19 @@ Field reference:
 | `superseded_by` | list of refs | conditional | **MUST** be non-empty when `status` is `deprecated` or `superseded`. |
 | `related` | list of refs | no | Non-inheriting cross-references (e.g. the matching basic-design for a requirements doc). |
 
-All ref values in `extends` / `supersedes` / `superseded_by` / `related` follow the **same Layer 1 path rules**, so the checker validates body links and frontmatter refs with a single pass.
+All ref values in `extends` / `supersedes` / `superseded_by` / `related` follow the **same Layer 1 path rules**, so the checker validates body links and frontmatter refs in a single pass.
 
-For nested subsystems, `extends` forms a chain: child subsystem → parent subsystem → main document. For example, `notification-requirements.md` extends `../../common-requirements.md`, which in turn extends `../../main-requirements.md`.
+For nested subsystems, `extends` forms a chain from child to root: child subsystem → parent subsystem → main document. For example, `notification-requirements.md` extends `../../common-requirements.md`, which in turn extends `../../main-requirements.md`.
 
 ## Parser subset
 
-The shipped checker (`_shared/scripts/check_doc_links.py`) supports a deliberately small YAML subset:
+The shipped checker (`_shared/scripts/check_doc_links.py`) intentionally supports only a small YAML subset:
 
 - Scalar strings (quoted or bare).
 - Flat lists of strings (`- item`).
 - Comments (`#`).
 
-Nested maps, anchors, and flow-style collections are **NOT** supported. Keep frontmatter flat.
+Nested maps, anchors, and flow-style collections are **NOT** supported — keep frontmatter flat.
 
 ## See also
 

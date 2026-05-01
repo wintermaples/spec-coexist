@@ -2,11 +2,11 @@
 
 ## "Let me try changing X and see if it works."
 
-**MUST NOT.** Form a hypothesis first. A blind change produces no information when it fails and false confidence when it accidentally works.
+**MUST NOT.** Form a hypothesis first. A blind change yields no information when it fails, and false confidence when it accidentally works.
 
 ## "Tests pass now, must be fixed."
 
-**MUST NOT** without understanding *why*. A test that passes because of an unrelated side effect will fail again when that side effect is cleaned up.
+**MUST NOT** without understanding *why* they pass. A test that passes via an unrelated side effect will fail again as soon as that side effect is cleaned up.
 
 ## "This looks suspicious, let me clean it up too."
 

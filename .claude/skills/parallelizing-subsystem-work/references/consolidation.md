@@ -1,12 +1,14 @@
 # Consolidation
 
-Step 7 of `parallelizing-subsystem-work` merges each worktree's branch back into the parent branch. The isolation check in `isolation-rules.md` guarantees there should be no conflicts; any conflict is a **bug in the isolation check** and **MUST** be recorded as such.
+Step 7 of `parallelizing-subsystem-work` merges each worktree's branch back into the parent branch. The isolation check in `isolation-rules.md` guarantees there should be no conflicts; any conflict that surfaces here is a **bug in the isolation check** and **MUST** be recorded as such.
 
-## Order
+## Merge order
 
-1. Determine merge order by topological sort of the consolidation graph (usually empty — independent sets have no edges). If the graph has edges, the set was not actually independent; abort.
-2. Merge in a deterministic order (ascending by `subsystem-id`) so that conflict reports are reproducible across runs.
-3. When subsystems have **consumer relationships** (A provides an interface that B consumes, even if they passed the independence check because no shared files exist), merge the **provider first**. This ensures the integration test suite can validate the provider's API surface before the consumer's code references it.
+Determine the merge order using the rules below, in priority order:
+
+1. **Topological sort first.** Sort the consolidation graph (usually empty, since independent sets have no edges). If the graph has any edges, the set was not actually independent — abort.
+2. **Provider before consumer.** When subsystems have a consumer relationship (A provides an interface that B consumes, even if they passed the independence check because no shared files exist), merge the **provider first**. This lets the integration test suite validate the provider's API surface before any consumer code references it.
+3. **Deterministic tie-breaking.** Within the topological order, merge in ascending `subsystem-id` order so conflict reports are reproducible across runs.
 
 ### Topological sort procedure
 

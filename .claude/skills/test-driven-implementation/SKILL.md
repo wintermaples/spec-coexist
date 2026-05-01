@@ -45,12 +45,12 @@ Enforce the spec-coexist Iron Law: within a spec-driven implementation, producti
 1. Confirm the caller is `implementing-from-spec` or `revising`. If not, HALT — this is a sub-skill.
 2. Check `references/negative-triggers.md`. If fully excluded, record the waiver and exit.
 3. Write the smallest failing test for the next acceptance bullet.
-4. Run `scripts/record_red_phase.sh`; HALT on unexpected pass.
-5. Write minimal production code to turn the test green.
-6. Run `scripts/record_green_phase.sh`; HALT on failure.
-7. Refactor under the safety net; re-run the suite.
-8. Run `scripts/verify_test_first.sh` before returning; HALT on violation.
-9. Report RED and GREEN evidence paths to the caller.
+4. Run `scripts/record_red_phase.sh` — HALT on unexpected pass.
+5. Write the minimal production code that turns the test green.
+6. Run `scripts/record_green_phase.sh` — HALT on failure.
+7. Refactor under the safety net, then re-run the suite.
+8. Run `scripts/verify_test_first.sh` before returning — HALT on violation.
+9. Report the RED and GREEN evidence paths to the caller.
 
 ## Flow
 

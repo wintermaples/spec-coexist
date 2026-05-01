@@ -6,7 +6,7 @@ A style guide for embedding large, highly readable Mermaid sequence diagrams in 
 
 ## 1. Overview and Purpose
 
-A sequence diagram expresses **time-ordered message exchange** between multiple actors/components. Using Mermaid's `sequenceDiagram`, it can be authored in a text format that is version-controllable.
+A sequence diagram expresses **time-ordered message exchange** between multiple actors and components. Mermaid's `sequenceDiagram` syntax lets you author one in a version-controllable text format.
 
 Main uses:
 
@@ -23,9 +23,9 @@ The diagram clarifies "**when**," "**who**," "**to whom**," and "**what**" is co
 
 ### 2.1 Order
 
-- **Arrange "origin → destination" left to right.** Users / external systems on the far left, data stores on the far right is the standard.
-- Design participant order so that arrows **flow left to right**. Lots of backflow means you should reconsider the order.
-- Declare participants explicitly up front. Mermaid auto-lays-out in declaration order, so declaration order = display order.
+- **Arrange origin → destination from left to right.** The standard layout puts users / external systems on the far left and data stores on the far right.
+- Design participant order so arrows **flow left to right**. Frequent backflow means the order needs rethinking.
+- Declare participants explicitly up front. Mermaid lays them out in declaration order, so declaration order = display order.
 
 ### 2.2 `actor` vs. `participant`
 
@@ -65,9 +65,9 @@ sequenceDiagram
 
 Rules:
 
-- **Use `->>` for requests and `-->>` for responses** as the default. This covers 80% of diagrams.
-- Async (queue, event) uses `-)` to visually distinguish from sync.
-- Use `-x` **only when the intent is a timeout / failure / one-way without ack**. Don't use it as decoration.
+- **Default to `->>` for requests and `-->>` for responses.** This covers 80% of diagrams.
+- Use `-)` for async (queue, event) so it is visually distinct from sync.
+- Use `-x` **only for timeouts, failures, or one-way calls without an ack** — never as decoration.
 
 ---
 

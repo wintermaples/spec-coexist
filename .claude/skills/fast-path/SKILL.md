@@ -18,7 +18,7 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill.
 
 ## Purpose
 
-The fastest path from user request to done. Skip all spec ceremony. T0 gets zero process overhead; T1 gets TDD + verification only. This skill exists because most daily development is T0/T1, and forcing spec workflows on trivial tasks kills developer joy.
+The fastest path from user request to done — skip all spec ceremony. T0 runs with zero process overhead; T1 adds TDD plus verification, and nothing else. This skill exists because most daily development is T0/T1, and forcing spec workflows onto trivial tasks kills developer joy.
 
 ## When to Trigger
 
@@ -43,10 +43,10 @@ Do NOT trigger for T2/T3 tasks, new subsystems, or cross-cutting changes.
 
 ## Tier Escalation
 
-If during work the scope grows beyond T1 (e.g., changes span multiple subsystems, diff exceeds ~50 lines, behavior changes are non-trivial):
+If during work the scope grows beyond T1 — for example, changes span multiple subsystems, the diff exceeds ~50 lines, or behavior changes become non-trivial — then:
 
 1. Stop the fast-path.
-2. Announce the escalation to the user with the reason.
+2. Announce the escalation to the user, with the reason.
 3. Re-route to the appropriate tier via `spec-coexist-router`.
 
 ## Flow

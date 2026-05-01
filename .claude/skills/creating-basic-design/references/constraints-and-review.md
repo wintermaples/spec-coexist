@@ -1,71 +1,74 @@
-# Hard Constraints and Review Protocol
+# ハード制約とレビュー手順
 
-## Conformance Keywords
+## 適合キーワード
 
-The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **MAY**, and **OPTIONAL** in this document are to be interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) and [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174) when, and only when, they appear in all capitals.
+本書中の **MUST**、**MUST NOT**、**REQUIRED**、**SHALL**、**SHALL NOT**、**SHOULD**、**SHOULD NOT**、**RECOMMENDED**、**MAY**、**OPTIONAL** は、すべて大文字で現れた場合に限り、[RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) および [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174) の定義に従う。
 
-## Independence
+## 独立性
 
-This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. It **MUST** invoke the project-local `code-review-loop` skill.
+本スキルは `superpowers:*` スキルへの委譲・呼び出しを **MUST NOT** 行わない。プロジェクトローカルの `code-review-loop` スキルを **MUST** 呼び出す。
 
-## Hard Constraints
+## ハード制約
 
-- This skill **MUST NOT** update an existing basic design document. If the target file already exists, the skill **MUST** halt and direct the user to `spec-coexist:revising`.
-- If `docs/main-requirements.md` does not exist, the skill **MUST** halt immediately. A basic design without requirements is meaningless.
-- For nested subsystems, the parent subsystem's requirements document **MUST** also exist before creating a child subsystem's design.
+- 本スキルは既存の基本設計書を **MUST NOT** 更新しない。対象ファイルが既に存在する場合、本スキルは **MUST** 停止し、ユーザを `spec-coexist:revising` に誘導する。
+- `docs/main-requirements.md` が存在しない場合、本スキルは即座に **MUST** 停止する。要件のない基本設計には意味がない。
+- ネスト構成のサブシステムでは、子サブシステム設計を作る前に、親サブシステムの要件定義書も **MUST** 存在していなければならない。
+- 基本設計書の本文は、`../../_shared/references/document-readability.md` で定義された 7 要素（易読性／読み手適合性／明確性・簡潔性／参照性／一貫性／構造化／図表・形式言語の活用）を **MUST** 適用して書く。検証ゲートおよびレビュアーは同じ 7 要素を再チェックする。スコープは内容面のみで、視覚的タイポグラフィは対象外。
 
-## Verification Gate
+## 検証ゲート
 
-After the basic design document is written, the agent **MUST** pass through `verification-before-completion` (document mode) before invoking review or reporting completion. This means:
+基本設計書を書き終えたら、レビュー実行や完了報告の前に `verification-before-completion`（document mode）を **MUST** 通過する。具体的には：
 
-- Re-read the file from disk.
-- Confirm every template section is present.
-- Confirm every requirement is traceable.
-- Confirm no `TBD` / `TODO` / `???` placeholders remain.
-- Confirm no empty bullets.
-- Confirm the **test-strategy tier** field is filled with one of `strict` / `pipeline` / `ui` **and** a 1–3 sentence rationale. A placeholder, blank value, or missing rationale **MUST** fail the gate.
+- ディスクからファイルを再読込する。
+- テンプレートの全セクションが揃っているかを確認する。
+- すべての要件が追跡可能であることを確認する。
+- `TBD` / `TODO` / `???` のプレースホルダが残っていないことを確認する。
+- 空の箇条書きが残っていないことを確認する。
+- **テスト戦略 tier** が `strict` / `pipeline` / `ui` のいずれかで埋められ、**かつ** 1〜3 文の選定理由が **MUST** 記載されていることを確認する。プレースホルダ・空欄・理由欠落はゲートを **MUST** 失敗させる。
+- **可読性 7 要素**（`../../_shared/references/document-readability.md`）の各項目を再チェックする：易読性（文法・1 文の長さ・指示語）／読み手適合性（想定読者の明示・略語展開）／明確性・簡潔性（曖昧表現・冗長な重複の排除）／参照性（要件・隣接設計へのリンク健全性、REQ-ID/DES-ID の一意性）／一貫性（用語・表記揺れ・テーブル様式）／構造化（テンプレート章順・1 段落 1 主旨）／図表・形式言語の活用（フロー・状態・関係は図／表で示し、各図表に 1 文キャプション）。
 
-Fix any failures and re-run the gate until it passes cleanly.
+失敗したら修正のうえ、ゲートが綺麗に通るまで再実行する。
 
-## Mandatory Design Review
+## 必須の設計レビュー
 
-Although the artifact is a document rather than executable code, the same review discipline applies: a fresh reviewer catches template-compliance gaps, vague requirements traceability, missing sections, and internal inconsistencies invisible to the author.
+成果物は実行コードではなく文書だが、同じレビュー規律が適用される。新鮮なレビュアーは、テンプレート逸脱、要件トレーサビリティの曖昧さ、欠落セクション、内部矛盾といった、執筆者には見えなくなった問題を捕捉する。
 
-### Step 1 — Invoke `code-review-loop`
+### Step 1 — `code-review-loop` の起動
 
-After writing the document (and, if the draft is unstaged, committing it so `BASE_SHA` / `HEAD_SHA` are meaningful), invoke `code-review-loop` with:
+文書を書き終えた後（未コミットなら `BASE_SHA` / `HEAD_SHA` が意味を持つようコミットしたうえで）、以下のパラメータで `code-review-loop` を起動する：
 
-| Parameter | Value |
+| パラメータ | 値 |
 | --- | --- |
 | `WHAT_WAS_IMPLEMENTED` | `"Newly created basic design document at <path>"` |
-| `PLAN_OR_REQUIREMENTS` | Pointer to `docs/main-requirements.md` (or the subsystem requirements) **and** to the template + rules files in `references/` |
-| `BASE_SHA` | Commit immediately before the doc was added |
-| `HEAD_SHA` | Commit containing the new doc |
-| `DESCRIPTION` | 1–3 sentences on what the design covers |
+| `PLAN_OR_REQUIREMENTS` | `docs/main-requirements.md`（またはサブシステム要件）**および** `references/` 配下のテンプレート＋ルールへのポインタ |
+| `BASE_SHA` | 文書追加直前のコミット |
+| `HEAD_SHA` | 新文書を含むコミット |
+| `DESCRIPTION` | 設計が扱う範囲を 1〜3 文で |
 
-Instruct the reviewer to specifically check:
-- Template and rules compliance
-- Traceability to every requirement
-- Internal consistency
-- Unresolved `TBD`s
-- Any scope that exceeds the requirements
+レビュアーには次の観点を明示的に確認させる：
+- テンプレートおよびルールへの適合
+- 全要件へのトレーサビリティ
+- 内部の一貫性
+- 未解決の `TBD`
+- 要件範囲を越えたスコープ
+- **可読性 7 要素への適合**（`../../_shared/references/document-readability.md`）：易読性／読み手適合性／明確性・簡潔性／参照性／一貫性／構造化／図表・形式言語の活用
 
-### Step 2 — Handle feedback
+### Step 2 — フィードバックの処理
 
-The agent **MUST** handle the returned feedback through `code-review-loop`.
+返ってきたフィードバックは `code-review-loop` を通じて **MUST** 処理する。
 
-### Step 3 — Fix policy
+### Step 3 — 修正方針
 
-| Severity | Required action |
+| 重大度 | 必須対応 |
 | --- | --- |
-| **Critical** (missing sections, contradicts requirements, violates template rules) | **MUST** be fixed before reporting completion |
-| **Important** | **MUST** be fixed unless the user explicitly waives them |
-| **Minor** | **MAY** be deferred but **MUST** be listed in the final report |
+| **Critical**（欠落セクション、要件矛盾、テンプレート違反） | 完了報告の前に **MUST** 修正する |
+| **Important** | ユーザが明示的に免除しない限り **MUST** 修正する |
+| **Minor** | 後回し **MAY** だが、最終報告に **MUST** 列挙する |
 
-### Step 4 — Re-review after fixes
+### Step 4 — 修正後の再レビュー
 
-After fixes, the agent **SHOULD** re-dispatch the reviewer on the new `HEAD_SHA`.
+修正後、新しい `HEAD_SHA` でレビュアーを再起動することを **SHOULD** とする。
 
-### Step 5 — Final report
+### Step 5 — 最終報告
 
-The final report to the user **MUST** include a `Review:` line summarizing the outcome.
+ユーザへの最終報告には、結果を要約する `Review:` 行を **MUST** 含める。

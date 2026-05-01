@@ -1,12 +1,12 @@
 # Rules for Creating Beautiful Mermaid State Diagrams
 
-This document summarizes the principles for writing Mermaid **State Diagrams (`stateDiagram-v2`)** in design documentation (requirements, basic designs, etc.) so they stay "readable" and "robust as they scale."
+This document summarizes principles for writing Mermaid **State Diagrams (`stateDiagram-v2`)** in design documentation (requirements, basic designs, etc.) so they stay readable and robust as they scale.
 
 ---
 
 ## 1. Overview and Purpose
 
-A State Diagram expresses the **lifecycle** and **event-driven behavior** of a target (entity, screen, job, session, etc.). It corresponds to UML state-machine diagrams.
+A State Diagram expresses the **lifecycle** and **event-driven behavior** of a target (entity, screen, job, session, etc.) and corresponds to a UML state-machine diagram.
 
 Main uses:
 
@@ -22,7 +22,7 @@ Main uses:
 - Message exchanges between a subject and counterpart → use Sequence Diagram
 - Data-structure relationships → use ER / Class Diagram
 
-> Principle: Use a State Diagram only when "there is a single subject," "it has state," and "it transitions on events."
+> Principle: Use a State Diagram only when there is a single subject, it has state, and it transitions on events.
 
 ---
 
@@ -43,7 +43,7 @@ Main uses:
 
 ## 3. State Naming Conventions
 
-A state expresses "the condition the subject is in," so use **noun or adjective phrases**. Never use verb phrases (process names).
+A state expresses the condition the subject is in, so use **noun or adjective phrases**. Never use verb phrases (process names).
 
 | Good | Bad | Reason |
 |---|---|---|

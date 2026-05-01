@@ -4,29 +4,29 @@ These constraints are declared in `SKILL.md` and enforced by the conformance che
 
 ## C1. SKILL.md body ≤ 80 lines
 
-**Rule:** The body of SKILL.md (everything after the closing `---` of the frontmatter, including trailing blank lines) **MUST NOT** exceed 80 lines.
+**Rule:** The body of SKILL.md — everything after the closing `---` of the frontmatter, including trailing blank lines — **MUST NOT** exceed 80 lines.
 
-**Why:** SKILL.md bodies are loaded into the conversation context the moment the skill triggers. A 300-line SKILL.md burns through budget before the agent has done any work, and in practice the additional prose is rarely load-bearing — it is usually rationale or examples that belong in `references/`. 80 lines is empirically enough for an orchestrator (description of intent, ordered steps, flow diagram, pointers to references and scripts) without being so generous that it invites dumping.
+**Why:** A SKILL.md body is loaded into the conversation context the moment the skill triggers. A 300-line SKILL.md burns through budget before the agent has done any work, and the additional prose is rarely load-bearing in practice (usually rationale or examples that belong in `references/`). 80 lines is empirically enough for an orchestrator — description of intent, ordered steps, flow diagram, and pointers to references and scripts — without being so generous that it invites dumping.
 
-**How to recover when you hit the limit:** move rationale to `references/rationale.md`, examples to `references/examples.md`, anti-patterns to `references/anti-patterns.md`. Do not shrink by deleting steps; shrink by externalizing prose.
+**How to recover when you hit the limit:** move rationale to `references/rationale.md`, examples to `references/examples.md`, and anti-patterns to `references/anti-patterns.md`. Do not shrink by deleting steps; shrink by externalizing prose.
 
 ## C2. Bilingual trigger phrases
 
 **Rule:** The `description` field **MUST** contain at least one Japanese trigger phrase and at least one English trigger phrase.
 
-**Why:** This project has bilingual users. A Japanese-only description under-triggers on English prompts and vice versa. The cost of adding phrases is near zero; the cost of missed triggering is a user manually re-invoking the skill or, worse, the agent silently bypassing the suite.
+**Why:** This project has bilingual users. A Japanese-only description under-triggers on English prompts and vice versa. The cost of adding phrases is near zero; the cost of missing a trigger is a user manually re-invoking the skill — or worse, the agent silently bypassing the suite.
 
 ## C3. Independence clause
 
 **Rule:** The `description` **MUST** contain, verbatim: `This skill is self-contained and MUST NOT delegate to any \`superpowers:*\` skill.`
 
-**Why:** The suite's auditability and version-stability depend on never reaching into an external plugin at runtime. Declaring this in every description serves two purposes: (a) it reminds the agent at decision time, before the body loads, and (b) it makes violations grep-able during review.
+**Why:** The suite's auditability and version stability depend on never reaching into an external plugin at runtime. Declaring this in every description serves two purposes: it reminds the agent at decision time (before the body loads), and it makes violations grep-able during review.
 
 ## C4. No regulation text longer than 3 paragraphs in the body
 
 **Rule:** Consecutive prose in the body **MUST NOT** exceed three paragraphs before being broken by either a list, a diagram, or a link to a `references/*.md` file.
 
-**Why:** Walls of prose in SKILL.md are a leading indicator of "this should have been a reference". The constraint forces externalization at the moment the author is tempted to inline rationale. If you find yourself wanting a fourth paragraph, stop and create `references/rationale.md`.
+**Why:** Walls of prose in SKILL.md are a leading indicator that "this should have been a reference". The constraint forces externalization at the moment the author is tempted to inline rationale. If you find yourself wanting a fourth paragraph, stop and create `references/rationale.md`.
 
 ## C5. Scripts are not inlined
 

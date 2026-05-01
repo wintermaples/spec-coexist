@@ -2,7 +2,11 @@
 
 Conformance keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) / [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174).
 
-`anti-patterns.md` が "やってはいけない行動" を列挙するのに対し、このファイルは **debugging session 全体が失敗に至る典型フロー** を扱う。各パターンは (1) 定義、(2) 検出シグナル、(3) 対抗アクションの 3 点セットで書かれている。
+`anti-patterns.md` が "やってはいけない行動" を列挙するのに対し、このファイルは **debugging session 全体が失敗に至る典型フロー** を扱う。各パターンは次の 3 点セットで記述する:
+
+1. **Definition / 定義** — そのパターンが何か。
+2. **Detection signal / 検出シグナル** — 自分が陥っていることに気付くための手掛かり。
+3. **Counter-action / 対抗アクション** — 抜け出すために取るべき行動。
 
 ---
 

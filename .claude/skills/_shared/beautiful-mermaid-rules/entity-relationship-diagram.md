@@ -2,16 +2,16 @@
 
 ## Overview and Purpose
 
-An Entity Relationship Diagram (ER diagram) expresses the structure of data handled by a system using three elements: "entities," "attributes," and "relationships." With Mermaid's `erDiagram`, you can visualize the overall data model and business constraints in design docs and reviews before writing SQL DDL.
+An Entity Relationship (ER) diagram expresses the structure of the data a system handles, using three elements: **entities**, **attributes**, and **relationships**. Mermaid's `erDiagram` lets you visualize the overall data model and business constraints in design docs and reviews before writing SQL DDL.
 
 Main uses:
 
-- Data model definition in basic design docs (logical ER diagrams)
-- Birds-eye view of dependencies among existing tables (reverse ER diagrams)
+- Data-model definition in basic design docs (logical ER diagrams)
+- Bird's-eye view of dependencies among existing tables (reverse ER diagrams)
 - Working material for domain modeling (conversation scaffolding)
 - Impact analysis for migration / data-migration design
 
-ER diagrams are "diagrams humans read to understand business constraints." They collapse if you try to pack them with the same information as a table definition sheet. The first step toward a beautiful ER diagram is being mindful of **what to include and what to omit**.
+ER diagrams are read by humans to understand business constraints. They collapse when packed with the same information as a table-definition sheet. The first step toward a beautiful ER diagram is being deliberate about **what to include and what to omit**.
 
 ---
 
@@ -19,7 +19,7 @@ ER diagrams are "diagrams humans read to understand business constraints." They 
 
 ### Singular vs. plural consistency
 
-Entity names should use **singular + PascalCase**. This is because one entity represents "one row (one instance)." Within a project, pick one style and never mix.
+Entity names should use **singular + PascalCase**, because one entity represents one row (one instance). Pick one style per project and never mix.
 
 | Category | Recommended | Not recommended |
 |----------|-------------|-----------------|
@@ -46,7 +46,7 @@ erDiagram
 
 ## Attribute Notation
 
-Mermaid attribute notation is written as `type name key "comment"`, in that order. To avoid information overload, **logical ER diagrams should list only attributes with business meaning**.
+Mermaid attribute notation has the form `type name key "comment"`. To avoid information overload, **list only attributes with business meaning in logical ER diagrams**.
 
 ### Key symbols
 
@@ -79,7 +79,7 @@ Key points:
 
 ## Relationship Notation (Crow's Foot)
 
-Mermaid uses Crow's Foot notation. The two characters at each end of a line indicate **min/max** (outer = max, inner = min).
+Mermaid uses Crow's Foot notation. The two characters at each end of a line denote **minimum / maximum** (outer = max, inner = min).
 
 ### Reading cardinality
 

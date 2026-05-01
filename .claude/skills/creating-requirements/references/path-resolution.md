@@ -14,10 +14,10 @@ Target: `<subsystem-dir>/<name>-requirements.md`
 
 Subsystems may be **top-level** (directly under `docs/subsystems/`) or **nested** (under an existing subsystem's `subsystems/` folder, e.g. `docs/subsystems/001_common-platform/subsystems/001_notification/`).
 
-1. Ask the user which kind of subsystem:
-   - **Existing subsystem** → enumerate all subsystem directories recursively (`find docs/subsystems -mindepth 1 -type d` filtered to `{id}_{name}` pattern) and let the user pick; the path is already set.
-   - **New top-level subsystem** → run `ensure_subsystem_dir.sh <name>`; capture the printed path.
-   - **New child subsystem of an existing subsystem** → first let the user pick the parent subsystem from the enumerated list, then run `ensure_subsystem_dir.sh <name> <parent-subsystem-path>`; capture the printed path.
+1. Ask the user which kind of subsystem and act based on the answer:
+   - **Existing subsystem** — enumerate all subsystem directories recursively (`find docs/subsystems -mindepth 1 -type d` filtered to `{id}_{name}` pattern) and let the user pick; the path is already set.
+   - **New top-level subsystem** — run `ensure_subsystem_dir.sh <name>`; capture the printed path.
+   - **New child subsystem of an existing subsystem** — first let the user pick the parent subsystem from the enumerated list, then run `ensure_subsystem_dir.sh <name> <parent-subsystem-path>`; capture the printed path.
 2. Derive the target file: `<dir>/<name>-requirements.md`.
 3. Run `check_doc_exists.sh <target>`.
 4. If the target exists, halt (see `constraints.md` §1).
