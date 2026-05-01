@@ -19,31 +19,31 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill.
 
 ## Purpose
 
-Single skill that handles the full code-review cycle: request review → receive feedback → verify → fix → re-review if needed. Replaces the former separate `requesting-code-review` and `receiving-code-review` skills.
+Handles the full code-review cycle in one skill: request → receive → verify → fix → re-review. Replaces the former separate `requesting-code-review` and `receiving-code-review` skills.
 
 ## Applicability
 
-- **T0/T1 tasks**: Do NOT trigger unless the user explicitly requests review.
-- **T2/T3 tasks**: `spec-coexist:pre-review-self-check` should be run before this skill.
+- **T0/T1**: Do NOT trigger unless the user explicitly requests review.
+- **T2/T3**: Run `spec-coexist:pre-review-self-check` before this skill.
 
 ## Procedure
 
-### Phase 1: Request Review
+### Phase 1 — Request review
 1. Run `scripts/collect-review-context.sh` to get `BASE_SHA` / `HEAD_SHA`.
-2. Prepare: `WHAT_WAS_IMPLEMENTED`, `PLAN_OR_REQUIREMENTS`, `DESCRIPTION`.
+2. Prepare `WHAT_WAS_IMPLEMENTED`, `PLAN_OR_REQUIREMENTS`, `DESCRIPTION`.
 3. Dispatch a fresh subagent using the template in `code-reviewer.md`.
 4. Wait for the reviewer's structured response.
 
-### Phase 2: Receive & Process Feedback
-5. **Read** entire feedback without reacting.
-6. **Verify** each item against the actual codebase. Does the problem exist?
+### Phase 2 — Process feedback
+5. **Read** the entire feedback without reacting.
+6. **Verify** each item against the actual codebase — does the problem exist?
 7. **Evaluate** technical correctness for this codebase.
-8. **Respond** with fix or reasoned pushback (see `references/pushback-rules.md`).
-9. **Implement** one item at a time, in severity order (Critical → Important → Minor/Suggestion). Run tests after each fix.
+8. **Respond** with a fix or reasoned pushback (see `references/pushback-rules.md`).
+9. **Implement** one item at a time in severity order (Critical → Important → Minor/Suggestion). Run tests after each fix.
 
-### Phase 3: Re-review (if needed)
-10. After Critical/Important fixes, re-dispatch on new `HEAD_SHA`.
-11. Record outcome with a `Review: <verdict>` line.
+### Phase 3 — Re-review if needed
+10. After Critical/Important fixes, re-dispatch on the new `HEAD_SHA`.
+11. Record the outcome with a `Review: <verdict>` line.
 
 ## Forbidden Responses
 

@@ -37,7 +37,7 @@ related: []
 
 # Requirements Definition (Whole System)
 
-This document captures cross-project requirements and indexes the per-subsystem requirements documents. Subsystem-specific details (functional, non-functional, UI, data, etc.) belong in each subsystem's `subsystem-requirements.md`.
+This document captures cross-project requirements and indexes the per-subsystem requirements documents. Subsystem-specific details (functional, non-functional, UI, data, and so on) belong in each subsystem's `subsystem-requirements.md`.
 
 | Field | Value |
 | --- | --- |
@@ -58,7 +58,7 @@ This document captures cross-project requirements and indexes the per-subsystem 
 ## 1. Introduction
 ### 1.1 Purpose
 ### 1.2 Document Structure
-Relation between this whole-system doc and each subsystem requirements doc.
+The relationship between this whole-system document and each subsystem-requirements document.
 
 ```
 main-requirements.md          (this document — whole-system index)

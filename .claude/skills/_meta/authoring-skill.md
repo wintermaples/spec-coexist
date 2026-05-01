@@ -1,7 +1,7 @@
 # Authoring spec-coexist Skills (Meta Reference)
 
 This is a **meta reference**, not a daily-use skill. It documents how to author or modify skills
-in the spec-coexist suite. Detailed references are in `authoring-references/`.
+in the spec-coexist suite. Detailed references live in `authoring-references/`.
 
 ## When to Use
 

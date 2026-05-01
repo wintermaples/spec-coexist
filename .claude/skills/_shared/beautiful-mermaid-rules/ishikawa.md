@@ -6,7 +6,7 @@ This document summarizes principles for drawing readable Mermaid **Ishikawa diag
 
 ## 1. Overview and Purpose
 
-The Ishikawa diagram, proposed by Kaoru Ishikawa, is a **visualization technique for cause analysis and quality control**. Given a "characteristic (effect / problem / outcome)," its causes are enumerated and hierarchically classified in the shape of a fish's bones.
+The Ishikawa diagram, proposed by Kaoru Ishikawa, is a **visualization technique for cause analysis and quality control**. For a given "characteristic" (effect, problem, or outcome), causes are enumerated and hierarchically classified in the shape of a fish's bones.
 
 Main uses:
 
@@ -22,14 +22,14 @@ The goal is to **enumerate causes MECE before proposing solutions** — this dia
 
 ## 2. Clear Description of the Problem (Characteristic / Effect)
 
-The "characteristic" — the fish head — is the single most important element, because it defines the focus of the whole diagram. A vague characteristic scatters the discussion.
+The characteristic — the fish head — is the single most important element, because it defines the focus of the whole diagram. A vague characteristic scatters the discussion.
 
 How to write a good characteristic:
 
-- **Observable / measurable**: Not "quality is bad" but "the defect-detection rate in integration tests is 2x the previous release"
-- **One per diagram**: One diagram = one characteristic. Do not mix multiple problems.
-- **Symptom-based**: Do not bake in causes. (Not "response is slow because the DB is slow" but "API response exceeds 2 seconds at p95")
-- **State time and scope**: "When," "in which system," and "by how much"
+- **Observable / measurable**: Not "quality is bad," but "the defect-detection rate in integration tests is 2x the previous release"
+- **One per diagram**: One diagram = one characteristic; do not mix multiple problems
+- **Symptom-based**: Do not bake in causes — not "response is slow because the DB is slow," but "API response exceeds 2 seconds at p95"
+- **State time and scope**: when, in which system, and by how much
 
 ---
 
@@ -48,7 +48,7 @@ Main bones are the axes for classifying causes — **unify the framework within 
 | **4S (IT)** | Surroundings / Suppliers / Systems / Skills | IT operations |
 | **PEMPEM** | People / Equipment / Material / Process / Environment / Measurement | Generalized version |
 
-In software development, it's also fine to define your own axes like **People / Process / Tools / Environment / Data / Spec**. However, **always state which framework was chosen** in the diagram title or caption.
+In software development, you may also define custom axes such as **People / Process / Tools / Environment / Data / Spec**. **Always declare the chosen framework** in the diagram title or caption.
 
 ---
 

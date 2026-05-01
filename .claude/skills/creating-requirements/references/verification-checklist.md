@@ -4,8 +4,8 @@ Run this checklist as the `verification-before-completion` gate (document mode) 
 
 ## How to run
 
-1. Re-read the target file from disk (do not rely on what you just wrote — read it back).
-2. Work through every item below. For each item, note PASS or FAIL with a one-line reason.
+1. Re-read the target file from disk — do not rely on what you just wrote.
+2. Work through every item below; mark each PASS or FAIL with a one-line reason.
 3. Report the results to the user as part of the completion message.
 
 ## Checklist
@@ -29,4 +29,4 @@ Run this checklist as the `verification-before-completion` gate (document mode) 
 - [ ] Frontmatter `作成日` is today's date (not `YYYY-MM-DD`).
 
 ### Gate
-If **any** item above is FAIL, fix the document and re-run this checklist from the top. Do not report completion until every item is PASS.
+If **any** item above is FAIL, fix the document and re-run the checklist from the top. Do not report completion until every item is PASS.

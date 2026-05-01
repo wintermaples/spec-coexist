@@ -1,53 +1,53 @@
-# Brainstorming Rules
+# ブレインストーミング・ルール
 
-These rules apply during the embedded brainstorming phase of `creating-basic-design`.
+`creating-basic-design` のブレインストーミング段階で適用するルール。
 
-## One Question Per Message
+## 1 メッセージ 1 質問
 
-Ask exactly one question per message. Never bundle multiple questions.
+1 メッセージにつき質問はちょうど 1 つ。複数の質問を束ねない。
 
-## Question Format
+## 質問の形式
 
-- **Prefer multiple-choice** options (A / B / C) — they lower the user's cognitive load and produce unambiguous answers.
-- **Open-ended questions MAY be used** when the answer space is genuinely open (e.g. "What is the core user goal?").
+- **多肢選択（A / B / C）を優先する。** ユーザの認知負荷を下げ、回答の曖昧さを減らせる。
+- **オープン質問は MAY。** 回答空間が本当に開いているとき（例：「中核となるユーザ目標は何か？」）に限り使う。
 
-## Handling Many Pending Questions
+## 未回答の質問が多くなったとき
 
-When the number of pending questions grows large (more than ~4–5 remaining), write them all to a file instead of asking them one at a time:
+未回答の質問が約 4〜5 個を超えたら、1 つずつ聞かずにファイルへまとめて書き出す：
 
 ```bash
 path=$(.claude/skills/_shared/scripts/gen_questions_path.sh basic-design)
 # Write all remaining questions to $path, then HALT.
 ```
 
-Tell the user the file path and **HALT** until they confirm they have answered. Then resume inline.
+ユーザにファイルパスを伝え、回答が完了したと確認されるまで **HALT** する。完了後にインライン応答を再開する。
 
-When only a few questions remain, continue inline without writing a file.
+未回答が少数なら、ファイル化せずインラインで続けてよい。
 
 ## Visual Companion
 
-Consult `../_shared/references/visual-companion.md` for full operating instructions.
+運用詳細は `../_shared/references/visual-companion.md` を参照する。
 
-**When to offer it:** only when the next question is fundamentally visual — UI layout, wireframes, architecture diagrams, screen flows. Conceptual questions (scope, wording, API tradeoffs) stay in plain terminal mode.
+**使うのはいつか：** 次の質問が本質的に視覚情報を要するとき（UI レイアウト、ワイヤーフレーム、アーキテクチャ図、画面フロー）に限る。スコープ・文言・API のトレードオフのような概念的な質問は通常のターミナルで扱う。
 
-**Consent:** request consent exactly once, in its own standalone message with no other questions:
+**同意取得：** 同意確認は 1 回だけ、他の質問を含まない単独メッセージで行う：
 
 > I'd like to switch into Visual Companion mode for the next few questions because they're about screen layout. Is that okay? (yes / no)
 
-If the user declines, continue in plain terminal mode for the rest of the session.
+ユーザが断った場合は、以降のセッションも通常のターミナルで継続する。
 
-**Launch command:**
+**起動コマンド：**
 ```bash
 .claude/skills/_shared/scripts/start_visual_server.sh <project-dir>
 ```
 
-Capture and remember `screen_dir`, `state_dir`, `url`, and `pid` from the output.
+出力された `screen_dir`、`state_dir`、`url`、`pid` を取得して記憶する。
 
-## Design Solidified?
+## 設計が固まった判定
 
-Continue the brainstorming loop until all of the following are true:
+以下がすべて満たされるまでブレインストーミングを継続する：
 
-- The target scope (whole-system vs subsystem) is confirmed.
-- Every requirement in `docs/main-requirements.md` (or subsystem requirements) has at least a placeholder design decision.
-- No open questions remain that would block writing the document.
-- Non-functional requirements (performance, security, availability) have at least high-level answers.
+- 対象スコープ（全体版 vs サブシステム版）が確定している。
+- `docs/main-requirements.md`（またはサブシステム要件）の各要件に、少なくとも仮置きの設計判断が紐付いている。
+- 文書の執筆を妨げる未解決の質問が残っていない。
+- 非機能要件（性能、セキュリティ、可用性）に高レベルの方針が示されている。

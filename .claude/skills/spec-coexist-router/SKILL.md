@@ -20,7 +20,7 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill.
 
 ## Purpose
 
-Route every development-related user message to the **minimum viable set of skills** based on task tier. Replaces the former "1% rule" with a proportional approach: trivial tasks get zero overhead, large tasks get full process.
+Route every development-related user message to the **minimum viable set of skills** for the message's task tier. This replaces the former "1% rule" with a proportional approach: trivial tasks get zero overhead, large tasks get the full process.
 
 ## Tier Classification
 
@@ -35,11 +35,11 @@ See `references/task-tiers.md` for definitions and `references/tier-examples.md`
 
 ## Routing Procedure
 
-1. Check for explicit `tier:T0`–`tier:T3` prefix in user message. If present, use that tier.
-2. Otherwise, estimate: predicted diff lines, changed file count, subsystem crossing, behavior change.
-3. Apply the tier table in `references/task-tiers.md`. When in doubt, start lower and escalate.
-4. If the task is clearly not development-related (setup help, Q&A, chat), respond normally — no skill.
-5. Invoke the appropriate skill(s) for the tier via the Skill tool using `spec-coexist:` prefix.
+1. Check whether the user message carries an explicit `tier:T0`–`tier:T3` prefix. If present, use that tier.
+2. Otherwise, estimate the tier from: predicted diff lines, changed file count, subsystem crossing, and behavior change.
+3. Apply the tier table in `references/task-tiers.md`. When in doubt, start at a lower tier and escalate.
+4. If the task is clearly not development-related (setup help, Q&A, chat), respond normally — no skill is invoked.
+5. Invoke the appropriate skill(s) for the tier via the Skill tool, using the `spec-coexist:` prefix.
 
 ## Skill Inventory
 

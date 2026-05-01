@@ -22,10 +22,12 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill.
 
 ## Distinction from `code-review-loop`
 
-- `spec-coexist:pre-review-self-check` — **self-review** with diff + checklist. No subagent. Cheap, fast.
-- `spec-coexist:code-review-loop` — **third-party review** by a fresh subagent. Expensive, authoritative.
+| Skill | Reviewer | Inputs | Cost |
+|---|---|---|---|
+| `spec-coexist:pre-review-self-check` | The implementing agent itself | Diff + checklist | Cheap, fast |
+| `spec-coexist:code-review-loop` | A fresh subagent (third-party) | Diff only | Expensive, authoritative |
 
-Findings from this skill should be fixed locally; they should not be deferred to the reviewer.
+Findings from this skill **MUST** be fixed locally; do not defer them to the reviewer.
 
 ## References
 

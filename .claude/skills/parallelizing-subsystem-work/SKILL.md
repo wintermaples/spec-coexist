@@ -10,14 +10,16 @@ Conformance keywords: [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) / [RFC 
 
 ## Purpose
 
-Drive concurrent `spec-coexist:implementing-from-spec` runs for multiple **independent** subsystems inside isolated git worktrees, then consolidate. The skill's value is in the **isolation check** — refusing to parallelize work that cannot be safely parallelized — not in the act of creating worktrees.
+Drive concurrent `spec-coexist:implementing-from-spec` runs for multiple **independent** subsystems in isolated git worktrees, then consolidate the results. The core value is the **isolation check** — refusing to parallelize work that cannot be safely parallelized — not the mechanical act of creating worktrees.
 
 ## When to Trigger
 
-- `docs/subsystems/` contains ≥ 2 directories with both `*-requirements.md` and `*-design.md` marked ready.
-- The user explicitly asks for parallel / concurrent / worktree-based implementation.
+Trigger when **both** apply:
 
-Do **NOT** trigger for single-subsystem work (use `spec-coexist:implementing-from-spec` directly) or when the spec is still being drafted.
+- `docs/subsystems/` contains ≥ 2 directories with both `*-requirements.md` and `*-design.md` marked ready.
+- The user explicitly asks for parallel, concurrent, or worktree-based implementation.
+
+Do **NOT** trigger for single-subsystem work (use `spec-coexist:implementing-from-spec` directly), or while the spec is still being drafted.
 
 ## References
 

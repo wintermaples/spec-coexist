@@ -39,7 +39,7 @@ Invoke `spec-coexist:creating-requirements` with this memo as input.
 
 ## Rules
 
-- **MUST** contain all sections, even if a section is `(none)`. Empty sections are intentional evidence that the agent considered and found nothing.
-- **MUST NOT** include draft user stories or acceptance criteria. Those belong in `creating-requirements`.
-- The chosen problem statement **MUST** be a single sentence; if it needs a paragraph, the divergence was insufficient.
-- The memo **MUST** be referenced by path in the final `Review:` line of the skill report.
+- **MUST** contain all sections, even when a section is `(none)`. Empty sections are intentional evidence that the agent considered the topic and found nothing.
+- **MUST NOT** include draft user stories or acceptance criteria — those belong in `creating-requirements`.
+- The chosen problem statement **MUST** be a single sentence. If it needs a paragraph, divergence was insufficient.
+- The final `Review:` line of the skill report **MUST** reference the memo by path.

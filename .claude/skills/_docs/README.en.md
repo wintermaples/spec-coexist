@@ -18,18 +18,18 @@
 
 ### 1. Installation
 
-**As a development repository:**
+**As a development repository**
 
-Clone this repo — skills under `.claude/skills/` are automatically recognized.
+Clone this repo. Skills under `.claude/skills/` are recognized automatically.
 
-**As a plugin for another project:**
+**As a plugin for another project**
 
 ```bash
 # Build the package
 ./scripts/package-spec-coexist.sh
 
 # Extract the generated dist/spec-coexist-<version>.tar.gz
-# and place it in Claude Code's plugin directory
+# and place it in Claude Code's plugin directory.
 ```
 
 ### 2. First Steps
@@ -81,7 +81,7 @@ Bug found → systematic-debugging → (if needed) revising
 
 ## Task Tier System
 
-Every user message is classified by the **spec-coexist-router** into one of four tiers. Each tier requires a different level of process.
+The **spec-coexist-router** classifies every user message into one of four tiers. Each tier requires a different level of process.
 
 | Tier | Size | Examples | Required Process |
 | --- | --- | --- | --- |
@@ -105,7 +105,7 @@ You can explicitly specify a tier:
 
 #### exploring-problem-space
 
-Helps structure unformed ideas and identify the real problem to solve before requirements begin.
+Structures unformed ideas and identifies the real problem to solve before requirements work begins.
 
 **Trigger examples:**
 - "I'm not sure what we should build"
@@ -291,11 +291,11 @@ docs/
 
 ## Visual Companion
 
-A lightweight HTTP server for visually guiding requirements and design discussions. Provides real-time Mermaid diagram previews, among other features.
+A lightweight HTTP server that visually guides requirements and design discussions. It provides real-time Mermaid diagram previews, among other features.
 
-**Starting:**
+**Starting**
 
-Automatically launched during skill execution. To start manually:
+The server launches automatically during skill execution. To start it manually:
 
 ```bash
 python3 .claude/skills/_shared/scripts/visual_server.py
@@ -342,6 +342,7 @@ The core principle of spec-coexist is that specs and implementation are always s
 ### Trust the guardrails
 
 Each skill has built-in safety mechanisms:
+
 - Prevents overwriting existing documents
 - Prevents creating a design without requirements
 - Prevents writing production code without tests

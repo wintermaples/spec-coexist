@@ -4,12 +4,13 @@ These rules apply during the brainstorming phase of `creating-detail-design`.
 
 ## Module-by-Module Processing
 
-Process one module at a time. Complete the design for one module before moving to the next. This keeps conversations focused and prevents context overload.
+Process one module at a time, completing its design before moving to the next. This keeps conversations focused and prevents context overload.
 
 Order of processing:
-1. Start with modules that have **no dependencies** on other modules.
-2. Progress to modules that **depend on** already-designed modules.
-3. Finish with **integration / orchestration** modules.
+
+1. Modules with **no dependencies** on other modules.
+2. Modules that **depend on** already-designed modules.
+3. **Integration / orchestration** modules last.
 
 ## One Question Per Message
 
@@ -23,13 +24,11 @@ Ask exactly one question per message. Never bundle multiple questions.
 
 ## Diagram-Driven Dialogue
 
-When discussing behavior, prefer this flow:
+When discussing behavior, follow this loop — it is faster and more precise than asking abstract questions:
 
 1. Draw a draft Mermaid diagram based on the basic design.
 2. Ask the user: "この流れで合っていますか？修正点はありますか？" / "Does this flow look correct? Any corrections?"
 3. Iterate until the user confirms.
-
-This approach is faster and more precise than asking abstract questions.
 
 ## Handling Many Pending Questions
 
@@ -52,10 +51,10 @@ Consult `../_shared/references/visual-companion.md` for full operating instructi
 
 ## Design Solidified?
 
-Continue the brainstorming loop until all of the following are true:
+Continue the brainstorming loop until **all** of the following are true:
 
 - Every module identified in step 5 has its key behaviors specified via Mermaid diagrams.
 - Interface contracts between modules are defined (inputs, outputs, error responses).
 - Error handling paths are specified for each module.
-- State transitions are documented for stateful modules.
-- No open questions remain that would cause an implementer to make arbitrary choices.
+- State transitions are documented for every stateful module.
+- No open questions remain that would force an implementer to make arbitrary choices.

@@ -2,14 +2,14 @@
 
 ## Overview and Purpose
 
-The Mermaid **Packet diagram** (`packet`) is a relatively new diagram type that renders **bit/byte-level field layouts** for network-protocol headers and binary formats (file formats, register maps, serial-communication frames, etc.) in an RFC-style figure. In design docs, it is particularly useful for:
+The Mermaid **Packet diagram** (`packet`) is a relatively new diagram type that renders **bit- / byte-level field layouts** for network-protocol headers and binary formats (file formats, register maps, serial-communication frames, etc.) in an RFC-style figure. In design docs, it is particularly useful for:
 
-- Publishing a spec for a custom protocol or binary format
-- Explaining and diffing existing protocols (TCP/UDP/IP/custom RPC headers, etc.)
+- Publishing the spec of a custom protocol or binary format
+- Explaining and diffing existing protocols (TCP / UDP / IP / custom RPC headers, etc.)
 - Visualizing register maps and flag bits
-- Agreeing on the layout of disk-on-memory structures (mmap'ed structs, file headers)
+- Agreeing on the layout of memory-resident structures (mmap'ed structs, file headers)
 
-Compared to text like "top 4 bits are version, next 4 bits are IHL, …," a diagram dramatically reduces misreading of field boundaries. In design review, **always put the diagram and table side by side**.
+Compared to prose like "top 4 bits are version, next 4 bits are IHL, …," a diagram dramatically reduces misreading of field boundaries. **Always pair the diagram with a table** in design review.
 
 ## Basic Syntax
 
@@ -23,7 +23,7 @@ title TCP Header
 
 - One field per line: `start_bit-end_bit: "label"`.
 - A single bit can be written as `7: "URG"`.
-- From v11.7.0 onward, relative spec `+<bitCount>: "..."` is available, avoiding renumbering when inserting fields. **Use relative notation for new designs**; absolute notation reads better when copying existing protocols.
+- From v11.7.0 onward, the relative form `+<bitCount>: "..."` is available, eliminating renumbering when fields are inserted. **Use relative notation for new designs**; absolute notation reads better when copying existing protocols.
 
 ## Rules for Bit Range Specification
 

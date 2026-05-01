@@ -2,20 +2,20 @@
 
 ## Overview and Purpose
 
-Mermaid's **Requirement Diagram** follows SysML's requirement-diagram notation and is used to visualize system requirements, their relationships, and their linkage to design and test elements. It is particularly effective in requirements and system specifications for the following uses:
+Mermaid's **Requirement Diagram** follows SysML's requirement-diagram notation and visualizes system requirements, their relationships, and their links to design and test elements. It is particularly effective in requirements and system specifications for:
 
-- **Requirement traceability visualization**: Trace from top-level requirements to sub-requirements, designs, and tests in a single view
+- **Requirement-traceability visualization**: Trace from top-level requirements to sub-requirements, designs, and tests in a single view
 - **Understanding dependencies among requirements**: Make derive, refine, and trace relationships explicit
-- **Linking to design, implementation, and tests**: Via `element`, show which component `satisfies` a requirement and which test `verifies` it
-- **Consensus building in review**: Share structural relationships intuitively where a trace matrix would be hard to read
+- **Linking to design, implementation, and tests**: Use `element` to show which component `satisfies` a requirement and which test `verifies` it
+- **Consensus-building in review**: Share structural relationships intuitively where a trace matrix is hard to read
 
-Attaching it as a supplemental figure to text-only requirements docs helps catch missing requirements and contradictory relationships early.
+Attaching one as a supplemental figure to text-only requirements docs helps catch missing requirements and contradictory relationships early.
 
 ---
 
 ## Using Requirement Types
 
-Mermaid supports 6 requirement types. The key is to distinguish them at matching granularity.
+Mermaid supports 6 requirement types. Distinguish them at matching granularity.
 
 | Type | Use | Example |
 |---|---|---|
@@ -26,7 +26,7 @@ Mermaid supports 6 requirement types. The key is to distinguish them at matching
 | `physicalRequirement` | Physical requirement. Hardware, installation environment, dimensions | "Server chassis is 2U or smaller" |
 | `designConstraint` | Design constraint. Technology choices, policies, legal constraints | "Personal data is stored in a domestic DC" |
 
-**Guidance**: Do not mix granularities within one diagram. Separate diagrams for business requirements from functional requirements. Choosing types correctly avoids review debates over "is this a requirement or a constraint?"
+**Guidance**: Do not mix granularities within one diagram; separate diagrams for business requirements from those for functional requirements. Correct typing prevents review debates such as "is this a requirement or a constraint?"
 
 ---
 

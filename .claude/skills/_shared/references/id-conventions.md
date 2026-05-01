@@ -1,6 +1,6 @@
 # ID Conventions
 
-Canonical naming rules for identifiers used across spec-coexist documents, tests, and evidence. This is the single source of truth — all skills and scripts reference this file.
+Canonical naming rules for identifiers used across spec-coexist documents, tests, and evidence. This file is the single source of truth: every skill and script references it.
 
 Conformance keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) / [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174).
 
@@ -28,13 +28,13 @@ When subsystems are nested (e.g. `docs/subsystems/001_common-platform/subsystems
 
 - `docs/subsystems/001_common-platform/subsystems/001_notification/` → `REQ-NOTIFICATION-1`, `DES-NOTIFICATION-1`
 
-When a flat identifier is needed (changelog filenames, evidence directories, worktree paths), use the `~`-separated **qualified ID**: `001_common-platform~001_notification`. For **git branch names**, `~` is replaced with `--` since git refs cannot contain `~` (e.g. `parallel/001_common-platform--001_notification`).
+When a flat identifier is needed (for changelog filenames, evidence directories, worktree paths), use the `~`-separated **qualified ID**: `001_common-platform~001_notification`. For **git branch names**, replace `~` with `--` because git refs cannot contain `~` (e.g. `parallel/001_common-platform--001_notification`).
 
-Scripts for conversion:
+Conversion scripts:
 - `qualify_subsystem_id.sh <dir-path>` — filesystem path → qualified ID
 - `resolve_subsystem_path.sh <qualified-id>` — qualified ID → filesystem path
 
-Recommended maximum nesting depth: **2 levels** (parent + child). Deeper nesting is supported but not recommended.
+Recommended maximum nesting depth is **2 levels** (parent + child). Deeper nesting is supported but discouraged.
 
 ### Placement
 
@@ -46,13 +46,13 @@ Requirement IDs **MUST** appear as inline markers in requirements documents:
 The system SHALL enforce a minimum password length of 12 characters.
 ```
 
-The heading format `### REQ-<SUBSYSTEM>-<n>: <title>` is the canonical form. IDs **MAY** also appear inline in prose (e.g., "as specified in REQ-AUTH-1").
+The canonical form is the heading `### REQ-<SUBSYSTEM>-<n>: <title>`. IDs **MAY** also appear inline in prose (e.g., "as specified in REQ-AUTH-1").
 
 ## Design Element IDs
 
 Format: `DES-<SUBSYSTEM>-<n>`
 
-Same rules as requirement IDs but with `DES-` prefix. Used in basic design documents to mark design decisions that trace back to requirements.
+Same rules as requirement IDs, but with the `DES-` prefix. Used in basic design documents to mark design decisions that trace back to requirements.
 
 Examples: `DES-AUTH-1`, `DES-PAYMENT-5`
 
@@ -100,7 +100,7 @@ func TestPasswordMinLength(t *testing.T) { // [REQ-AUTH-1]
 }
 ```
 
-The `[REQ-xxx]` tag **MUST** appear in either the test function/method name comment or the test description string. The traceability scanner (`verify_traceability.sh`, `build_traceability_matrix.sh`) greps for the `REQ-<SUBSYSTEM>-<n>` pattern inside test files.
+The `[REQ-xxx]` tag **MUST** appear either in the test function/method name comment or in the test description string. The traceability scanner (`verify_traceability.sh`, `build_traceability_matrix.sh`) greps for the `REQ-<SUBSYSTEM>-<n>` pattern inside test files.
 
 ## Bidirectional Link Summary
 
@@ -115,7 +115,7 @@ The `build_traceability_matrix.sh` script aggregates all four columns and report
 
 ## Scanner Regex
 
-All scripts use this POSIX-extended regex to find IDs:
+All scripts find IDs using these POSIX-extended regexes:
 
 - Requirements: `REQ-[A-Z0-9_]+-[0-9]+`
 - Design elements: `DES-[A-Z0-9_]+-[0-9]+`

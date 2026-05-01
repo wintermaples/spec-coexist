@@ -6,14 +6,14 @@ The five gate steps are the same for every artifact — only the *proof* differs
 
 Applies to: `implementing-from-spec`, `revising`, `systematic-debugging`.
 
-The agent **MUST** run, at minimum:
+At minimum, the agent **MUST** run:
 
 1. The project's test suite (or a documented relevant subset).
 2. Type checks, if the project uses them.
 3. Linters / formatters, if the project uses them.
-4. For `systematic-debugging`: the original reproduction case **MUST** no longer trigger the bug, and a regression test **MUST** exist and pass.
+4. For `systematic-debugging` only: the original reproduction case **MUST** no longer trigger the bug, and a regression test **MUST** exist and pass.
 
-If any of these are absent, the agent **MUST** say so explicitly rather than silently skip them.
+If any of these are absent, the agent **MUST** say so explicitly rather than silently skipping them.
 
 ### Tier-aware TDD evidence
 

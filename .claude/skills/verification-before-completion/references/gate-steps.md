@@ -2,7 +2,7 @@
 
 ## The Iron Law — Rationale
 
-The gate exists because the single most common failure mode in multi-step coding work is declaring victory based on what the agent *expected* to happen rather than what actually happened. Expected and observed outcomes diverge constantly — a typo, a stale cache, an unsaved file, a shadowed import, a test that was skipped rather than passing. Each looks like success from the inside and only reveals itself when someone runs the verification. This skill ensures that "someone" is always the agent, before the user ever sees the claim.
+The gate exists because the single most common failure mode in multi-step coding work is declaring victory based on what the agent *expected* to happen rather than what actually happened. Expected and observed outcomes diverge constantly — a typo, a stale cache, an unsaved file, a shadowed import, a test that was skipped rather than passing. Each looks like success from the inside, and only reveals itself when someone runs the verification. This skill ensures that "someone" is always the agent, before the user ever sees the claim.
 
 ## Step 1 — IDENTIFY
 

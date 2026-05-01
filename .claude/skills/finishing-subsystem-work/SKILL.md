@@ -14,7 +14,7 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. It oper
 
 ## Purpose
 
-Turn "verified + reviewed" into "integrated" without losing audit trail. It is the single **sanctioned path** from green work to a merged or proposed change. All destructive or externally-visible actions (push, PR create, merge) are HALT points and require explicit user confirmation.
+Turn "verified + reviewed" into "integrated" without losing the audit trail. This skill is the single **sanctioned path** from green work to a merged or proposed change. Every destructive or externally-visible action (push, PR create, merge) is a HALT point that requires explicit user confirmation.
 
 ## References
 

@@ -2,15 +2,15 @@
 
 How to dispatch parallel agents — one per worktree — and collect their results.
 
-## Agent Count
+## Agent count
 
-- **Minimum**: 2 (below this, use sequential `implementing-from-spec`)
-- **Maximum**: 4 (beyond this, human review of consolidation becomes the bottleneck; see `isolation-rules.md`)
-- Match agent count to worktree count: **one agent per worktree, no sharing**.
+- **Minimum**: 2. Below this, use sequential `implementing-from-spec` instead.
+- **Maximum**: 4. Beyond this, human review of consolidation becomes the bottleneck (see `isolation-rules.md`).
+- **One agent per worktree**, with no sharing — agent count always matches worktree count.
 
-## Prompt Structure
+## Prompt structure
 
-Each dispatched agent receives a self-contained prompt. The prompt **MUST** include all context the agent needs — it has no access to the parent conversation.
+Each dispatched agent receives a self-contained prompt. The prompt **MUST** carry every piece of context the agent needs, because the agent has no access to the parent conversation.
 
 ### Template
 
@@ -56,7 +56,7 @@ When done, report:
 | `{name}` | Directory name suffix after the numeric prefix (e.g., `payment` from `03_payment`) |
 | `{subsystem-path}` | Read from the design document's `Source-root:` frontmatter, or infer from project layout |
 
-## Dispatch Method
+## Dispatch method
 
 Use the `Agent` tool with these parameters:
 
@@ -68,13 +68,13 @@ Agent({
 })
 ```
 
-When the platform's Agent tool supports `isolation: "worktree"`, it creates its own worktree — but this skill's `make_worktree.sh` has already created one with the correct branch naming. Prefer using the pre-created worktree by **omitting** `isolation` and instructing the agent to `cd` into the worktree path.
+When the platform's Agent tool supports `isolation: "worktree"`, it would create a worktree of its own — but this skill's `make_worktree.sh` has already done so with the correct branch naming. Prefer the pre-created worktree by **omitting** `isolation` and instructing the agent to `cd` into the worktree path.
 
 Launch all agents in a **single message** with multiple Agent tool calls so they run concurrently.
 
-## Result Aggregation
+## Result aggregation
 
-After all agents complete, the parent collects results into a structured report:
+Once all agents finish, the parent collects results into a structured report:
 
 ```markdown
 ## Parallel Implementation Results
@@ -92,7 +92,7 @@ After all agents complete, the parent collects results into a structured report:
 - Any failed → invoke partial-failure playbook (references/partial-failure.md)
 ```
 
-## Runtime Conflict Detection
+## Runtime conflict detection
 
 After dispatch completes but **before** consolidation, run:
 

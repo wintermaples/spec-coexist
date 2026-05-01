@@ -6,22 +6,22 @@ TDD evidence plugs into the existing `verification-before-completion` evidence s
 
 ## Writing a RED record
 
-`scripts/record_red_phase.sh <slug> -- <test-cmd>` **MUST** be used. Do not hand-craft records.
+The agent **MUST** use `scripts/record_red_phase.sh <slug> -- <test-cmd>`; hand-crafted records are not accepted.
 
 The script:
 
-1. Runs `<test-cmd>`, capturing stdout+stderr.
+1. Runs `<test-cmd>`, capturing stdout + stderr.
 2. Asserts exit code ≠ 0 (the test actually failed). On exit 0 it HALTs — RED does not exist.
 3. Delegates to `_shared/scripts/write_evidence.sh` with `mode: code`, `subject: tdd-red:<slug>`.
 4. Prints the evidence file path on stdout.
 
 ## Writing a GREEN record
 
-`scripts/record_green_phase.sh <slug> -- <test-cmd>` **MUST** be used. The slug **MUST** match the preceding RED's slug so reviewers can grep a pair.
+The agent **MUST** use `scripts/record_green_phase.sh <slug> -- <test-cmd>`. The slug **MUST** match the preceding RED's slug so reviewers can grep the pair.
 
 The script:
 
-1. Runs `<test-cmd>`, capturing stdout+stderr.
+1. Runs `<test-cmd>`, capturing stdout + stderr.
 2. Asserts exit code = 0. Non-zero HALTs — GREEN not reached.
 3. Delegates to `write_evidence.sh` with `subject: tdd-green:<slug>`.
 4. Prints the evidence file path on stdout.

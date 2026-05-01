@@ -13,7 +13,7 @@ This skill embeds its own brainstorming flow. It **MUST NOT** delegate to `super
 
 ## Question-file threshold
 
-When the number of **pending** questions reaches approximately 5 or more:
+When **pending** questions reach approximately 5 or more, switch from inline dialogue to a question file:
 
 1. Generate a question file path: `.claude/skills/_shared/scripts/gen_questions_path.sh requirements`
 2. Write all pending questions to that file.
@@ -27,6 +27,7 @@ When pending questions are few (fewer than ~5), continue inline dialogue without
 If upcoming questions are fundamentally visual (UI mockups, layout choices, screen flows, architecture diagrams), the agent **MAY** launch the **Visual Companion** (see `../_shared/references/visual-companion.md`).
 
 Rules:
+
 - Request consent exactly once, in its own standalone message — no other questions in the same message.
 - Example consent request: "I'd like to switch into Visual Companion mode for the next few questions because they're about screen layout. Is that okay? (yes / no)"
 - If the user declines, continue in plain terminal mode.

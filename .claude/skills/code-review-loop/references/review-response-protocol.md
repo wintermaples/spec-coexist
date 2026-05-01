@@ -1,12 +1,12 @@
-# Review Response Protocol
+# Review response protocol
 
-Detailed policy for `code-review-loop`. The SKILL.md orchestrator points here for severity ordering, the YAGNI check, and acknowledgment examples.
+Detailed policy for `code-review-loop`. `SKILL.md` points here for severity ordering, the YAGNI check, and acknowledgment examples.
 
-## Severity-Ordered Implementation
+## Severity-ordered implementation
 
 When acting on multi-item feedback, the agent **MUST** implement in this order:
 
-1. Clarify anything unclear (stop until clarified — ask the user or the reviewer for specifics before attempting a fix).
+1. Clarify anything unclear — stop until clarified, asking the user or the reviewer for specifics before attempting a fix.
 2. Blocking issues (bugs, security, data loss).
 3. Simple fixes (typos, imports, obvious errors).
 4. Complex fixes (refactors, logic changes).
@@ -15,11 +15,11 @@ Use `scripts/sort_feedback_items.sh` to classify items when the ordering is non-
 
 After each individual fix, the agent **MUST** run the relevant tests / type checks to confirm no regression before moving on.
 
-## YAGNI Check
+## YAGNI check
 
-If a reviewer recommends "implementing this properly" — more fields, more config, more abstraction — the agent **MUST** first grep the codebase for actual usage. If the feature is unused, the correct response is often to remove it, not to expand it. Surface the tradeoff to the user rather than silently adding speculative complexity.
+If a reviewer recommends "implementing this properly" — more fields, more config, more abstraction — the agent **MUST** first grep the codebase for actual usage. If the feature is unused, the correct response is often to remove it rather than expand it. Surface the tradeoff to the user instead of silently adding speculative complexity.
 
-## Acknowledging Correct Feedback
+## Acknowledging correct feedback
 
 When feedback is correct, acknowledge with the fix itself. Examples:
 

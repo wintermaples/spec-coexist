@@ -34,4 +34,4 @@ The final report to the user **MUST** include a `Review:` line summarizing the o
 
 ## Pushback
 
-If the reviewer's finding is technically incorrect, push back using `code-review-loop`'s rules (technical reasoning, reference to actual code or tests). Performative agreement with a wrong finding is not acceptable.
+If the reviewer's finding is technically incorrect, push back using `code-review-loop`'s rules: technical reasoning, with references to actual code or tests. Performative agreement with a wrong finding is not acceptable.

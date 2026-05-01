@@ -1,8 +1,8 @@
 # Red Flags — Self-Review Rationalizations
 
 Bilingual table of thoughts that tempt the implementing agent to skip, shorten, or soften the
-self-review. If the agent catches itself thinking any of these, it **MUST** reject the thought and
-return to the protocol.
+self-review. The moment the agent catches itself thinking any of these, it **MUST** reject the
+thought and return to the protocol.
 
 Conformance keywords follow RFC 2119.
 

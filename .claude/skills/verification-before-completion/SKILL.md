@@ -16,13 +16,13 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill.
 
 > **No completion claim may be made without fresh verification evidence.**
 
-"Fresh" means: executed *now*, against the current state of the tree, after the last change that the claim depends on. See `references/gate-steps.md` for rationale.
+"Fresh" means executed *now*, against the current state of the tree, after the last change the claim depends on. See `references/gate-steps.md` for rationale.
 
 ## Trigger
 
-Any of the following is a "completion claim" and therefore **MUST** be preceded by this gate:
+Any of the following counts as a "completion claim" and therefore **MUST** be preceded by this gate:
 
-- "Done", "完了", "実装できました", "fixed", "ready", "all green", "tests pass".
+- Words: "Done", "完了", "実装できました", "fixed", "ready", "all green", "tests pass".
 - Reporting the end of a skill.
 - Committing, opening a PR, or asking for merge.
 - Handing control back to the user with an implicit "over to you".

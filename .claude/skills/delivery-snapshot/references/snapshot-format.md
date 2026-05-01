@@ -1,12 +1,12 @@
 # Snapshot Document Format
 
-Canonical structure for `docs/_generated/snapshot-<date>.md`. The `delivery-snapshot` skill **MUST** produce output conforming to this format.
+Canonical structure for `docs/_generated/snapshot-<date>.md`. The `delivery-snapshot` skill **MUST** produce output that conforms to this format.
 
 ## File naming
 
 `snapshot-YYYY-MM-DD.md`
 
-If multiple snapshots are generated on the same day, append a counter: `snapshot-YYYY-MM-DD-2.md`.
+If multiple snapshots are generated on the same day, append a counter: e.g. `snapshot-YYYY-MM-DD-2.md`.
 
 ## Document structure
 
@@ -90,6 +90,6 @@ Follow `_shared/beautiful-mermaid-rules/` conventions for node shapes and edge l
 
 Files in `docs/_generated/` are machine-generated artifacts:
 
-- They **MUST NOT** be manually edited (edits will be overwritten).
-- They **SHOULD** be committed to the repository for stakeholder access.
-- They **MAY** be `.gitignore`d if the team prefers on-demand generation.
+- They **MUST NOT** be edited by hand — edits will be overwritten on the next generation.
+- They **SHOULD** be committed to the repository so stakeholders can read them directly.
+- They **MAY** be `.gitignore`d instead if the team prefers on-demand generation.

@@ -1,18 +1,18 @@
 # Lockstep Constraint Rules — revising
 
-## Document Existence
+## Document existence
 
-Before any revision work begins:
+Before any revision work begins, these existence checks **MUST** pass:
 
 - `docs/main-requirements.md` **MUST** exist. If missing, HALT immediately.
 - `docs/main-basic-design.md` **MUST** exist. If missing, HALT immediately.
-- For subsystem revisions, both `{name}-requirements.md` and `{name}-design.md` **MUST** exist. If either is missing, HALT.
+- For subsystem revisions, both `{name}-requirements.md` and `{name}-design.md` **MUST** exist; if either is missing, HALT.
 
-Use `check_doc_exists.sh <path>` from `../_shared/scripts/` — do not reimplement inline.
+Use `check_doc_exists.sh <path>` from `../_shared/scripts/` — do not reimplement the check inline.
 
-## Lockstep Update Rule
+## Lockstep update rule
 
-When a revision affects both the requirements document and the basic design document, the skill **MUST** update **both** in the same invocation. The two documents **MUST NOT** diverge. Decide which documents are affected **before** writing any edits. If both are affected, hold all edits until you are ready to apply them together.
+When a revision affects both the requirements document and the basic design document, the skill **MUST** update **both** in the same invocation; the two documents **MUST NOT** diverge. Decide which documents are affected **before** writing any edits, and when both are affected, hold all edits until you are ready to apply them together.
 
 ## Test Strategy Tier Changes
 

@@ -2,12 +2,12 @@
 
 ## 1. Overview and Purpose
 
-A User Journey diagram lists, in chronological order, the tasks a specific persona performs to accomplish a goal, and visualizes the experience quality of each task with a 1–5 score. In requirements documents, it is particularly effective for:
+A User Journey diagram lists, in chronological order, the tasks a specific persona performs to accomplish a goal, and visualizes the experience quality of each task on a 1–5 scale. In requirements documents, it is particularly effective for:
 
-- Getting a single-page overview of the persona's experience and aligning stakeholders
-- Making explicit "where customers stumble (low scores)," useful for priority-setting
-- Comparing As-Is and To-Be to qualitatively show the effect of introducing a system
-- Complementing "emotional ups and downs" that are hard to capture in business-flow (sequenceDiagram) or feature-list (table) formats
+- Giving a single-page overview of the persona's experience and aligning stakeholders
+- Making explicit where customers stumble (low scores) — useful for priority-setting
+- Comparing As-Is and To-Be to qualitatively show the impact of introducing a system
+- Capturing emotional ups and downs that business-flow (sequenceDiagram) or feature-list (table) formats cannot convey
 
 Adding one to the "Background / Issues" or "Assumed Usage Scenario" chapter helps justify the functional requirements that follow.
 
@@ -26,13 +26,13 @@ journey
       First login: 5: Applicant
 ```
 
-- `title` should be a noun phrase making "whose" / "what" / "As-Is/To-Be" obvious at a glance
+- `title` should be a noun phrase that makes whose journey, which goal, and As-Is vs. To-Be obvious at a glance
 - `section` is a heading marking a phase boundary
 - `task` has the form `task name: score: actor`
 
 ## 3. Meaning of the Scoring (1–5)
 
-Scores tend toward arbitrariness, so always fix the criteria in the legend (in body text). Recommended criteria:
+Scores tend toward arbitrariness, so always fix the criteria in a legend in the surrounding body text. Recommended criteria:
 
 | Score | Meaning | Guide |
 | ----- | ------- | ----- |
@@ -73,15 +73,15 @@ You can list multiple actors with `task: score: actor1, actor2`. Guidelines:
 
 ## 7. Handling Multiple Personas
 
-As a rule, **create a separate diagram per persona**. Reasons:
+As a rule, **create a separate diagram per persona**, because:
 
 - Scores mean different things across personas, so overlaying them confuses readers
-- The actor column bloats and "whose experience is this" becomes hard to tell
+- The actor column bloats, and the question "whose experience is this?" becomes hard to answer
 
 Exceptions where a single diagram may handle multiple actors:
 
-- When the same task is performed concurrently by multiple actors and the experience gap is the point of discussion (e.g., the temperature gap between counter staff and applicant)
-- In that case, still order tasks by the applicant's perspective and treat the other actor as a "supporter"
+- The same task is performed concurrently by multiple actors and the experience gap is the discussion point (e.g., the temperature gap between counter staff and applicant)
+- In that case, still order tasks from the applicant's perspective and treat the other actor as a supporter
 
 ## 8. Adding Reader Guidance
 

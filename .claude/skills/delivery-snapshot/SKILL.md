@@ -21,7 +21,7 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill.
 
 ## Purpose
 
-Generate a single-file stakeholder-readable report (`docs/_generated/snapshot-<date>.md`) that consolidates project state: completed and in-progress requirements, recent design changes, test coverage gaps, and a mermaid dependency graph. PM/designers can read one file to understand current project status.
+Generate a single stakeholder-readable file (`docs/_generated/snapshot-<date>.md`) that consolidates project state in one place: completed and in-progress requirements, recent design changes, test coverage gaps, and a mermaid dependency graph. PMs and designers can read one file to understand current project status.
 
 ## When to Trigger
 

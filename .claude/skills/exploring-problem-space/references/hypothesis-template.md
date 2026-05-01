@@ -10,16 +10,16 @@ Cost: {time/effort to run the falsifier}
 
 ## Rules
 
-- **X** must be a *problem*, not a *solution*. "Users cannot find the export button" is a problem; "add a bigger export button" is a solution.
-- **Y** must be observable without implementing the solution. Leading indicators (support ticket count, funnel drop-off, interview quotes) are acceptable; "revenue goes up" alone is not — too lagging.
+- **X** must be a *problem*, not a *solution*. Example: "Users cannot find the export button" is a problem; "add a bigger export button" is a solution.
+- **Y** must be observable without implementing the solution. Leading indicators (support-ticket count, funnel drop-off, interview quotes) are acceptable; "revenue goes up" alone is not — too lagging.
 - **Falsifier** must be *cheaper* than building the solution. A falsifier that costs as much as the feature is not a falsifier.
 - A hypothesis without a falsifier **MUST** be deleted, not kept as "intuition".
 
 ## Anti-patterns
 
-- Hypotheses that are restatements of the user's wish with no new structure.
-- Hypotheses whose falsifier is "ship it and see" — that is not falsification, that is gambling.
-- Hypotheses that bundle multiple claims ("users want X *and* Y *and* Z"). Split them.
+- Restatements of the user's wish with no new structure.
+- Falsifiers of the form "ship it and see" — that is not falsification, it is gambling.
+- Bundled claims ("users want X *and* Y *and* Z"). Split them into separate hypotheses.
 
 ## Example
 

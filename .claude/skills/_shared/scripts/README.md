@@ -1,6 +1,6 @@
 # _shared/scripts — Cross-Platform Support
 
-All helpers here are POSIX shell scripts (`*.sh`). A thin Python wrapper (`run.py`) exists so skills running on Windows can invoke them without shell-specific branching in each SKILL.md.
+All helpers in this directory are POSIX shell scripts (`*.sh`). A thin Python wrapper (`run.py`) lets skills running on Windows invoke them without adding shell-specific branching to each SKILL.md.
 
 ## OS support matrix
 
@@ -14,16 +14,16 @@ All helpers here are POSIX shell scripts (`*.sh`). A thin Python wrapper (`run.p
 
 ## Dependencies
 
-- `run.py` targets Python **≥ 3.8** (only stdlib). Any modern Python 3 on the user's machine is sufficient.
-- The wrapped scripts assume `git` is on PATH where relevant (e.g. `subsystem_deps.sh`, `make_worktree.sh`, `cleanup_worktree.sh`).
+- `run.py` targets Python **≥ 3.8** and uses only the standard library. Any modern Python 3 on the user's machine is sufficient.
+- The wrapped scripts assume `git` is on PATH where relevant (for example, `subsystem_deps.sh`, `make_worktree.sh`, `cleanup_worktree.sh`).
 
 ## Calling convention from a SKILL.md
 
-Skills **SHOULD** reference helpers by bare name so the user can pick their entry point:
+Skills **SHOULD** reference helpers by bare name so the user can choose their preferred entry point:
 
 > Invoke `subsystem_deps.sh` — on Windows without Git Bash, use `python run.py subsystem_deps`.
 
-Skills **SHOULD NOT** hardcode the `./subsystem_deps.sh` form inside step text; that breaks Windows without warning. Any invocation example **MUST** either:
+Skills **SHOULD NOT** hard-code the `./subsystem_deps.sh` form inside step text, since that silently breaks Windows. Any invocation example **MUST** either:
 
 - use the bare script name and defer to this README, or
 - show both `./foo.sh` and `python run.py foo` side by side.
@@ -47,8 +47,8 @@ Skills **SHOULD NOT** hardcode the `./subsystem_deps.sh` form inside step text; 
 
 ## Hook automation (proposal)
 
-A staged proposal for wiring these scripts into `.claude/settings.json` hooks lives at `../references/hook-automation-proposal.md` — **proposal only, requires explicit user approval before enablement**.
+A staged proposal for wiring these scripts into `.claude/settings.json` hooks lives at `../references/hook-automation-proposal.md`. **Proposal only — explicit user approval is required before enablement.**
 
 ## Why not rewrite everything in Python?
 
-The scripts are small and side-effect heavy. Rewriting in Python would trade a 30-line shell script for a 60-line Python module that still has to shell out to `git`. The wrapper approach keeps the canonical implementation readable on the platforms the suite was designed for while unblocking Windows users who cannot install Git Bash yet.
+The scripts are small and side-effect heavy. A Python rewrite would trade a 30-line shell script for a 60-line Python module that still has to shell out to `git`. The wrapper approach keeps the canonical implementation readable on the suite's primary platforms while still unblocking Windows users who cannot install Git Bash yet.

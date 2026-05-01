@@ -23,7 +23,7 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. It **MU
 
 ## When to Trigger
 
-Create a brand-new detailed design document (whole-system or subsystem). Do NOT trigger for updates to existing documents — use `spec-coexist:revising` for that.
+Create a brand-new detailed design document (whole-system or subsystem). For updates to existing documents, use `spec-coexist:revising` instead.
 
 ## Ordered Steps
 

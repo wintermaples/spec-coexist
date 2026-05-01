@@ -14,7 +14,7 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. The `sp
 
 ## Purpose
 
-Turn an unstructured wish into exactly **one** problem statement that `spec-coexist:creating-requirements` can consume. This skill is deliberately the only place in the suite that is allowed to produce non-converging output, and even here the divergence is bounded by a written handoff memo.
+Turn an unstructured wish into exactly **one** problem statement that `spec-coexist:creating-requirements` can consume. This skill is deliberately the only place in the suite that may produce non-converging output, and even here divergence is bounded by a written handoff memo.
 
 ## When to Trigger
 

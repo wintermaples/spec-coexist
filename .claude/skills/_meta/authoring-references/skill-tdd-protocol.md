@@ -8,7 +8,7 @@ This document defines **RED-GREEN-REFACTOR applied to skill authoring itself**. 
 
 ## Why / なぜ
 
-A skill that was never observed to *fail* on a pressure scenario has never been proven to *succeed*. Without a RED baseline, a GREEN skill is indistinguishable from a skill that happens to match today's mood of the model. We therefore require an adversarial baseline **before** SKILL.md exists.
+A skill that has never been observed to *fail* on a pressure scenario has never been proven to *succeed*. Without a RED baseline, a GREEN skill is indistinguishable from a skill that happens to match today's mood of the model. We therefore require an adversarial baseline **before** SKILL.md exists.
 
 圧力シナリオで一度も **失敗** していないスキルは、一度も **成功** していない。RED ベースラインなしの GREEN は、たまたま通っただけのスキルと区別できない。ゆえに SKILL.md を書く前に敵対的ベースラインを必須とする。
 
@@ -20,7 +20,7 @@ Before a single line of the new SKILL.md is written:
 
 1. Author **MUST** write >= 3 positive and >= 1 negative trigger cases into `_shared/tests/trigger-cases.jsonl` per `trigger-tests.md`.
 2. Author **MUST** dispatch a fresh general-purpose subagent (see `pressure-scenarios.md`) with each positive prompt, *without* the new skill existing on disk.
-3. Author **MUST** record the observed failure mode: missing-trigger (no skill fires), wrong-trigger (an adjacent skill fires), or *correct* behaviour without the new skill (in which case the skill is **NOT NEEDED** and authoring **MUST** stop).
+3. Author **MUST** record the observed failure mode: missing-trigger (no skill fires), wrong-trigger (an adjacent skill fires), or *correct* behaviour without the new skill. In the third case, the skill is **NOT NEEDED** and authoring **MUST** stop.
 4. The failure log **MUST** be captured (paste into the authoring evidence note or commit message). A skill authored without a captured RED log is non-conforming.
 
 SKILL.md を一行でも書く前に:

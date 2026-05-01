@@ -1,26 +1,26 @@
 # Rules for Writing Beautiful Mermaid Flowcharts
 
-This document summarizes the principles and best practices for writing readable Mermaid **Flowcharts** in requirements and design documents that remain maintainable at scale.
+This document summarizes principles and best practices for writing readable Mermaid **Flowcharts** in requirements and design documents that remain maintainable at scale.
 
 ## Overview
 
-Flowcharts are well suited to expressing "processing flows," "procedures with branches," "data flow between components," and "decision logic."
+Flowcharts are well suited to expressing processing flows, procedures with branches, data flow between components, and decision logic.
 
 Well suited for:
 
-- Batch processing or request processing flows
-- Branches in user actions (Yes/No, success/failure)
+- Batch- or request-processing flows
+- Branches in user actions (Yes / No, success / failure)
 - Overview of system configuration (coarse block diagrams)
 - Visualizing stateless procedures
 
 Not well suited for:
 
-- State transitions themselves → use `stateDiagram-v2`
+- State transitions → use `stateDiagram-v2`
 - Time-ordered interactions → use `sequenceDiagram`
 - Pure class structure → use `classDiagram`
 - Large ER relationships → use `erDiagram`
 
-Rather than "when in doubt, use a flowchart," **choosing the right diagram kind is the first step toward beauty**.
+Rather than defaulting to a flowchart, **choosing the right diagram kind is the first step toward beauty**.
 
 ---
 
@@ -28,10 +28,10 @@ Rather than "when in doubt, use a flowchart," **choosing the right diagram kind 
 
 ### Choosing direction (TD / LR)
 
-- **TD (Top-Down)**: Hierarchies, branches, decision trees. Use this for "moving down the page."
+- **TD (Top-Down)**: Hierarchies, branches, decision trees. Use TD when readers should move down the page.
 - **LR (Left-Right)**: Pipelines, data flows, ETL, state-transition-style process sequences. For widescreen displays, slides, and inline docs, LR is generally more readable.
 - Once node count exceeds about 10, LR tends to reduce vertical scrolling.
-- Avoid BT/RL as a rule (high cognitive cost for readers).
+- Avoid BT / RL as a rule (high cognitive cost for readers).
 
 ### Grouping with subgraph
 
@@ -42,9 +42,9 @@ Rather than "when in doubt, use a flowchart," **choosing the right diagram kind 
 
 ### Node spacing and avoiding crossings
 
-- A single node should emit at most 4 edges. Add an intermediate (aggregation) node if you need more.
-- Crossing lines greatly hurt readability. **If crossings increase, flip direction (TD↔LR)** or reorder nodes.
-- Do not create "reverse" arrows (right→left, bottom→up). Always route loops explicitly from the right side.
+- A single node should emit at most 4 edges. Insert an intermediate aggregation node if you need more.
+- Crossing lines hurt readability badly. **If crossings increase, flip direction (TD↔LR)** or reorder nodes.
+- Do not draw reverse arrows (right→left, bottom→up). Route loops explicitly along the right side.
 
 ---
 

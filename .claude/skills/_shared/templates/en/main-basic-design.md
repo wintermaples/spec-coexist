@@ -39,7 +39,7 @@ related: []
 
 # Basic Design (Whole System)
 
-This document captures whole-system architecture and indexes per-subsystem basic design documents.
+This document captures the whole-system architecture and indexes the per-subsystem basic design documents.
 
 | Field | Value |
 | --- | --- |
