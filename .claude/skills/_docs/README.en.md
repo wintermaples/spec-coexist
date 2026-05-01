@@ -56,14 +56,16 @@ The **spec-coexist-router** automatically classifies your message by task size a
 spec-coexist covers the following development lifecycle:
 
 ```
-Problem     →  Requirements  →  Basic Design  →  Implementation  →  Review  →  Ship
-Exploration        Definition                                                    
-   │                 │               │                │               │          │
-   ▼                 ▼               ▼                ▼               ▼          ▼
-exploring        creating        creating          impl.           code      finishing
--problem         -require        -basic            -from           -review   -subsystem
- -space           -ments         -design           -spec           -loop     -work
+Problem     →  Requirements →  Basic Design →  (optional) Detail Design →  Implementation →  Review →  Ship
+Exploration     Definition
+   │                 │               │                  │                       │              │        │
+   ▼                 ▼               ▼                  ▼                       ▼              ▼        ▼
+exploring        creating        creating           creating                 impl.          code     finishing
+-problem         -require        -basic             -detail                  -from          -review  -subsystem
+ -space           -ments         -design            -design                  -spec          -loop    -work
 ```
+
+> Detail design is optional, but recommended whenever module behavior or contracts are complex enough that implementation-time guesswork becomes risky.
 
 ### When specs change
 
@@ -140,6 +142,23 @@ Creates a new basic design document. Halts if the corresponding requirements doc
 
 **Prerequisite:** A corresponding requirements document must exist.
 
+#### creating-detail-design
+
+Creates a new detailed design document. Centered on Mermaid diagrams to pin down module behavior and contracts so implementation does not drift.
+
+**Trigger examples:**
+- "draft a detailed design"
+- "create detail design"
+- "design the module's behavior"
+
+**Prerequisite:** A corresponding basic design document must exist.
+
+**Locations:**
+- Whole-system: `docs/main-detail-design/index.md`
+- Subsystem: `docs/subsystems/{id}_{name}/detail-design/index.md`
+
+**Guardrail:** Does not overwrite existing detail-design files. Updates go through the `revising` skill.
+
 ---
 
 ### Implementation Phase
@@ -201,6 +220,11 @@ Hypothesis-driven debugging. Collects evidence and validates hypotheses before p
 ---
 
 ### Quality Assurance
+
+#### test-driven-implementation
+
+Sub-skill that enforces the TDD iron law (failing test first). It guarantees that no production code is written until a failing test exists.  
+*Invoked automatically by `implementing-from-spec` and `revising`.*
 
 #### pre-review-self-check
 
@@ -270,13 +294,19 @@ For larger projects, functionality can be split into subsystems.
 docs/
 ├── main-requirements.md           ← Whole-system requirements
 ├── main-basic-design.md           ← Whole-system basic design
+├── main-detail-design/            ← (optional) Whole-system detail design
+│   └── index.md
 └── subsystems/
     ├── 01_auth/
     │   ├── auth-requirements.md
-    │   └── auth-design.md
+    │   ├── auth-design.md
+    │   └── detail-design/         ← (optional) Subsystem detail design
+    │       └── index.md
     ├── 02_api/
     │   ├── api-requirements.md
-    │   └── api-design.md
+    │   ├── api-design.md
+    │   └── detail-design/         ← (optional)
+    │       └── index.md
     └── ...
 ```
 
@@ -301,7 +331,7 @@ The server launches automatically during skill execution. To start it manually:
 python3 .claude/skills/_shared/scripts/visual_server.py
 ```
 
-**Requires:** Python 3.10+ (standard library only — no additional packages needed)
+**Requires:** Python 3.8+ (standard library only — no additional packages needed)
 
 ---
 

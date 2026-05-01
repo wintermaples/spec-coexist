@@ -32,18 +32,28 @@ Skills **SHOULD NOT** hard-code the `./subsystem_deps.sh` form inside step text,
 
 | Script | Purpose |
 |---|---|
+| `build_traceability_matrix.sh` | Generate the REQ-ID → DES-ID → test-ID → code traceability matrix; consumed by `delivery-snapshot`. |
 | `check_doc_exists.sh` | Halt signal if a target doc already exists. |
 | `check_doc_links.sh` | Validate frontmatter refs, body Markdown links, and doc lifecycle rules against `_shared/references/doc-reference-syntax.md`. Flags: `--root <dir>` (default `docs`), `--strict`, `--json`. Exit 1 on errors. |
-| `ensure_subsystem_dir.sh` | Allocate a subsystem id and create its dir. |
-| `gen_questions_path.sh` | Path for the questions file used by brainstorming. |
-| `next_subsystem_id.sh` | Print the next 3-digit subsystem id. |
-| `record_test_failure.sh` | Capture RED-phase test output as evidence. |
-| `subsystem_deps.sh` | Dump the subsystem dependency edge list. |
-| `make_worktree.sh` | Create an isolated worktree + branch. |
+| `check_doc_links.py` | Python implementation of the doc-link checker. Invoked by `check_doc_links.sh`; not normally called directly. |
 | `cleanup_worktree.sh` | Remove a worktree + branch with safety checks. |
 | `detect_worktree_conflicts.sh` | Detect file-level conflicts between active parallel worktrees. Exit 0 = clean, exit 1 = conflicts. |
-| `write_evidence.sh` | Append a verification or post-merge evidence record. |
-| `visual_server.py`, `start_visual_server.sh`, `stop_visual_server.sh` | Visual Companion helpers. |
+| `ensure_subsystem_dir.sh` | Allocate a subsystem id and create its dir. |
+| `gen_questions_path.sh` | Path for the questions file used by brainstorming. |
+| `make_worktree.sh` | Create an isolated worktree + branch. |
+| `next_subsystem_id.sh` | Print the next 3-digit subsystem id. |
+| `pre-commit.sh` | Pre-commit hook entry point (doc-link check, evidence schema, traceability). |
+| `qualify_subsystem_id.sh` | Resolve a subsystem id (e.g. `01`) to its fully qualified path (e.g. `01_auth`). |
+| `record_test_failure.sh` | Capture RED-phase test output as evidence. |
+| `resolve_subsystem_path.sh` | Resolve an arbitrary subsystem reference to its on-disk path. |
+| `run.py` | Cross-platform Python wrapper that invokes any sibling `*.sh` script via `bash`/`sh`/`wsl bash`/Git Bash. See the OS support matrix above. |
+| `start_visual_server.sh`, `stop_visual_server.sh`, `visual_server.py` | Visual Companion helpers (lightweight HTTP server, Python stdlib only). |
+| `subsystem_deps.sh` | Dump the subsystem dependency edge list. |
+| `validate_evidence.sh` | Validate an evidence file against the JSON schema in `_shared/schemas/`. |
+| `verify_evidence.sh` | Verify that the evidence set for a task is complete (no missing required artifacts). |
+| `verify_traceability.sh` | Verify the REQ-ID → DES-ID → test-ID → code chain has no gaps. |
+| `write_evidence.sh` | Append a verification or post-merge evidence record (shell-friendly form). |
+| `write_evidence_json.sh` | Same as `write_evidence.sh` but emits structured JSON for programmatic consumers. |
 
 ## Hook automation (proposal)
 

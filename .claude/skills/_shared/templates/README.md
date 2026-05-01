@@ -38,6 +38,7 @@ If the `en` template is missing a section that the `ja` template has, the skill 
 ## Adding a new locale
 
 1. Create `_shared/templates/{locale}/` with the template files: `main-requirements.md`, `subsystem-requirements.md`, `main-basic-design.md`, `subsystem-basic-design.md`, `main-detail-design.md`, `subsystem-detail-design.md`, and `detail-design-module.md`.
+   > **Naming note.** The per-module detail-design template is named `detail-design-module.md` under `_shared/templates/en/`, but its `ja` counterpart inside `creating-detail-design/references/` is named `module-template.md` (alongside the other `*-template.md` files there). This naming drift is historical; new locales **SHOULD** follow the `detail-design-module.md` form used by `_shared/templates/en/`.
 2. Add a row to the table above.
 3. Add trigger-test cases that exercise a greeting in the new locale, then confirm the resolver picks it.
 4. Leave `TODO(i18n):` markers liberally — per the Phase 4 plan, direct translation is acceptable for v1.
