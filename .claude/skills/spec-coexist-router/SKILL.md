@@ -28,9 +28,9 @@ See `references/task-tiers.md` for definitions and `references/tier-examples.md`
 
 | Tier | Overhead | Skills invoked |
 |------|----------|----------------|
-| T0 | None | Direct edit (no skill) |
+| T0 | None | `fast-path` (T0 procedure: direct edit + lint, nothing else) |
 | T1 | Light | `fast-path` → TDD + verification |
-| T2 | Medium | `implementing-from-spec` (light) + code-review-loop + verification |
+| T2 | Medium | `implementing-from-spec` (light) + pre-review-self-check + code-review-loop + verification |
 | T3 | Full | Full pipeline (explore → requirements → design → implement → review → verify) |
 
 ## Routing Procedure
@@ -45,7 +45,7 @@ See `references/task-tiers.md` for definitions and `references/tier-examples.md`
 
 | Skill | Tier | When to invoke |
 |-------|------|----------------|
-| `spec-coexist:fast-path` | T1 | Small tasks: single function, bug fix, test addition |
+| `spec-coexist:fast-path` | T0–T1 | Trivial edits (T0) and small tasks: single function, bug fix, test addition (T1) |
 | `spec-coexist:exploring-problem-space` | T3 | Unstructured wish → handoff memo before requirements |
 | `spec-coexist:creating-requirements` | T3 | Create a new requirements document |
 | `spec-coexist:creating-basic-design` | T3 | Create a new basic design document |
@@ -70,9 +70,8 @@ flowchart TD
     P -- No --> E[Estimate tier from<br/>diff size / scope / crossing]
     E --> T
     T --> R{Tier?}
-    R -- T0 --> D[Direct edit — no skill]
-    R -- T1 --> F[fast-path]
-    R -- T2 --> M[implementing-from-spec light<br/>+ code-review-loop + verification]
+    R -- T0/T1 --> F[fast-path]
+    R -- T2 --> M[implementing-from-spec light<br/>+ self-check + review + verification]
     R -- T3 --> Full[Full pipeline]
 ```
 

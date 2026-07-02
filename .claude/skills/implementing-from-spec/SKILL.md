@@ -1,7 +1,7 @@
 ---
 name: implementing-from-spec
 user-invocable: true
-description: Use whenever the user wants to IMPLEMENT code based on existing requirements + basic design documents — whole-system or subsystem. Trigger on phrases like "仕様に従って実装", "implement from the spec", "この設計書のとおり作って", "build it from the basic design". This skill embeds writing-plans and executing-plans equivalents and MUST halt if either the requirements doc or the basic design doc is missing. The agent MUST NOT start implementation until the user approves the plan.
+description: Use whenever the user wants to IMPLEMENT code based on existing requirements + basic design documents — whole-system or subsystem. Trigger on phrases like "仕様に従って実装", "implement from the spec", "この設計書のとおり作って", "build it from the basic design". MUST halt if either the requirements doc or the basic design doc is missing, and MUST NOT start implementation until the user approves the plan. This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
 ---
 
 # implementing-from-spec
@@ -41,7 +41,7 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill. It **MU
 7. Draft the implementation plan following `references/plan-template.md`. Present and iterate until the user approves.
 8. Execute the plan per `references/execution-rules.md`. For each acceptance bullet run one Red-Green-Refactor loop per `references/tdd-discipline.md`; RED evidence is mandatory.
 9. **MUST** pass `verification-before-completion` (code mode); it HALTs without `docs/evidence/red-*.log` (or a documented waiver).
-10. **MUST** invoke `code-review-loop`, fix Critical/Important issues, re-verify and re-review as needed. See `references/code-review-protocol.md`.
+10. **MUST** run `pre-review-self-check` on the diff, then invoke `code-review-loop`, fix Critical/Important issues, re-verify and re-review as needed. See `references/code-review-protocol.md`.
 11. Report what changed, RED evidence paths, verification evidence, and a `Review:` outcome line.
 
 ## Flow
@@ -62,7 +62,8 @@ flowchart TD
     Approve -- No --> Plan
     Approve -- Yes --> Impl[Execute per<br/>references/execution-rules.md]
     Impl --> Verify[verification-before-completion]
-    Verify --> Review[code-review-loop]
+    Verify --> Self[pre-review-self-check]
+    Self --> Review[code-review-loop]
     Review --> Crit{Critical/Important<br/>remain?}
     Crit -- Yes --> Impl
     Crit -- No --> End([Done])

@@ -1,7 +1,7 @@
 ---
 name: parallelizing-subsystem-work
 user-invocable: true
-description: Use whenever 2 or more subsystems under `docs/subsystems/` each have completed requirements + basic design and the user wants them implemented concurrently in isolated git worktrees. Trigger on phrases like "サブシステムを並列で実装したい", "複数の基本設計を同時に進めて", "worktree で並列化して", "parallelize these subsystems", "implement these in parallel worktrees". This skill MUST halt if any candidate pair has a dependency, touches shared main-* files, or if the repo is dirty; it MUST NOT invoke any `superpowers:*` skill (including `superpowers:using-git-worktrees` and `superpowers:dispatching-parallel-agents`).
+description: Use whenever 2 or more subsystems under `docs/subsystems/` each have completed requirements + basic design and the user wants them implemented concurrently in isolated git worktrees. Trigger on phrases like "サブシステムを並列で実装したい", "複数の基本設計を同時に進めて", "worktree で並列化して", "parallelize these subsystems", "implement these in parallel worktrees". MUST halt if any candidate pair has a dependency, touches shared main-* files, or if the repo is dirty. This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
 ---
 
 # parallelizing-subsystem-work

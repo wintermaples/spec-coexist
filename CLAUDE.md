@@ -29,7 +29,7 @@ The `spec-coexist-router` classifies every user message into a tier and routes t
 
 - **T0** (trivial, ≤10 lines): direct edit via `fast-path`
 - **T1** (small, single function/bugfix): TDD + verification via `fast-path`
-- **T2** (medium, feature): requirements + design + TDD + review
+- **T2** (medium, feature): align with existing specs + TDD + self-check + review
 - **T3** (large, new subsystem): full spec pipeline
 
 ### Skill Layout
@@ -57,7 +57,7 @@ Side paths: `revising` (spec or impl changes), `systematic-debugging` (bugs), `d
 ### Key Invariants
 
 - Skills **must not** update existing spec documents directly — they must route through `revising`
-- All work ≥T1 requires evidence artifacts (`.spec-coexist/evidence/{task_id}/`)
+- All work ≥T1 requires evidence artifacts (dual-write: Markdown under `docs/evidence/`, JSON under `.spec-coexist/evidence/{task_id}/`)
 - Skills are self-contained — they do not delegate to `superpowers:*` skills
 - Traceability chain: REQ-ID → DES-ID → test-ID → code
 

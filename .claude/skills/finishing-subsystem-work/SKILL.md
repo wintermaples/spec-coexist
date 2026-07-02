@@ -1,7 +1,7 @@
 ---
 name: finishing-subsystem-work
 user-invocable: true
-description: Use whenever verified, reviewed work is ready to be integrated — committed, changelogged, pushed, or merged — whole-system or subsystem. Trigger on phrases like "マージしたい", "PR を出して", "ブランチを締めたい", "ready to merge", "open a pull request", "wrap up this branch". This skill MUST halt if `verification-before-completion` evidence is missing or if any Critical/Important review finding is unresolved, and MUST halt before any destructive git operation to get explicit user confirmation. It MUST NOT invoke any `superpowers:*` skill.
+description: Use whenever verified, reviewed work is ready to be integrated — committed, changelogged, pushed, or merged — whole-system or subsystem. Trigger on phrases like "マージしたい", "PR を出して", "ブランチを締めたい", "ready to merge", "open a pull request", "wrap up this branch". MUST halt if `verification-before-completion` evidence is missing or if any Critical/Important review finding is unresolved, and MUST halt before any destructive git operation to get explicit user confirmation. This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
 ---
 
 # finishing-subsystem-work

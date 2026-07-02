@@ -3,13 +3,11 @@ name: creating-detail-design
 user-invocable: true
 description: |
   Use whenever the user wants to CREATE a new detailed design document — whole-system
-  (`docs/main-detail-design/index.md`) or subsystem (`docs/subsystems/{id}_{name}/detail-design/index.md`,
-  including nested subsystems like `docs/subsystems/.../subsystems/{id}_{name}/detail-design/index.md`).
-  Trigger on phrases like "詳細設計を作る", "詳細設計書を書きたい", "detail design を作って",
-  "draft a detailed design", "create detail design", "モジュールの振る舞いを設計したい".
-  Do NOT trigger for updates to existing detailed design documents — use `spec-coexist:revising` instead.
-  This skill MUST NOT update existing detail design files — it only creates new ones — and MUST halt
-  if the corresponding basic design document does not exist.
+  (`docs/main-detail-design/index.md`) or subsystem (`<subsystem-dir>/detail-design/index.md`,
+  nesting allowed). Trigger on phrases like "詳細設計を作る", "詳細設計書を書きたい",
+  "モジュールの振る舞いを設計したい", "draft a detailed design", "create detail design".
+  Do NOT trigger for updates to existing detail designs — use `spec-coexist:revising` instead.
+  MUST halt if the corresponding basic design document does not exist.
   This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
 ---
 

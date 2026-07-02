@@ -7,7 +7,8 @@ description: |
   "review this change", "実装できたのでレビュー", "before I merge", "レビューが返ってきた",
   "here is the review feedback", "reviewer said...". Dispatches a fresh reviewer subagent, then
   processes feedback with verify-then-fix discipline (verify each item against the codebase before implementing any fix).
-  Do NOT trigger on T0/T1 tasks unless the user explicitly requests review.
+  Do NOT trigger on T0/T1 tasks unless the user explicitly requests review or a calling
+  skill mandates it (systematic-debugging and revising require review at every tier).
   This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
 ---
 
@@ -19,19 +20,19 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill.
 
 ## Purpose
 
-Handles the full code-review cycle in one skill: request → receive → verify → fix → re-review. Replaces the former separate `requesting-code-review` and `receiving-code-review` skills.
+Handles the full code-review cycle in one skill: request → receive → verify → fix → re-review.
 
 ## Applicability
 
-- **T0/T1**: Do NOT trigger unless the user explicitly requests review.
-- **T2/T3**: Run `spec-coexist:pre-review-self-check` before this skill.
+- **T0/T1**: Do NOT trigger unless the user explicitly requests review **or a calling skill mandates it** (`systematic-debugging` step 9 and `revising` implementation mode require review at every tier).
+- **T2/T3**: Always applicable. The caller **MUST** run `spec-coexist:pre-review-self-check` before this skill (RECOMMENDED for T1).
 
 ## Procedure
 
 ### Phase 1 — Request review
 1. Run `scripts/collect-review-context.sh` to get `BASE_SHA` / `HEAD_SHA`.
 2. Prepare `WHAT_WAS_IMPLEMENTED`, `PLAN_OR_REQUIREMENTS`, `DESCRIPTION`.
-3. Dispatch a fresh subagent using the template in `code-reviewer.md`.
+3. Dispatch a fresh subagent using the template in `code-reviewer.md` (in this skill's root directory).
 4. Wait for the reviewer's structured response.
 
 ### Phase 2 — Process feedback
@@ -68,6 +69,7 @@ flowchart TD
 
 ## References
 
+- `code-reviewer.md` — reviewer subagent prompt template (skill root)
 - `references/why-fresh-subagent.md` — rationale for fresh subagent
 - `references/mandatory-triggers.md` — events that trigger review
 - `references/severity-policy.md` — severity thresholds

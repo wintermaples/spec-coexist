@@ -1,7 +1,7 @@
 ---
 name: exploring-problem-space
 user-invocable: true
-description: Use whenever the user arrives with an unstructured wish, complaint, or idea that is NOT yet a requirements document — to DIVERGE, list hypotheses, and converge on the single problem worth solving before requirements begin. Trigger on phrases like "何を作るか迷ってる", "まだ要件にできない相談", "ざっくり相談したい", "I'm not sure what we should build", "help me figure out the real problem", "brainstorm the problem". This skill MUST hand off to `spec-coexist:creating-requirements` only via a written handoff memo; it MUST NOT invoke any `superpowers:*` skill (including `superpowers:brainstorming`).
+description: Use whenever the user arrives with an unstructured wish, complaint, or idea that is NOT yet a requirements document — to DIVERGE, list hypotheses, and converge on the single problem worth solving before requirements begin. Trigger on phrases like "何を作るか迷ってる", "まだ要件にできない相談", "ざっくり相談したい", "I'm not sure what we should build", "help me figure out the real problem", "brainstorm the problem". This skill MUST hand off to `spec-coexist:creating-requirements` only via a written handoff memo. This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
 ---
 
 # exploring-problem-space

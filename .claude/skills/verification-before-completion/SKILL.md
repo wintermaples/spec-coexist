@@ -1,7 +1,7 @@
 ---
 name: verification-before-completion
 user-invocable: true
-description: Use whenever another skill — or the agent itself — is about to claim that a task is "done", "complete", "fixed", "passing", "implemented", or otherwise finished. Trigger on phrases like "終わりました", "完了しました", "実装できました", "fixed it", "all done", "tests pass", or any statement that asserts a positive end state. This skill is a hard gate; NO completion claim may be made without fresh verification evidence. It MUST be invoked by creating-requirements, creating-basic-design, revising, implementing-from-spec, and systematic-debugging before they report back to the user. This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
+description: Use whenever another skill — or the agent itself — is about to claim that a task is "done", "complete", "fixed", "passing", "implemented", or otherwise finished. Trigger on phrases like "終わりました", "完了しました", "実装できました", "fixed it", "all done", "tests pass", or any statement that asserts a positive end state. This skill is a hard gate; NO completion claim may be made without fresh verification evidence. It MUST be invoked by creating-requirements, creating-basic-design, creating-detail-design, revising, implementing-from-spec, fast-path (T1), and systematic-debugging before they report back to the user. This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
 ---
 
 # verification-before-completion
@@ -65,14 +65,9 @@ Before step 1, optionally run the deterministic pre-flight checker:
 
 It verifies that the necessary tooling is present. It does **NOT** run tests — you still **MUST** execute steps 1–5.
 
-## Procedure
+## Failure handling
 
-1. Before any completion-style report, pause and state the claim you are about to make.
-2. Optionally run `run_gate_checklist.sh` to surface environment gaps.
-3. Execute Gate steps 1–6 in order (see `references/gate-steps.md`).
-4. Use the correct verification mode (see `references/verification-modes.md`).
-5. If VERIFY fails, fix the underlying issue OR report actual status honestly — **MUST NOT** claim completion. Step 6 (RECORD) **MUST** still run with `result: fail`.
-6. When and only when VERIFY passes, make the claim with evidence (what / how / result), then run step 6 (RECORD) with `result: pass`.
+If VERIFY (step 4) fails, fix the underlying issue OR report actual status honestly — **MUST NOT** claim completion. Step 6 (RECORD) **MUST** still run with `result: fail`; only a passing VERIFY may be recorded with `result: pass`.
 
 ## Evidence recording (step 6)
 

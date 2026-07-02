@@ -2,12 +2,12 @@
 name: revising
 user-invocable: true
 description: |
-  Use whenever the user wants to REVISE spec documents (requirements or basic design) OR UPDATE
-  implementation after a spec change. Trigger on phrases like "要件を変更したい", "設計を直したい",
-  "revise the spec", "update the requirements", "仕様変更を実装に反映", "update the code to match
-  the new spec", "実装を直したい", "the spec changed, fix the code". Handles both spec-mode and
-  implementation-mode internally. Do NOT trigger for creating new specs from scratch (use
-  creating-requirements or creating-basic-design instead).
+  Use whenever the user wants to REVISE spec documents (requirements, basic design, or detail
+  design) OR UPDATE implementation after a spec change. Trigger on phrases like "要件を変更したい",
+  "設計を直したい", "revise the spec", "update the requirements", "仕様変更を実装に反映",
+  "update the code to match the new spec", "実装を直したい", "the spec changed, fix the code".
+  Handles both spec-mode and implementation-mode internally. Do NOT trigger for creating new
+  specs from scratch (use the creating-* skills instead).
   This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
 ---
 
@@ -21,7 +21,7 @@ This skill **MUST NOT** invoke or delegate to any `superpowers:*` skill.
 
 Unified revision skill with two modes, both sharing the same brainstorming flow and verification gates:
 
-- **Spec mode** — revise requirements or basic design documents in lockstep.
+- **Spec mode** — revise requirements, basic design, or detail design documents in lockstep.
 - **Implementation mode** — update code after a spec change, driven by TDD.
 
 The mode is detected from the user's request.
@@ -30,7 +30,7 @@ The mode is detected from the user's request.
 
 | User mentions | Mode |
 |---|---|
-| "requirements", "design", "spec", "要件", "設計" | **spec mode** |
+| "requirements", "design", "spec", "要件", "設計", "詳細設計" | **spec mode** |
 | "implementation", "code", "実装", "コード" | **implementation mode** |
 | Both kinds of terms | start with **spec mode**, then chain to **implementation mode** |
 
@@ -39,7 +39,7 @@ The mode is detected from the user's request.
 1. Verify documents exist via `../_shared/scripts/check_doc_exists.sh`. HALT if missing.
 2. Read documents. Resolve locale per `../_shared/templates/README.md`.
 3. Brainstorm per `references/brainstorming-flow.md`.
-4. Decide scope — if both req + design affected, update in lockstep.
+4. Decide scope — if multiple layers (requirements / basic design / detail design) are affected, update them in lockstep.
 5. Apply targeted edits. Bump `version`. Follow `../_shared/references/doc-lifecycle.md`.
 6. Run `../_shared/scripts/check_doc_links.sh --root docs --strict`.
 7. Pass `spec-coexist:verification-before-completion` (document mode).
@@ -52,7 +52,7 @@ The mode is detected from the user's request.
 4. Invoke `spec-coexist:test-driven-implementation` for each behavior change.
 5. Apply targeted, minimal implementation changes.
 6. Pass `spec-coexist:verification-before-completion` (code mode).
-7. Invoke `spec-coexist:code-review-loop` and handle feedback (mandatory for all tiers — small revisions are where silent regressions hide).
+7. Run `spec-coexist:pre-review-self-check` (MUST for T2/T3, RECOMMENDED for T1), then invoke `spec-coexist:code-review-loop` and handle feedback (mandatory for all tiers — small revisions are where silent regressions hide).
 8. Report diff summary, evidence paths, and `Review:` outcome line.
 
 ## Flow

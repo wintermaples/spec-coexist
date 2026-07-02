@@ -57,10 +57,10 @@ flowchart TD
     Tier -- T0 --> Edit[Direct edit + lint]
     Edit --> Done0([Done])
     Tier -- T1 --> TDD[test-driven-implementation]
-    TDD --> Verify[verification-before-completion]
+    TDD --> Esc{Scope grew<br/>beyond T1?}
+    Esc -- Yes --> Route([Escalate via router])
+    Esc -- No --> Verify[verification-before-completion]
     Verify --> Done1([Done])
-    TDD --> Esc{Scope grew?}
-    Esc -- Yes --> Route[Escalate to router]
 ```
 
 ## References

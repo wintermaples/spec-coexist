@@ -1,7 +1,7 @@
 ---
 name: creating-requirements
 user-invocable: true
-description: Use whenever the user wants to CREATE a new requirements document — whole-system (`docs/main-requirements.md`) or subsystem (`docs/subsystems/{id}_{name}/{name}-requirements.md`, including nested subsystems like `docs/subsystems/.../subsystems/{id}_{name}/{name}-requirements.md`). Trigger on phrases like "要件定義を作る", "draft requirements", "new requirements doc", "要件をまとめたい", or any request that implies producing a fresh requirements artifact. This skill MUST NOT update an existing requirements document — it only creates new ones.
+description: Use whenever the user wants to CREATE a new requirements document — whole-system (`docs/main-requirements.md`) or subsystem (`docs/subsystems/{id}_{name}/{name}-requirements.md`, nesting allowed). Trigger on phrases like "要件定義を作る", "要件をまとめたい", "draft requirements", "new requirements doc". Do NOT trigger for updates to existing requirements — use `spec-coexist:revising` instead. This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
 ---
 
 # creating-requirements
@@ -21,7 +21,7 @@ See `references/constraints.md` for full detail.
 - **MUST** follow the template that matches the target document type.
 - **MUST** apply the 7-element document readability framework defined in `../_shared/references/document-readability.md` while writing and during the verification gate.
 - **MUST** pass `verification-before-completion` (document mode) before reporting done.
-- **SHOULD** — when writing any Mermaid diagram in the requirements document, consult the matching rule file under `../_shared/beautiful-mermaid-rules/` (e.g. `flowchart.md`, `sequence-diagram.md`, `state-diagram.md`, `class-diagram.md`, `entity-relationship-diagram.md`, `user-journey.md`, `architecture.md`, `requirement-diagram.md`, `quadrant-chart.md`, `packet.md`, `ishikawa.md`) and follow its guidance so the resulting diagram is clean and readable.
+- **SHOULD** — when writing any Mermaid diagram, consult the matching diagram-type rule file under `../_shared/beautiful-mermaid-rules/` so the result is clean and readable.
 
 ## Steps
 

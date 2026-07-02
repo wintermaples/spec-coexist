@@ -86,9 +86,9 @@ exploring  creating   creating    creating        impl.   code    finishing
 
 | ティア | 規模 | 例 | 必要なプロセス |
 | --- | --- | --- | --- |
-| **T0** | trivial | typo 修正、変数リネーム (10行以下) | 直接編集のみ |
-| **T1** | small | 単一関数の追加、簡単なバグ修正 | TDD + verification |
-| **T2** | medium | 機能追加、複数ファイルの変更 | 要件定義 + 基本設計 + TDD + レビュー |
+| **T0** | trivial | typo 修正、変数リネーム (10行以下) | fast-path 経由の直接編集のみ |
+| **T1** | small | 単一関数の追加、簡単なバグ修正 | fast-path 経由の TDD + verification |
+| **T2** | medium | 機能追加、複数ファイルの変更 | 既存 spec との整合確認 + TDD + 自己レビュー + コードレビュー + verification |
 | **T3** | large | 新サブシステム、大規模リファクタ | フル仕様プロセス + サブシステム分割 |
 
 明示的にティアを指定することもできます:

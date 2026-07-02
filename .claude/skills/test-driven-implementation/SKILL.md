@@ -1,7 +1,7 @@
 ---
 name: test-driven-implementation
 user-invocable: false
-description: Use whenever code is about to be written or modified as part of a spec-driven implementation — whole-system or subsystem. Trigger on phrases like "実装する", "コードを書く", "TDD で進めて", "テスト先に書く", "implement this", "write the code", "let's TDD this". This skill is a REQUIRED SUB-SKILL of `spec-coexist:implementing-from-spec` and `spec-coexist:revising` and MUST halt if a failing test does not exist before production code is written. Carves out legacy/spike/notebook/config/docs via `references/negative-triggers.md`.
+description: Use whenever code is about to be written or modified as part of a spec-driven implementation — whole-system or subsystem. Trigger on phrases like "実装する", "コードを書く", "TDD で進めて", "テスト先に書く", "implement this", "write the code", "let's TDD this". This skill is a REQUIRED SUB-SKILL of `spec-coexist:implementing-from-spec`, `spec-coexist:revising`, and `spec-coexist:fast-path` (T1) and MUST halt if a failing test does not exist before production code is written. Carves out legacy/spike/notebook/config/docs via `references/negative-triggers.md`. This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
 ---
 
 # test-driven-implementation
@@ -42,7 +42,7 @@ Enforce the spec-coexist Iron Law: within a spec-driven implementation, producti
 
 ## Procedure
 
-1. Confirm the caller is `implementing-from-spec` or `revising`. If not, HALT — this is a sub-skill.
+1. Confirm the caller is `implementing-from-spec`, `revising`, or `fast-path` (T1). If not, HALT — this is a sub-skill.
 2. Check `references/negative-triggers.md`. If fully excluded, record the waiver and exit.
 3. Write the smallest failing test for the next acceptance bullet.
 4. Run `scripts/record_red_phase.sh` — HALT on unexpected pass.

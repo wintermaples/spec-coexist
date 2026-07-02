@@ -1,7 +1,7 @@
 ---
 name: creating-basic-design
 user-invocable: true
-description: Use whenever the user wants to CREATE a new basic design document — whole-system (`docs/main-basic-design.md`) or subsystem (`docs/subsystems/{id}_{name}/{name}-design.md`, including nested subsystems like `docs/subsystems/.../subsystems/{id}_{name}/{name}-design.md`). Trigger on phrases like "基本設計を作る", "draft a basic design", "新しい設計書", or any request implying production of a fresh design artifact. This skill MUST NOT update an existing basic design document — it only creates new ones — and MUST halt if the corresponding requirements document does not exist.
+description: Use whenever the user wants to CREATE a new basic design document — whole-system (`docs/main-basic-design.md`) or subsystem (`docs/subsystems/{id}_{name}/{name}-design.md`, nesting allowed). Trigger on phrases like "基本設計を作る", "新しい設計書", "draft a basic design". Do NOT trigger for updates to existing designs — use `spec-coexist:revising` instead. MUST halt if the corresponding requirements document does not exist. This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
 ---
 
 # creating-basic-design
@@ -49,7 +49,7 @@ flowchart TD
 
 ## Mermaid 図の品質 (SHOULD)
 
-基本設計書で Mermaid 図を書くときは、対応する図種のルールファイルを `../_shared/beautiful-mermaid-rules/`（例: `flowchart.md`、`sequence-diagram.md`、`state-diagram.md`、`class-diagram.md`、`entity-relationship-diagram.md`、`architecture.md`、`requirement-diagram.md`、`user-journey.md`、`quadrant-chart.md`、`packet.md`、`ishikawa.md`）から **SHOULD** 参照し、整理された読みやすい図にする。
+基本設計書で Mermaid 図を書くときは、対応する図種のルールファイルを `../_shared/beautiful-mermaid-rules/` から **SHOULD** 参照し、整理された読みやすい図にする。
 
 ## 参照
 

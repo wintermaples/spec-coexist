@@ -1,7 +1,7 @@
 ---
 name: systematic-debugging
 user-invocable: true
-description: Use whenever encountering ANY bug, test failure, crash, or unexpected behavior — before proposing or applying any fix. Trigger on phrases like "this is broken", "test is failing", "なぜか動かない", "バグっぽい", "the output is wrong". This is a self-contained project-local debugging skill and MUST be used instead of guessing fixes. Forms hypotheses, runs experiments, finds root cause, then fixes — not the other way around.
+description: Use whenever encountering ANY bug, test failure, crash, or unexpected behavior — before proposing or applying any fix. Trigger on phrases like "this is broken", "test is failing", "なぜか動かない", "バグっぽい", "the output is wrong". MUST be used instead of guessing fixes. Forms hypotheses, runs experiments, finds root cause, then fixes — not the other way around. This skill is self-contained and MUST NOT delegate to any `superpowers:*` skill.
 ---
 
 # systematic-debugging
@@ -42,7 +42,7 @@ This skill **MUST NOT** invoke any `superpowers:*` skill. It **MUST** invoke the
 6. **Iterate** — disproved → new hypothesis; symptom-only → drill deeper.
 7. **Fix** — smallest change that addresses root cause.
 8. **Verify (MANDATORY)** — `verification-before-completion` (code mode); fresh run required.
-9. **Review (MANDATORY)** — `scripts/get_review_range.sh`, then `code-review-loop`.
+9. **Review (MANDATORY)** — `pre-review-self-check` (MUST for T2/T3), then `scripts/get_review_range.sh` and `code-review-loop`.
 10. **Report** — root cause, fix, regression test, `Review:` outcome line.
 
 ## Flow
