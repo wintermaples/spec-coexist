@@ -98,11 +98,12 @@ To-Be業務の概要と、As-Is との差分を明記。
 
 ## 5. 機能要件
 ### 5.1 機能一覧
-- 機能ID／機能名／概要／優先度（MoSCoW: Must/Should/Could/Won't）／関連業務ID。
+- REQ-ID（`REQ-<SUBSYSTEM>-<n>` 形式、`_shared/references/id-conventions.md` 準拠）／機能名／概要／優先度（MoSCoW: Must/Should/Could/Won't）／関連業務ID。
 - 「優先度」が無い機能一覧は必ず却下される前提で必ず付ける。
+- REQ-ID は基本設計（DES-ID）・テスト（`[REQ-xxx]` タグ）からのトレーサビリティの主キー。
 
 ### 5.2 機能詳細
-各機能をIPAのIPO＋5W2Hで書く。
+各機能を `#### REQ-<SUBSYSTEM>-<n>: 機能名` 見出しの下に、IPAのIPO＋5W2Hで書く。
 - 概要：1〜3行で目的。
 - 利用者：誰が使うか（ロール）。
 - 入力：入力データ・トリガ。

@@ -62,9 +62,10 @@ The relationship between this whole-system document and each subsystem-requireme
 
 ```
 main-requirements.md          (this document — whole-system index)
-├── subsystem-A/subsystem-requirements.md
-├── subsystem-B/subsystem-requirements.md
-└── ...
+└── subsystems/
+    ├── 001_example-a/example-a-requirements.md
+    ├── 002_example-b/example-b-requirements.md
+    └── ...
 ```
 
 ### 1.3 Scope
@@ -82,6 +83,8 @@ main-requirements.md          (this document — whole-system index)
 ### 2.3 Success Metrics
 
 ## 3. Cross-Cutting Functional Requirements
+Requirement IDs use the `REQ-MAIN-<n>` form (see `_shared/references/id-conventions.md`). Write detailed requirements as `### REQ-MAIN-<n>: <title>` headings.
+
 ## 4. Cross-Cutting Non-Functional Requirements
 ### 4.1 Performance
 ### 4.2 Availability
@@ -96,4 +99,6 @@ main-requirements.md          (this document — whole-system index)
 | --- | --- | --- | --- |
 
 ## 7. Open Questions
-<!-- TODO(en): align wording with the ja template's "課題と未決事項" section once the en locale is in active use. -->
+
+| ID | Question | Related subsystem | Raised | Due | Owner | Status |
+| --- | --- | --- | --- | --- | --- | --- |

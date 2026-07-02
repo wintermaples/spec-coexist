@@ -16,7 +16,7 @@ When a revision affects both the requirements document and the basic design docu
 
 ## Test Strategy Tier Changes
 
-When a revision changes the basic design's `test-strategy` tier (§7.0 for whole-system, §12.0 for a subsystem), the revision **MUST**:
+When a revision changes the basic design's `test-strategy` tier (ja template: §7.0 whole-system / §12.0 subsystem; en template: §7.1 whole-system / §5.4 subsystem), the revision **MUST**:
 
 - update the rationale in the same edit — a tier change with a stale rationale is a Critical review defect;
 - be surfaced to the user at report time with an explicit note that downstream `spec-coexist:implementing-from-spec` / `spec-coexist:revising` runs **MUST** re-extract acceptance criteria under the new tier;

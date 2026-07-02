@@ -66,7 +66,7 @@ This document captures the whole-system architecture and indexes the per-subsyst
 ## 2. System Context
 ### 2.1 Context diagram
 ```mermaid
-%% TODO(en): draw the system context
+%% Context diagram — replace with the actual system context
 flowchart LR
     user((User)) --> system[System]
 ```
@@ -92,7 +92,8 @@ flowchart LR
 | Name | Producer | Consumer | Contract |
 | --- | --- | --- | --- |
 
-## 6.5 Default Test Strategy Tier
+## 7. Test Policy
+### 7.1 Default Test Strategy Tier
 <!-- REQUIRED: project-wide default `strict` / `pipeline` / `ui`. Default `strict`.
      Individual subsystems may override in their §5.4. See
      implementing-from-spec/references/tdd-discipline.md §Test Strategy Tiers. -->
@@ -100,5 +101,7 @@ flowchart LR
 - **default test-strategy:** `strict`
 - **Rationale (1–3 sentences):** 
 
-## 7. Open Questions
-<!-- TODO(en): align with ja template once in active use. -->
+## 8. Open Questions
+
+| ID | Question | Related subsystem | Raised | Due | Owner | Status |
+| --- | --- | --- | --- | --- | --- | --- |

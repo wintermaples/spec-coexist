@@ -4,7 +4,7 @@ title: Detailed Design — {{SUBSYSTEM_NAME}}
 version: 0.1
 status: draft
 extends:
-  - ./{{SUBSYSTEM_NAME}}-design.md
+  - ../{{SUBSYSTEM_NAME}}-design.md
 supersedes: []
 superseded_by: []
 related: []
@@ -44,6 +44,7 @@ This document takes each element of the basic design and specifies it with enoug
 | Version | 0.1 |
 | Created | YYYY-MM-DD |
 | Author | |
+| Approver | |
 
 ## Revision History
 
@@ -119,4 +120,5 @@ N/A — reason: ... (or define with sequence diagram)
 
 ## 5. Open Questions
 
-<!-- TODO(en): refine after first real use. -->
+| ID | Question | Raised | Due | Owner | Status |
+| --- | --- | --- | --- | --- | --- |

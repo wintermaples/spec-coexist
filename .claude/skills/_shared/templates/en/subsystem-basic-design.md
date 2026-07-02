@@ -41,11 +41,12 @@ related: []
 
 | Field | Value |
 | --- | --- |
-| Subsystem ID | {{ID}} |
+| Subsystem ID | {{SUBSYSTEM_ID}} |
 | Subsystem name | {{SUBSYSTEM_NAME}} |
 | Version | 0.1 |
 | Created | YYYY-MM-DD |
 | Author | |
+| Approver | |
 | Depends-on | |
 
 ## Revision History
@@ -59,22 +60,24 @@ related: []
 
 ## 2. Structure
 ### 2.1 Module decomposition
+Design element IDs use the `DES-{{SUBSYSTEM}}-<n>` form (see `_shared/references/id-conventions.md`). Each design element MUST reference the `REQ-{{SUBSYSTEM}}-<n>` requirement(s) it satisfies.
+
 ```mermaid
-%% TODO(en): component diagram
+%% Component diagram — replace with the actual module decomposition
 flowchart TD
     A[Module A] --> B[Module B]
 ```
 ### 2.2 Key classes / data structures
 ### 2.3 Data model
 ```mermaid
-%% TODO(en): ER diagram
+%% ER diagram — replace with the actual data model (or "N/A — reason: ...")
 erDiagram
 ```
 
 ## 3. Behavior
 ### 3.1 Main sequences
 ```mermaid
-%% TODO(en): sequence diagram
+%% Sequence diagram — replace with the main success/failure sequences
 sequenceDiagram
 ```
 ### 3.2 State transitions
@@ -90,7 +93,7 @@ sequenceDiagram
 ### 5.2 Security
 ### 5.3 Observability
 
-## 5.4 Test Strategy Tier
+### 5.4 Test Strategy Tier
 <!-- REQUIRED: one of `strict` / `pipeline` / `ui`. Default `strict`.
      Read by `spec-coexist:implementing-from-spec` and `spec-coexist:revising`
      to set the unit of RED observation for the TDD Iron Law.
@@ -104,4 +107,6 @@ sequenceDiagram
 - 
 
 ## 7. Open Questions
-<!-- TODO(en): refine after first real use. -->
+
+| ID | Question | Raised | Due | Owner | Status |
+| --- | --- | --- | --- | --- | --- |

@@ -38,10 +38,11 @@ related: []
 ### 1.2 本書の位置付け（文書体系）
 
 ```
-main-basic-design-template.md  （本書：全体共通・インデックス）
-├── subsystem-A/subsystem-basic-design-template.md
-├── subsystem-B/subsystem-basic-design-template.md
-└── ...
+main-basic-design.md  （本書：全体共通・インデックス）
+└── subsystems/
+    ├── 001_example-a/example-a-design.md
+    ├── 002_example-b/example-b-design.md
+    └── ...
 ```
 
 ### 1.3 適用範囲
@@ -90,8 +91,8 @@ main-basic-design-template.md  （本書：全体共通・インデックス）
 ### 4.2 サブシステム一覧（インデックス）
 | # | サブシステムID | サブシステム名 | 概要 | 主担当 | 基本設計書 |
 | --- | --- | --- | --- | --- | --- |
-| 1 | SUB-A | | | | [subsystem-A](./subsystem-A/subsystem-basic-design-template.md) |
-| 2 | SUB-B | | | | [subsystem-B](./subsystem-B/subsystem-basic-design-template.md) |
+| 1 | 001_example-a | | | | [example-a](./subsystems/001_example-a/example-a-design.md) |
+| 2 | 002_example-b | | | | [example-b](./subsystems/002_example-b/example-b-design.md) |
 
 ### 4.3 サブシステム間連携設計
 | 連携ID | 送信元 | 送信先 | 方式 (REST/MQ/DB等) | 同期/非同期 | データ概要 |

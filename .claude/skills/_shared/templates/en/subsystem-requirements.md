@@ -44,6 +44,7 @@ related: []
 | Version | 0.1 |
 | Created | YYYY-MM-DD |
 | Author | |
+| Approver | |
 
 ## Revision History
 | Version | Date | Author | Change |
@@ -61,8 +62,11 @@ related: []
 ### 2.3 Alternative / exception flows
 
 ## 3. Functional Requirements
-| ID | Requirement | Priority | Acceptance criteria |
+Requirement IDs use the `REQ-{{SUBSYSTEM}}-<n>` form (see `_shared/references/id-conventions.md`; `{{SUBSYSTEM}}` is the uppercase subsystem name). They are the traceability key for DES-IDs and `[REQ-xxx]` test tags. Write detailed requirements as `### REQ-{{SUBSYSTEM}}-<n>: <title>` headings.
+
+| REQ-ID | Requirement | Priority | Acceptance criteria |
 | --- | --- | --- | --- |
+| REQ-{{SUBSYSTEM}}-1 | | | |
 
 ## 4. Non-Functional Requirements
 ### 4.1 Performance
@@ -82,4 +86,6 @@ related: []
 ## 7. Constraints and Assumptions
 
 ## 8. Open Questions
-<!-- TODO(en): refine wording after first real use. -->
+
+| ID | Question | Raised | Due | Owner | Status |
+| --- | --- | --- | --- | --- | --- |

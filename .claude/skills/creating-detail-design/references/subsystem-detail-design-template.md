@@ -4,7 +4,7 @@ title: 詳細設計書 — {{SUBSYSTEM_NAME}}
 version: 0.1
 status: draft
 extends:
-  - ./{{SUBSYSTEM_NAME}}-design.md
+  - ../{{SUBSYSTEM_NAME}}-design.md
 supersedes: []
 superseded_by: []
 related: []
@@ -26,6 +26,7 @@ related: []
 | バージョン | 0.1 |
 | 作成日 | YYYY-MM-DD |
 | 作成者 | |
+| 承認者 | |
 
 ## 改訂履歴
 

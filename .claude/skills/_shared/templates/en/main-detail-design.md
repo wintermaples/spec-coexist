@@ -42,6 +42,7 @@ This document captures the whole-system detailed-design patterns and indexes the
 | Version | 0.1 |
 | Created | YYYY-MM-DD |
 | Author | |
+| Approver | |
 
 ## Revision History
 
@@ -64,7 +65,7 @@ main-basic-design.md              (basic design: whole system)
 ├── main-detail-design/            (this document: whole-system detail design)
 │   └── index.md
 ├── subsystems/
-│   ├── SUB-A/detail-design/       (subsystem detail design)
+│   ├── 001_example-a/detail-design/ (subsystem detail design)
 │   │   ├── index.md
 │   │   ├── module-1.md
 │   │   └── module-2.md
@@ -104,8 +105,8 @@ N/A — reason: ... (or define with sequence diagram)
 
 | # | Subsystem ID | Subsystem name | Detailed design | Status |
 | --- | --- | --- | --- | --- |
-| 1 | SUB-A | | [detail-design](./subsystems/SUB-A/detail-design/index.md) | |
-| 2 | SUB-B | | [detail-design](./subsystems/SUB-B/detail-design/index.md) | |
+| 1 | 001_example-a | | [detail-design](../subsystems/001_example-a/detail-design/index.md) | |
+| 2 | 002_example-b | | [detail-design](../subsystems/002_example-b/detail-design/index.md) | |
 
 ---
 
@@ -119,4 +120,5 @@ N/A — reason: ... (or define with sequence diagram)
 
 ## 5. Open Questions
 
-<!-- TODO(en): align with ja template once in active use. -->
+| ID | Question | Related subsystem | Raised | Due | Owner | Status |
+| --- | --- | --- | --- | --- | --- | --- |

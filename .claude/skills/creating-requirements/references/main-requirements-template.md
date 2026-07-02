@@ -39,10 +39,11 @@ related: []
 全体要件定義書と各サブシステム要件定義書との関係を示す。
 
 ```
-main-requirements-template.md  （本書：全体共通・インデックス）
-├── subsystem-A/subsystem-requirements-template.md
-├── subsystem-B/subsystem-requirements-template.md
-└── ...
+main-requirements.md  （本書：全体共通・インデックス）
+└── subsystems/
+    ├── 001_example-a/example-a-requirements.md
+    ├── 002_example-b/example-b-requirements.md
+    └── ...
 ```
 
 ### 1.3 適用範囲
@@ -101,8 +102,8 @@ main-requirements-template.md  （本書：全体共通・インデックス）
 ### 5.2 サブシステム一覧（インデックス）
 | # | サブシステムID | サブシステム名 | 概要 | 主担当 | 要件定義書 |
 | --- | --- | --- | --- | --- | --- |
-| 1 | SUB-A | | | | [subsystem-A](./subsystem-A/subsystem-requirements-template.md) |
-| 2 | SUB-B | | | | [subsystem-B](./subsystem-B/subsystem-requirements-template.md) |
+| 1 | 001_example-a | | | | [example-a](./subsystems/001_example-a/example-a-requirements.md) |
+| 2 | 002_example-b | | | | [example-b](./subsystems/002_example-b/example-b-requirements.md) |
 
 ### 5.3 サブシステム間連携一覧
 | 連携ID | 送信元 | 送信先 | 方式 | 概要 |
@@ -114,8 +115,11 @@ main-requirements-template.md  （本書：全体共通・インデックス）
 ### 6.1 共通機能要件
 （認証、権限管理、マスタ管理、通知、ログ等、全サブシステムに共通する機能）
 
-| 機能ID | 機能名 | 概要 | 提供元 |
+要件 ID は `REQ-MAIN-<n>` 形式（`_shared/references/id-conventions.md` 準拠）。詳細に記述する要件は `### REQ-MAIN-<n>: <タイトル>` 見出しで書く。
+
+| REQ-ID | 機能名 | 概要 | 提供元 |
 | --- | --- | --- | --- |
+| REQ-MAIN-1 | | | |
 
 ### 6.2 共通非機能要件（IPA 非機能要求グレード準拠）
 以下はプロジェクト全体のベースライン。サブシステム固有の上乗せ要件は各サブシステム要件定義書に記載する。

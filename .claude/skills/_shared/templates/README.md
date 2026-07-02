@@ -33,7 +33,7 @@ else:
     rules    = "_shared/templates/en/{kind}-rules.md"        # optional for en
 ```
 
-If the `en` template is missing a section that the `ja` template has, the skill **MUST** fall back to translating the `ja` section on the fly and leave a `TODO(en):` marker so the next author can upstream it.
+If the `en` template is missing a section that the `ja` template has, the skill **MUST** fall back to translating the `ja` section on the fly and note the template gap in its completion report so it can be upstreamed. Do **NOT** leave `TODO` markers inside the generated document — the verification gate rejects them.
 
 ## Adding a new locale
 

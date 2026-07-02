@@ -92,11 +92,14 @@ related: []
 
 ## 5. 機能要件
 ### 5.1 機能一覧
-| 機能ID | 機能名 | 概要 | 優先度 (Must/Should/Could) | 関連業務ID |
+要件 ID は `REQ-{{SUBSYSTEM}}-<n>` 形式（`_shared/references/id-conventions.md` 準拠。`{{SUBSYSTEM}}` はサブシステム名の大文字形）。後続の基本設計（DES-ID）・テスト（`[REQ-xxx]` タグ）からのトレーサビリティの主キーになる。
+
+| REQ-ID | 機能名 | 概要 | 優先度 (Must/Should/Could) | 関連業務ID |
 | --- | --- | --- | --- | --- |
+| REQ-{{SUBSYSTEM}}-1 | | | | |
 
 ### 5.2 機能詳細
-#### 5.2.x [機能ID] 機能名
+#### REQ-{{SUBSYSTEM}}-1: 機能名
 - 概要：
 - 利用者：
 - 入力：

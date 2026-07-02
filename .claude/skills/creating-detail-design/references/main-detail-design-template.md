@@ -25,6 +25,7 @@ related: []
 | バージョン | 0.1 |
 | 作成日 | YYYY-MM-DD |
 | 作成者 | |
+| 承認者 | |
 
 ## 改訂履歴
 
@@ -48,7 +49,7 @@ main-basic-design.md          （基本設計：全体共通）
 ├── main-detail-design/        （本書：全体共通詳細設計）
 │   └── index.md
 ├── subsystems/
-│   ├── SUB-A/detail-design/   （サブシステム詳細設計）
+│   ├── 001_example-a/detail-design/   （サブシステム詳細設計）
 │   │   ├── index.md
 │   │   ├── module-1.md
 │   │   └── module-2.md
@@ -88,8 +89,8 @@ main-basic-design.md          （基本設計：全体共通）
 
 | # | サブシステムID | サブシステム名 | 詳細設計書 | 状況 |
 | --- | --- | --- | --- | --- |
-| 1 | SUB-A | | [detail-design](./subsystems/SUB-A/detail-design/index.md) | |
-| 2 | SUB-B | | [detail-design](./subsystems/SUB-B/detail-design/index.md) | |
+| 1 | 001_example-a | | [detail-design](../subsystems/001_example-a/detail-design/index.md) | |
+| 2 | 002_example-b | | [detail-design](../subsystems/002_example-b/detail-design/index.md) | |
 
 ---
 
