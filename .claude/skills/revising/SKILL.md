@@ -40,7 +40,7 @@ The mode is detected from the user's request.
 2. Read documents. Resolve locale per `../_shared/templates/README.md`.
 3. Brainstorm per `references/brainstorming-flow.md`.
 4. Decide scope — if multiple layers (requirements / basic design / detail design) are affected, update them in lockstep.
-5. Apply targeted edits. Bump `version`. Follow `../_shared/references/doc-lifecycle.md`.
+5. Apply targeted edits. Bump `version`. Follow `../_shared/references/doc-lifecycle.md`. The revised text **SHOULD** satisfy the 7 readability elements in `../_shared/references/document-readability.md`.
 6. Run `../_shared/scripts/check_doc_links.sh --root docs --strict`.
 7. Pass `spec-coexist:verification-before-completion` (document mode).
 
@@ -79,6 +79,7 @@ flowchart TD
 - `references/lockstep-constraints.md` — document existence, lockstep rule, verification gate
 - `references/hard-constraints.md` — implementation mode halt conditions, TDD Iron Law
 - `references/mandatory-code-review.md` — review protocol for implementation mode
+- `../_shared/references/document-readability.md` — 7-element readability framework the revised documents SHOULD satisfy
 - `../_shared/references/visual-companion.md` — Visual Companion launch protocol
 
 ## Scripts

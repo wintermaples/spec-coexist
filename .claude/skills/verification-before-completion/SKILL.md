@@ -53,6 +53,8 @@ When the change touches any file under `docs/**/*.md`, the document-mode proof *
 
 Exit code 0 is required. Capture the command, output, and exit code as the RUN / READ evidence for step 3. Link-checker errors block the completion claim just like a failing test.
 
+Document-mode verification **MUST** also confirm every item of the 7-element readability checklist in `../_shared/references/document-readability.md` (§Verification Checklist). Any FAIL item blocks the completion claim until fixed.
+
 Anti-patterns and invalid rationalizations: `references/anti-patterns.md`.
 
 ## Pre-flight script
